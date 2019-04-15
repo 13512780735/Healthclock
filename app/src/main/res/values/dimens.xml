@@ -14,7 +14,7 @@
     <dimen name="item_title_size">30px</dimen>
 
 
-    <dimen name="topbar_height">98px</dimen>
+    <dimen name="topbar_height">120px</dimen>
     <dimen name="topbar_icon_size">44px</dimen>
     <dimen name="topbar_icon_width_height">98px</dimen>
     <dimen name="content_left_right_margin_padding_small">20px</dimen>
@@ -32,8 +32,16 @@
     <dimen name="main_v_margin_db">7dp</dimen>
     <dimen name="main_item_title_size">38px</dimen>
     <dimen name="topbar_big_icon_size">66px</dimen>
+    <dimen name="dip_edittext">120px</dimen>
 
 
     //
-
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_45">45dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_60">60dp</dimen>
+    <dimen name="dp_70">70dp</dimen>
 </resources>

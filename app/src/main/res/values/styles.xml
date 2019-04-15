@@ -37,4 +37,29 @@
         <item name="android:background">@color/line</item>
     </style>
 
+    <!--圆角Dialog-->
+    <style name="MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+    <!-- 有边框和背景的View -->
+    <declare-styleable name="BorderTextView">
+        <attr name="strokeWidth01" format="dimension" />
+        <attr name="cornerRadius" format="dimension" />
+        <attr name="strokeColor01" format="color" />
+        <attr name="enableBackColor" format="color" />
+        <attr name="contentBackColor" format="color" />
+        <attr name="contentPressedColor" format="color" />
+        <attr name="followTextColor" format="boolean" />
+    </declare-styleable>
+    <!--checkBox-->
+    <style name="mycheckbox1" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/register_check</item>
+    </style>
 </resources>

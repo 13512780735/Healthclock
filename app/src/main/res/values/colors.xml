@@ -5,16 +5,18 @@
     //图标颜色
     <color name="white">#fff</color>
     <color name="gray">#5000</color>
+    <color name="black">#000</color>
 
     <!-- red theme -->
-    <color name="red_colorPrimary">#B71C1C</color>
-    <color name="red_colorPrimaryDark">#FF5252</color>
-    <color name="red_colorAccent">#EF9A9A</color>
-    <color name="red_title_text_color">#FAFAFA</color>
+    <color name="red_colorPrimary">#FEC5E0</color>
+    <color name="red_colorPrimaryDark">#FEC5E0</color>
+    <color name="red_colorAccent">#FEC5E0</color>
+    <color name="red_title_text_color">#FEC5E0</color>
+    <color name="red_toolbar_title_text_color">#FFF</color>
     <color name="red_sub_title_text_color">#EEEEEE</color>
     <color name="red_button_text_color">#FAFAFA</color>
-    <color name="red_button_bg_normal_color">#B71C1C</color>
-    <color name="red_button_bg_pressed_color">#EF5350</color>
+    <color name="red_button_bg_normal_color">#FEC5E0</color>
+    <color name="red_button_bg_pressed_color">#FEC4E0</color>
     <color name="red_img_cover_color">#40B71C1C</color>
 
     <!-- blue theme -->

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorAccent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <include layout="@layout/layout_topbar_nor"></include>
 

@@ -26,7 +26,6 @@
         android:layout_marginLeft="120px"
         android:layout_marginRight="120px"
         android:maxLines="1"
-
         android:textSize="@dimen/text_big_size" />
 
     <com.healthclock.healthclock.widget.IconFontTextView

@@ -2,4 +2,21 @@
     <string name="app_name">Healthclock</string>
     <!--iconfont字体图标-->
     <string name="ic_back">&#xe7ed; </string> <!--返回-->
+
+
+    //
+    <string name="action_share">分享</string>
+
+
+    //注册登陆
+    <string name="user_phone">手机号</string>
+    <string name="user_phone_hint">请输入手机号</string>
+    <string name="user_code">验证码</string>
+    <string name="user_code_hint">请输入验证码</string>
+    <string name="user_get_code">获取验证码</string>
+    <string name="user_pwd">密码</string>
+    <string name="user_pwd_hint">请输入密码</string>
+    <string name="user_referralCode">邀请码</string>
+    <string name="user_referralCode_hint">请输入邀请码，如无可不填</string>
+    <string name="user_register">注册</string>
 </resources>
