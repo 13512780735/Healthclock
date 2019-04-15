@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Healthclock</string>
+    <!--iconfont字体图标-->
+    <string name="ic_back">&#xe7ed; </string> <!--返回-->
+</resources>
