@@ -9,7 +9,7 @@ import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.app.AppConst;
 import com.healthclock.healthclock.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.ui.base.BaseActivity;
-import com.healthclock.healthclock.ui.presenter.LoginRegistPresenter;
+import com.healthclock.healthclock.ui.presenter.RegistPresenter;
 import com.healthclock.healthclock.ui.view.RegisterView;
 import com.healthclock.healthclock.util.PrefUtils;
 import com.healthclock.healthclock.util.T;
@@ -17,18 +17,18 @@ import com.healthclock.healthclock.util.UIUtils;
 import com.healthclock.healthclock.widget.IconFontTextView;
 
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
-public class RegisterActivity extends BaseActivity<RegisterView, LoginRegistPresenter> implements RegisterView {
-    @Bind(R.id.tv_back)
+public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter> implements RegisterView {
+    @BindView(R.id.tv_back)
     IconFontTextView tvBack;
-    @Bind(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
 
     @Override
-    protected LoginRegistPresenter createPresenter() {
-        return new LoginRegistPresenter();
+    protected RegistPresenter createPresenter() {
+        return new RegistPresenter();
     }
 
     @Override

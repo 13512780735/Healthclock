@@ -1,6 +1,7 @@
 package com.healthclock.healthclock.ui.base;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -22,13 +23,14 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
 
     protected T mPresenter;
     private CustomDialog mDialogWaiting;
+    public Context mContext;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.activities.add(this);
-
+        mContext = this;
         init();
 
         //判断是否使用MVP模式
@@ -51,7 +53,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
     /**
      * 解决4.4设置状态栏颜色之后，布局内容嵌入状态栏位置问题
      */
-    private void excuteStatesBar(){
+    private void excuteStatesBar() {
         ViewGroup mContentView = (ViewGroup) getWindow().findViewById(Window.ID_ANDROID_CONTENT);
         View mChildView = mContentView.getChildAt(0);
         if (mChildView != null) {
