@@ -6,6 +6,7 @@
     <color name="white">#fff</color>
     <color name="gray">#5000</color>
     <color name="black">#000</color>
+    <color name="TRANSLUCENT">#00000000</color>
 
     <!-- red theme -->
     <color name="red_colorPrimary">#FEC5E0</color>

@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_topbar_layout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/topbar_height"
+    android:layout_height="@dimen/dp_70"
     android:background="?attr/colorPrimary"
+    android:paddingTop="@dimen/dp_20"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -24,8 +25,11 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginLeft="120px"
+        android:paddingTop="@dimen/dp_20"
         android:layout_marginRight="120px"
+        android:textColor="@color/white"
         android:maxLines="1"
+        android:text=""
         android:textSize="@dimen/text_big_size" />
 
     <com.healthclock.healthclock.widget.IconFontTextView
@@ -36,6 +40,7 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="55px"
+        android:text=""
         android:visibility="gone" />
 
     <View

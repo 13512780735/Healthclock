@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Healthclock</string>
+    <string name="app_name">美康闹钟</string>
     <!--iconfont字体图标-->
     <string name="ic_back">&#xe7ed; </string> <!--返回-->
+    <string name="ic_pwd">&#xe6c0; </string> <!--密码-->
+    <string name="ic_phone">&#xe704; </string> <!--手机-->
 
 
     //
@@ -19,4 +21,7 @@
     <string name="user_referralCode">邀请码</string>
     <string name="user_referralCode_hint">请输入邀请码，如无可不填</string>
     <string name="user_register">注册</string>
+    <string name="user_login">登录</string>
+    <string name="user_forget_pwd">忘记密码？</string>
+    <string name="user_register_account">注册账号</string>
 </resources>

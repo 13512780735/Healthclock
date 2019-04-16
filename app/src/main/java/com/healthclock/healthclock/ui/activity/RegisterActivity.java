@@ -2,6 +2,8 @@ package com.healthclock.healthclock.ui.activity;
 
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,14 +34,16 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter
     }
 
     @Override
-    protected int provideContentViewId() {
-        return R.layout.activity_register;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        initView();
     }
 
-    @Override
+
     public void initView() {
         tvTitle.setText("立即注册");
-        tvTitle.setTextColor(UIUtils.getColor(R.color.white));
+        ///tvTitle.setTextColor(UIUtils.getColor(R.color.white));
     }
 
     @OnClick({R.id.tv_back})

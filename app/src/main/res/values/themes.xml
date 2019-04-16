@@ -14,7 +14,14 @@
         <item name="progress_indeterminate">@drawable/red_progress_rotate</item>
         <item name="progress_horizontal">@drawable/red_progress_horizontal</item>
         <item name="title_text_style">@style/RedTitleTextStyle</item>
-
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@color/TRANSLUCENT</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="AppTheme.Black" parent="AppTheme">

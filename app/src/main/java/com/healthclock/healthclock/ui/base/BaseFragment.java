@@ -1,10 +1,16 @@
 package com.healthclock.healthclock.ui.base;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import io.reactivex.annotations.Nullable;
@@ -76,4 +82,25 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
 
     //得到当前界面的布局文件id(由子类实现)
     protected abstract int provideContentViewId();
+
+    protected void toFinish() {
+        getActivity().finish();
+    }
+
+    public void toActivityFinish(Class activity) {
+        Intent intent = new Intent(getActivity(), activity);
+        startActivity(intent);
+        toFinish();
+    }
+
+    public void toActivity(Class activity) {
+        Intent intent = new Intent(getActivity(), activity);
+        startActivity(intent);
+    }
+
+    public void toActivity(Class activity, Bundle bundle) {
+        Intent intent = new Intent(getActivity(), activity);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

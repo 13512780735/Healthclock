@@ -184,9 +184,11 @@
         android:text="@string/user_register"
         android:textColor="?title_text_color"
         app:contentBackColor="?title_text_color"
+        android:textSize="@dimen/sp_18"
         app:cornerRadius="@dimen/dp_20"
-        app:strokeColor01="#999999"
+        app:strokeColor01="@color/white"
         app:strokeWidth01="1dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dip"
