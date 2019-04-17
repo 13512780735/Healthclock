@@ -13,9 +13,8 @@ import com.healthclock.healthclock.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.ui.presenter.RegistPresenter;
 import com.healthclock.healthclock.ui.view.RegisterView;
-import com.healthclock.healthclock.util.PrefUtils;
+import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.T;
-import com.healthclock.healthclock.util.UIUtils;
 import com.healthclock.healthclock.widget.IconFontTextView;
 
 
@@ -70,7 +69,7 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter
     @Override
     public void registerSuccess(LoginRegisterBean user) {
         T.showShort(RegisterActivity.this, "注册成功");
-        PrefUtils.setBoolean(RegisterActivity.this, AppConst.IS_LOGIN_KEY, true);
+        SharedPreferencesUtils.put(RegisterActivity.this, "token", user.getToken());
         //PrefUtils.setString(RegisterActivity.this,AppConst.USERNAME_KEY,etName.getText().toString());
         startActivity(new Intent(RegisterActivity.this, MainActivity.class));
         finish();

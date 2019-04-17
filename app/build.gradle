@@ -43,4 +43,5 @@ dependencies {
     implementation 'com.zhy:autolayout:1.4.5'
     //轮播图库
     implementation 'cn.bingoogolapple:bga-banner:2.1.7@aar'
+    implementation 'com.elvishew:xlog:1.6.1'
 }

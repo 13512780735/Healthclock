@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.elvishew.xlog.BuildConfig;
+import com.elvishew.xlog.LogConfiguration;
+import com.elvishew.xlog.LogLevel;
+import com.elvishew.xlog.XLog;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -36,9 +40,15 @@ public class App extends Application {
 
         initOkGo();
         initAutoLayout();
-
+        initLogger();
+    }
+    private void initLogger() {
+        XLog.init(BuildConfig.DEBUG ? LogLevel.ALL : LogLevel.NONE,
+                config);
     }
 
+    LogConfiguration config = new LogConfiguration.Builder()
+            .tag("HL").build();
     /**
      * 配置AutoLayout
      */
