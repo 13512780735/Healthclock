@@ -1,7 +1,7 @@
 package com.healthclock.healthclock.ui.view;
 
 
-import com.healthclock.healthclock.model.user.LoginRegisterBean;
+import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 
 /**
  * user：lqm

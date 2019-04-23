@@ -25,7 +25,9 @@ import android.widget.TextView;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.app.App;
+import com.healthclock.healthclock.util.AppManager;
 import com.healthclock.healthclock.widget.CustomDialog;
+import com.healthclock.healthclock.widget.IconFontTextView;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.ButterKnife;
@@ -40,10 +42,11 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         App.activities.add(this);
+        AppManager.getAppManager().addActivity(this);
         mContext = this;
         init();
 
@@ -58,7 +61,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
        // ButterKnife.bind(this);
 
         excuteStatesBar();
-
+       //initView();
         initListener();
     }
 
@@ -117,9 +120,9 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
 
     }
 
-//    public void initView() {
+ //   public void initView() {
 //    }
-//
+////
 //    public void initData() {
 //    }
 
@@ -132,6 +135,35 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
     //得到当前界面的布局文件id(由子类实现)
     //  protected abstract int  provideContentViewId();
 
+    /**
+     * 设置显示右侧返回按钮
+     */
+    public void setBackView() {
+        IconFontTextView backView = findViewById(R.id.tv_back);
+        if (backView == null) {
+            return;
+        }
+        backView.setVisibility(View.VISIBLE);
+        backView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+    /**
+     * 设置显示标题
+     *
+     * @param txt
+     */
+    public void setTitle(String txt) {
+        TextView title =findViewById(R.id.tv_title);
+        if (title == null) {
+            return;
+        }
+        title.setVisibility(View.VISIBLE);
+        title.setText(txt);
+    }
     /**
      * 显示等待提示框
      */

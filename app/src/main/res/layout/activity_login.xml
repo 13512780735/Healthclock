@@ -73,7 +73,6 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
         android:orientation="horizontal"
-
         android:padding="8dip">
 
         <com.healthclock.healthclock.widget.IconFontTextView
@@ -128,9 +127,9 @@
         android:text="@string/user_login"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_18"
-        app:contentBackColor="?title_text_color"
+        app:contentBackColor="@color/bt_gray"
         app:cornerRadius="@dimen/dp_20"
-        app:strokeColor01="?title_text_color"
+        app:strokeColor01="@color/bt_gray"
         app:strokeWidth01="1dp" />
 
     <LinearLayout

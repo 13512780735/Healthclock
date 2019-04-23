@@ -1,6 +1,6 @@
 package com.healthclock.healthclock.ui.view;
 
-import com.healthclock.healthclock.model.user.LoginRegisterBean;
+import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 
 public interface RegisterView {
 
@@ -9,7 +9,7 @@ public interface RegisterView {
     void hideProgress();
 
     void registerSuccess(LoginRegisterBean user);
-
+    void getDataError(String message);
 
     void registerFail();
 }

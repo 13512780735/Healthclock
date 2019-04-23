@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.widget.IconFontTextView;
+
 import butterknife.ButterKnife;
-import io.reactivex.annotations.Nullable;
 
 /**
  * user：lqm
@@ -23,11 +25,11 @@ import io.reactivex.annotations.Nullable;
 public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment {
 
     protected T mPresenter;
+    private View rootView;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         init();
 
         //判断是否使用MVP模式
@@ -37,17 +39,16 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(provideContentViewId(), container, false);
+    public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+        rootView = inflater.inflate(provideContentViewId(), container, false);
         ButterKnife.bind(this, rootView);
         initView(rootView);
         return rootView;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initData();
         initListener();
@@ -76,6 +77,55 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
 
     }
 
+
+    /**
+     * 设置显示右侧返回按钮
+     */
+    public void setBackView() {
+        IconFontTextView backView = findViewById(R.id.tv_back);
+        if (backView == null) {
+            return;
+        }
+        backView.setVisibility(View.VISIBLE);
+        backView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+    }
+    /**
+     * 设置显示标题
+     *
+     * @param txt
+     */
+    public void setTitle(String txt) {
+        TextView title =findViewById(R.id.tv_title);
+        if (title == null) {
+            return;
+        }
+        title.setVisibility(View.VISIBLE);
+        title.setText(txt);
+    }
+    /**
+     * 找出对应的控件
+     *
+     * @param id
+     * @param <T>
+     * @return
+     */
+    protected <T extends View> T findViewById(int id) {
+
+        return (T) getContentView().findViewById(id);
+    }
+    /**
+     * 获取设置的布局
+     *
+     * @return
+     */
+    protected View getContentView() {
+        return rootView;
+    }
 
     //用于创建Presenter和判断是否使用MVP模式(由子类实现)
     protected abstract T createPresenter();

@@ -16,7 +16,7 @@
         android:gravity="center"
         android:text="@string/ic_back"
         android:textColor="@color/white"
-        android:textSize="@dimen/top_icon_size" />
+        android:textSize="@dimen/sp_28" />
 
     <TextView
         android:id="@+id/tv_title"

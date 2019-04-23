@@ -1215,6 +1215,7 @@ public class StringUtil {
     public static int getColor(Context context, int theme_title_text_color) {
         TypedArray typedArray = context.obtainStyledAttributes(R.styleable.Theme);
         int color = typedArray.getColor(theme_title_text_color, 0xFFFFFF);
+       // typedArray.recycle();
         return color;
     }
 

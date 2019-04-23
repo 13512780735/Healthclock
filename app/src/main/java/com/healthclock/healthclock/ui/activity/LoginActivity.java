@@ -3,7 +3,6 @@ package com.healthclock.healthclock.ui.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.method.HideReturnsTransformationMethod;
@@ -15,7 +14,7 @@ import android.widget.ToggleButton;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.listener.IEditTextChangeListener;
-import com.healthclock.healthclock.model.user.LoginRegisterBean;
+import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.ui.presenter.LoginPresenter;
 import com.healthclock.healthclock.ui.view.LoginView;
@@ -47,13 +46,9 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        TypedValue typedValue = new TypedValue();
-//        getTheme().resolveAttribute(R.attr.title_text_color, typedValue, true);
-//        TypedArray typedArray = mContext.obtainStyledAttributes(R.styleable.Theme);
-//        accentColor = typedArray.getColor(R.styleable.Theme_title_text_color, 0xFFFFFF);
         initUI();
         initView();
         addListeners();
@@ -61,19 +56,18 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
 
     private void initUI() {
-        phone = SharedPreferencesUtils.getString(this, "userName");
+        phone = SharedPreferencesUtils.getString(this, "phone");
         pwd = SharedPreferencesUtils.getString(this, "pwd");
         if (!StringUtil.isBlank(phone) && !StringUtil.isBlank(pwd)) {
-
             tvLogin.setContentColorResource01(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));
-            tvLogin.setStrokeColor01(StringUtil.getColor(mContext,R.styleable.Theme_title_text_color));
+            tvLogin.setStrokeColor01(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));
             tvLogin.setEnabled(true);
         }
 
 
     }
 
-    private void initView() {
+    public void initView() {
         etPhone.setText(phone);
         etPwd.setText(pwd);
         EditTextSizeCheckUtil.textChangeListener textChangeListener = new EditTextSizeCheckUtil.textChangeListener(tvLogin);
@@ -145,7 +139,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
     @Override
     public void loginSuccess(LoginRegisterBean user) {
-        SharedPreferencesUtils.put(mContext, "userName", phone);
+        SharedPreferencesUtils.put(mContext, "phone", phone);
         SharedPreferencesUtils.put(mContext, "pwd", pwd);
         SharedPreferencesUtils.put(mContext, "token", user.getToken());
         toActivity(MainActivity.class);

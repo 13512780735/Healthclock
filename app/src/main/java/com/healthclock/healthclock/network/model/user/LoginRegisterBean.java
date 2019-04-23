@@ -1,4 +1,4 @@
-package com.healthclock.healthclock.model.user;
+package com.healthclock.healthclock.network.model.user;
 
 import java.io.Serializable;
 

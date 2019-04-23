@@ -13,6 +13,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.listener.IEditTextChangeListener;
 import com.healthclock.healthclock.util.DrawableUtil;
 
 
