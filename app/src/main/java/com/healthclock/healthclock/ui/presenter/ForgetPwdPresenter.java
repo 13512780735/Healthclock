@@ -26,13 +26,13 @@ public class ForgetPwdPresenter extends BasePresenter<ForgetPwdView> {
                 .subscribe(new RxObserver<EmptyEntity>() {
                     @Override
                     public void _onNext(EmptyEntity emptyEntity) {
-                        L.d("执行了");
+                        L.e("执行了");
                         getView().editSuccess();
                     }
 
                     @Override
                     public void _onError(String errorMessage) {
-                        L.d(errorMessage);
+                        L.e(errorMessage);
                         getView().editFail(errorMessage);
                     }
 
@@ -43,7 +43,7 @@ public class ForgetPwdPresenter extends BasePresenter<ForgetPwdView> {
 
                     @Override
                     public void _onSubscribe(String errorMessage) {
-                        L.printJson("TAG",errorMessage,"");
+                    //    L.printJson("TAG",errorMessage,"");
                        // getView().showProgress(errorMessage);
                     }
 
