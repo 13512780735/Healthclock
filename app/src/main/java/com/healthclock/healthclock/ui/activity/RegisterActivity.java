@@ -10,10 +10,11 @@ import android.widget.EditText;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.listener.IEditTextChangeListener;
+import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
+import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.base.BaseActivity;
-import com.healthclock.healthclock.ui.presenter.RegistPresenter;
-import com.healthclock.healthclock.ui.view.RegisterView;
+import com.healthclock.healthclock.util.AppManager;
 import com.healthclock.healthclock.util.EditTextSizeCheckUtil;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.StringUtil;
@@ -23,8 +24,9 @@ import com.healthclock.healthclock.widget.BorderTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Subscriber;
 
-public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter> implements RegisterView {
+public class RegisterActivity extends BaseActivity {
 
     @BindView(R.id.register_et_phone)
     EditText etPhone;//手机号
@@ -43,10 +45,6 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter
     @BindView(R.id.checkbox01)
     CheckBox checkBox;
 
-    @Override
-    protected RegistPresenter createPresenter() {
-        return new RegistPresenter();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,44 +96,37 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter
                 pwd = etPwd.getText().toString().trim();
                 code = etCode.getText().toString().trim();
                 referralCode = etReferralCode.getText().toString().trim();
-                mPresenter.toRegist(phone, code, pwd, referralCode);
+               toRegist(phone, code, pwd, referralCode);
                 break;
         }
+    }
+
+    private void toRegist(final String phone, String code, final String pwd, String referralCode) {
+        RetrofitUtil.getInstance().getUserRegister(phone,code,pwd,referralCode,new Subscriber<BaseResponse<LoginRegisterBean>>() {
+
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<LoginRegisterBean> loginRegisterBeanBaseResponse) {
+                SharedPreferencesUtils.put(mContext, "phone", phone);
+                SharedPreferencesUtils.put(mContext, "pwd", pwd);
+                toActivityFinish(MainActivity.class);
+                AppManager.getAppManager().finishAllActivity();
+            }
+        });
     }
 
     private void sendCode() {
 
     }
 
-    @Override
-    public void showProgress(String tipString) {
-        showWaitingDialog(tipString);
-    }
 
-    @Override
-    public void hideProgress() {
-        hideWaitingDialog();
-    }
-
-
-    @Override
-    public void registerSuccess(LoginRegisterBean user) {
-        // T.showShort(RegisterActivity.this, user.);
-        SharedPreferencesUtils.put(RegisterActivity.this, "token", user.getToken());
-        SharedPreferencesUtils.put(mContext, "phone", phone);
-        SharedPreferencesUtils.put(mContext, "pwd", pwd);
-        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-        finish();
-    }
-
-    @Override
-    public void getDataError(String message) {
-        T.showShort(RegisterActivity.this, message);
-    }
-
-    @Override
-    public void registerFail() {
-        hideProgress();
-        T.showShort(RegisterActivity.this, "注册失败");
-    }
 }

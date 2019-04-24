@@ -5,17 +5,10 @@ import android.app.Application;
 import android.content.Context;
 
 
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.cache.CacheEntity;
-import com.lzy.okgo.cache.CacheMode;
-import com.lzy.okgo.cookie.CookieJarImpl;
-import com.lzy.okgo.cookie.store.SPCookieStore;
-import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
-
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-
+import okhttp3.CookieJar;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 
 /**
@@ -35,17 +28,7 @@ public class App extends Application {
         mContext = this.getApplicationContext();
 
 
-        initOkGo();
-        initAutoLayout();
-        // initLogger();
     }
-//    private void initLogger() {
-//        XLog.init(BuildConfig.DEBUG ? LogLevel.ALL : LogLevel.NONE,
-//                config);
-//    }
-//
-//    LogConfiguration config = new LogConfiguration.Builder()
-//            .tag("HL").build();
 
     /**
      * 配置AutoLayout
@@ -55,30 +38,6 @@ public class App extends Application {
 //        AutoLayoutConifg.getInstance().useDeviceSize();
     }
 
-    /**
-     * 初始化okgo
-     */
-    private void initOkGo() {
-
-
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        //使用sp保持cookie，如果cookie不过期，则一直有效
-        builder.cookieJar(new CookieJarImpl(new SPCookieStore(this)));
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("OkGo");
-        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);
-        //log颜色级别，决定了log在控制台显示的颜色
-        loggingInterceptor.setColorLevel(Level.INFO);
-        builder.addInterceptor(loggingInterceptor);
-//        builder.addInterceptor(new TokenInterceptor());
-
-        OkGo.getInstance()
-                .init(this)
-                .setOkHttpClient(builder.build()) //设置OkHttpClient，不设置将使用默认的
-                .setCacheMode(CacheMode.NO_CACHE)
-                .setCacheTime(CacheEntity.CACHE_NEVER_EXPIRE)
-                .setRetryCount(3);
-
-    }
 
     public static Context getmContext() {
         return mContext;

@@ -1,69 +1,70 @@
 package com.healthclock.healthclock.ui.base;
 
-import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import com.healthclock.healthclock.R;
-import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.util.AppManager;
+import com.healthclock.healthclock.util.LoaddingDialog;
+import com.healthclock.healthclock.util.SharedPreferencesUtils;
+import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.widget.CustomDialog;
-import com.healthclock.healthclock.widget.IconFontTextView;
-import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.ButterKnife;
 
 
-public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLayoutActivity {
+/**
+ * Created by Administrator on 2017/9/11.
+ */
 
+public class BaseActivity extends AppCompatActivity  {
+    protected final static int DATA_LOAD_ING = 0x001;
+    protected final static int DATA_LOAD_COMPLETE = 0x002;
+    protected final static int DATA_LOAD_FAIL = 0x003;
 
-    protected T mPresenter;
-    private CustomDialog mDialogWaiting;
+    public static Handler handler = new Handler();
+
+    /**
+     * 上下文 当进入activity时必须 mContext = this 方可使用，否则会报空指针
+     */
     public Context mContext;
 
+    /**
+     * 加载等待效果
+     */
+    public ProgressDialog progress;
+    private CustomDialog dialog;
+    public LoaddingDialog loaddingDialog;
+    private String token;
 
+    /**
+     * 初始化创建
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        App.activities.add(this);
-        AppManager.getAppManager().addActivity(this);
         mContext = this;
-        init();
+        AppManager.getAppManager().addActivity(this);
+        loaddingDialog = new LoaddingDialog(this);
+        token = SharedPreferencesUtils.getString(this, "token");
 
-        //判断是否使用MVP模式
-        mPresenter = createPresenter();
-        if (mPresenter != null) {
-            mPresenter.attachView((V) this);//因为之后所有的子类都要实现对应的View接口
-        }
-
-        //子类不再需要设置布局ID，也不再需要使用ButterKnife.bind()
-        // setContentView(provideContentViewId());
-       // ButterKnife.bind(this);
-
-        excuteStatesBar();
-       //initView();
-        initListener();
     }
+
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -83,63 +84,50 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
         ButterKnife.bind(this);
     }
 
-
     /**
-     * 解决4.4设置状态栏颜色之后，布局内容嵌入状态栏位置问题
+     * 重回前台显示调用
      */
-    private void excuteStatesBar() {
-        ViewGroup mContentView = (ViewGroup) getWindow().findViewById(Window.ID_ANDROID_CONTENT);
-        View mChildView = mContentView.getChildAt(0);
-        if (mChildView != null) {
-            //注意不是设置 ContentView 的 FitsSystemWindows,
-            // 而是设置 ContentView 的第一个子 View ，预留出系统 View 的空间.
-            mChildView.setFitsSystemWindows(true);
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
+    /**
+     * Activity销毁，关闭加载效果
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.detachView();
+    }
+
+
+    /**
+     * Activity暂停，关闭加载效果
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (progress != null) {
+            progress.dismiss();
         }
     }
 
-    //在setContentView()调用之前调用，可以设置WindowFeature(如：this.requestWindowFeature(Window.FEATURE_NO_TITLE);)
-    public void init() {
-        //底部导航栏
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            getWindow().setStatusBarColor(this.getResources().getColor(R.color.TRANSLUCENT));
-            //底部导航栏
-            getWindow().setNavigationBarColor(this.getResources().getColor(R.color.TRANSLUCENT));
-
-
+    /**
+     * Activity停止，关闭加载效果
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (progress != null) {
+            progress.dismiss();
         }
-
     }
-
- //   public void initView() {
-//    }
-////
-//    public void initData() {
-//    }
-
-    public void initListener() {
-    }
-
-    //用于创建Presenter和判断是否使用MVP模式(由子类实现)
-    protected abstract T createPresenter();
-
-    //得到当前界面的布局文件id(由子类实现)
-    //  protected abstract int  provideContentViewId();
 
     /**
      * 设置显示右侧返回按钮
      */
     public void setBackView() {
-        IconFontTextView backView = findViewById(R.id.tv_back);
+        View backView = findViewById(R.id.tv_back);
         if (backView == null) {
             return;
         }
@@ -151,42 +139,144 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
             }
         });
     }
+
     /**
      * 设置显示标题
      *
      * @param txt
      */
     public void setTitle(String txt) {
-        TextView title =findViewById(R.id.tv_title);
+        TextView title = (TextView) findViewById(R.id.tv_title);
         if (title == null) {
             return;
         }
         title.setVisibility(View.VISIBLE);
         title.setText(txt);
     }
+
+
+//    public void setRightText02(String txt, View.OnClickListener onClickListener) {
+//        IconfontTextView toolbar_righ_tv = (IconfontTextView) findViewById(R.id.toolbar_righ_tv);
+//        if (toolbar_righ_tv == null) {
+//            return;
+//        }
+//        ImageView toolbar_righ_iv = (ImageView) findViewById(R.id.toolbar_righ_iv);
+//        if (toolbar_righ_iv == null) {
+//            return;
+//        }
+//        toolbar_righ_iv.setVisibility(View.GONE);
+//        toolbar_righ_tv.setVisibility(View.VISIBLE);
+//        toolbar_righ_tv.setText(txt);
+//        toolbar_righ_tv.setOnClickListener(onClickListener);
+//    }
+
+
+
+
     /**
-     * 显示等待提示框
+     * 触发手机返回按钮
      */
-    public Dialog showWaitingDialog(String tip) {
-        hideWaitingDialog();
-        View view = View.inflate(this, R.layout.dialog_waiting, null);
-        if (!TextUtils.isEmpty(tip))
-            ((TextView) view.findViewById(R.id.tvTip)).setText(tip);
-        mDialogWaiting = new CustomDialog(this, view, R.style.MyDialog);
-        mDialogWaiting.show();
-        mDialogWaiting.setCancelable(false);
-        return mDialogWaiting;
+    @Override
+    public void onBackPressed() {
+        AppManager.getAppManager().finishActivity();
+    }
+
+
+    /**
+     * 显示字符串消息
+     *
+     * @param message
+     */
+//    public void showProgress(String message) {
+//        if (progress != null) {
+//            progress.dismiss();
+//        }
+//        progress = new ProgressDialog(BaseActivity.this);
+//        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progress.setMessage(message);
+//        progress.setCanceledOnTouchOutside(false);
+//        progress.setCancelable(true);
+//        progress.show();
+//    }
+
+    /**
+     * 显示字符串消息
+     *
+     * @param message
+     */
+    public void showProgress(String message) {
+        // dialog = new CustomDialog(getActivity());
+        dialog = new CustomDialog(this).builder()
+                .setGravity(Gravity.CENTER).setTitle01("提示", getResources().getColor(R.color.black))//可以不设置标题颜色，默认系统颜色
+                .setSubTitle(message);
+        dialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+            }
+        }, 1000);
     }
 
     /**
-     * 隐藏等待提示框
+     * 隐藏字符串消息
      */
-    public void hideWaitingDialog() {
-        if (mDialogWaiting != null) {
-            mDialogWaiting.dismiss();
-            mDialogWaiting = null;
+    public void disShowProgress() {
+        if (progress != null) {
+            progress.dismiss();
         }
     }
+
+    /**
+     * 提示信息
+     */
+    public void showErrorMsg(String message) {
+        final String str = message;
+        BaseActivity.handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), str,
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        });
+    }
+
+    /**
+     * 提示信息号或请求失败信息
+     * <p>
+     * showErrorRequestFair
+     */
+    public void showE404() {
+        BaseActivity.handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "手机信号差或服务器维护，请稍候重试。谢谢！", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+        });
+    }
+
+    /**
+     * 提示信息
+     */
+    public void showMsgAndDisProgress(String message) {
+        final String str = message;
+        BaseActivity.handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), str,
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+                disShowProgress();
+            }
+        });
+    }
+
     public <T extends View> T findView(@IdRes int id) {
         return (T) findViewById(id);
     }
@@ -218,6 +308,31 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
     public EditText editText(int id) {
         return (EditText) findViewById(id);
     }
+
+    /**
+     * 显示数据加载状态
+     *
+     * @param loading
+     * @param datas
+     * @param type
+     */
+    public void viewSwitch(View loading, View datas, int type) {
+        switch (type) {
+            case DATA_LOAD_ING:
+                datas.setVisibility(View.GONE);
+                loading.setVisibility(View.VISIBLE);
+                break;
+            case DATA_LOAD_COMPLETE:
+                datas.setVisibility(View.VISIBLE);
+                loading.setVisibility(View.GONE);
+                break;
+            case DATA_LOAD_FAIL:
+                datas.setVisibility(View.GONE);
+                loading.setVisibility(View.GONE);
+                break;
+        }
+    }
+
     protected void toFinish() {
         finish();
     }
@@ -237,5 +352,47 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AutoLa
         Intent intent = new Intent(mContext, activity);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public void showToast(String msg) {
+        T.showShort(mContext, msg);
+    }
+//    public void showShare(String url){
+//        Resources res = mContext.getResources();
+//        Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
+//        OnekeyShare oks = new OnekeyShare();
+//        //关闭sso授权
+//        oks.disableSSOWhenAuthorize();
+//
+//        // title标题，微信、QQ和QQ空间等平台使用
+//        oks.setTitle("测试分享");
+//        // titleUrl QQ和QQ空间跳转链接
+//        oks.setTitleUrl("http://sharesdk.cn");
+//        // text是分享文本，所有平台都需要这个字段
+//        oks.setText("我是分享文本");
+//        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+//        // oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+//        oks.setImageData(bmp);
+//        // url在微信、微博，Facebook等平台中使用
+//        oks.setUrl("http://sharesdk.cn");
+//        // comment是我对这条分享的评论，仅在人人网使用
+//        oks.setComment("我是测试评论文本");
+//        // 启动分享GUI
+//        oks.show(mContext);
+//    }
+    public void LoaddingDismiss() {
+        if (loaddingDialog != null && loaddingDialog.isShowing()) {
+            loaddingDialog.dismiss();
+        }
+    }
+
+    public void LoaddingShow() {
+        if (loaddingDialog == null) {
+            loaddingDialog = new LoaddingDialog(this);
+        }
+
+        if (!loaddingDialog.isShowing()) {
+            loaddingDialog.show();
+        }
     }
 }

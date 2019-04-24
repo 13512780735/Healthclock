@@ -14,22 +14,24 @@ import android.widget.ToggleButton;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.listener.IEditTextChangeListener;
+import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
+import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.base.BaseActivity;
-import com.healthclock.healthclock.ui.presenter.LoginPresenter;
-import com.healthclock.healthclock.ui.view.LoginView;
 import com.healthclock.healthclock.util.EditTextSizeCheckUtil;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.StringUtil;
-import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.widget.BorderTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 
-public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> implements LoginView {
+public class LoginActivity extends BaseActivity {
+    public static final String TAG = "HL";
+
     @BindView(R.id.login_et_phone)
     EditText etPhone;
     @BindView(R.id.login_et_pwd)
@@ -40,12 +42,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     BorderTextView tvLogin;
     private String phone, pwd;
 
-
-    @Override
-    protected LoginPresenter createPresenter() {
-        return new LoginPresenter();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +50,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
 
         addListeners();
     }
-
 
     private void initUI() {
         phone = SharedPreferencesUtils.getString(this, "phone");
@@ -117,16 +112,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         });
     }
 
-    @Override
-    public void showProgress(String tipString) {
-        showWaitingDialog(tipString);
-    }
-
-    @Override
-    public void hideProgress() {
-        hideWaitingDialog();
-    }
-
 
     @OnClick({R.id.tv_login, R.id.tv_register_account, R.id.tv_forget_pwd})
     public void onClick(View v) {
@@ -135,28 +120,42 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
                 L.e("点击了");
                 phone = etPhone.getText().toString().trim();
                 pwd = etPwd.getText().toString().trim();
-                mPresenter.toLogin(phone, pwd, "0");
+                login(phone, pwd, "0");
                 break;
             case R.id.tv_register_account:
-                toActivity(RegisterActivity.class);
+                 toActivity(RegisterActivity.class);
                 break;
             case R.id.tv_forget_pwd:
-                toActivity(ForgetPwdActivity.class);
+              toActivity(ForgetPwdActivity.class);
                 break;
         }
     }
 
-    @Override
-    public void loginSuccess(LoginRegisterBean user) {
-        SharedPreferencesUtils.put(mContext, "phone", phone);
-        SharedPreferencesUtils.put(mContext, "pwd", pwd);
-        SharedPreferencesUtils.put(mContext, "token", user.getToken());
-        toActivity(MainActivity.class);
+    private void login(final String phone, final String pwd, String openid) {
+        RetrofitUtil.getInstance().getUserLogin(phone, pwd, openid, new Subscriber<BaseResponse<LoginRegisterBean>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                L.e("错误："+e+"");
+            }
+
+            @Override
+            public void onNext(BaseResponse<LoginRegisterBean> baseResponse) {
+               // L.json(3, TAG, baseResponse.toString());
+                L.e(baseResponse.msg);
+                if (baseResponse.getStatus() == 1) {
+                    SharedPreferencesUtils.put(mContext, "phone", phone);
+                    SharedPreferencesUtils.put(mContext, "pwd", pwd);
+                    SharedPreferencesUtils.put(mContext, "token", baseResponse.getData().getToken());
+                    toActivity(MainActivity.class);
+                }
+            }
+        });
     }
 
-    @Override
-    public void loginFail() {
-        hideProgress();
-        T.showShort(mContext, "登录失败");
-    }
+
 }

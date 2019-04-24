@@ -1,6 +1,9 @@
 package com.healthclock.healthclock.util;
 
+import android.text.TextUtils;
 import android.util.Log;
+
+import com.healthclock.healthclock.ui.base.BaseActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,4 +101,10 @@ public class L {
         printLine(tag, false);
 
     }
+
+    public static void json(int logLevel, String tag, String json) {
+        String formatJson = LogFormat.formatBorder(new String[]{LogFormat.formatJson(json)});
+        XPrinter.println(logLevel,tag, formatJson);
+    }
+
 }  

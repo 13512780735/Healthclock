@@ -7,10 +7,12 @@ import android.widget.EditText;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.listener.IEditTextChangeListener;
+import com.healthclock.healthclock.network.model.BaseResponse;
+import com.healthclock.healthclock.network.model.EmptyEntity;
+import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.base.BaseActivity;
-import com.healthclock.healthclock.ui.presenter.ForgetPwdPresenter;
-import com.healthclock.healthclock.ui.view.ForgetPwdView;
 import com.healthclock.healthclock.util.EditTextSizeCheckUtil;
+import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.util.T;
@@ -18,8 +20,9 @@ import com.healthclock.healthclock.widget.BorderTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Subscriber;
 
-public class ForgetPwdActivity extends BaseActivity<ForgetPwdView, ForgetPwdPresenter> implements ForgetPwdView {
+public class ForgetPwdActivity extends BaseActivity {
 
     @BindView(R.id.forget_et_phone)
     EditText etPhone;//手机号
@@ -87,40 +90,36 @@ public class ForgetPwdActivity extends BaseActivity<ForgetPwdView, ForgetPwdPres
                     etPwd01.setText("");
                     return;
                 }
-                mPresenter.toFindPwd(phone, code, pwd);
+                toFindPwd(phone, code, pwd);
                 break;
         }
+    }
+
+    private void toFindPwd(final String phone, String code, final String pwd) {
+        L.e("点击了");
+        RetrofitUtil.getInstance().getUserForgetPwd(phone, code, pwd, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> emptyEntityBaseResponse) {
+                SharedPreferencesUtils.put(mContext, "phone", phone);
+                SharedPreferencesUtils.put(mContext, "pwd", pwd);
+                toActivityFinish(LoginActivity.class);
+            }
+        });
     }
 
     private void sendCode() {
 
     }
 
-    @Override
-    protected ForgetPwdPresenter createPresenter() {
-        return new ForgetPwdPresenter();
-    }
 
-
-    @Override
-    public void hideProgress() {
-        hideWaitingDialog();
-    }
-
-    @Override
-    public void editSuccess() {
-        Long.decode("执行了");
-        hideProgress();
-        phone = etPhone.getText().toString().trim();
-        pwd = etPwd.getText().toString().trim();
-        SharedPreferencesUtils.put(mContext, "phone", phone);
-        SharedPreferencesUtils.put(mContext, "pwd", pwd);
-        toActivityFinish(LoginActivity.class);
-    }
-
-    @Override
-    public void editFail(String errorMessage) {
-        hideProgress();
-        T.showShort(mContext, errorMessage);
-    }
 }
