@@ -19,6 +19,7 @@ import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.ui.presenter.LoginPresenter;
 import com.healthclock.healthclock.ui.view.LoginView;
 import com.healthclock.healthclock.util.EditTextSizeCheckUtil;
+import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.util.T;
@@ -50,7 +51,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initUI();
-        initView();
+
         addListeners();
     }
 
@@ -65,6 +66,12 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
         }
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
     }
 
     public void initView() {
@@ -125,6 +132,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_login:
+                L.e("点击了");
                 phone = etPhone.getText().toString().trim();
                 pwd = etPwd.getText().toString().trim();
                 mPresenter.toLogin(phone, pwd, "0");
@@ -133,6 +141,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
                 toActivity(RegisterActivity.class);
                 break;
             case R.id.tv_forget_pwd:
+                toActivity(ForgetPwdActivity.class);
                 break;
         }
     }

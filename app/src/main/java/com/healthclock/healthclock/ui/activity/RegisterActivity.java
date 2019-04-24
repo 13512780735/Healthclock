@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.elvishew.xlog.XLog;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.listener.IEditTextChangeListener;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
@@ -61,7 +60,6 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter
     public void initView() {
         setTitle("立即注册");
         setBackView();
-        phone = etPhone.getText().toString().trim();
         EditTextSizeCheckUtil.textChangeListener textChangeListener = new EditTextSizeCheckUtil.textChangeListener(tvRegister);
         textChangeListener.addAllEditText(etPhone, etPwd, etCode);
         EditTextSizeCheckUtil.setChangeListener(new IEditTextChangeListener() {
@@ -80,12 +78,9 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter
         });
     }
 
-    @OnClick({R.id.tv_back, R.id.send_code_btn, R.id.tv_register})
+    @OnClick({R.id.send_code_btn, R.id.tv_register})
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.tv_back:
-//                finish();
-//                break;
             case R.id.send_code_btn:
                 phone = etPhone.getText().toString().trim();
                 if (StringUtil.isBlank(phone)) {
@@ -95,7 +90,6 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter
                 sendCode();
                 break;
             case R.id.tv_register:
-                XLog.e("点击了");
                 if (!checkBox.isChecked()) {
                     showProgress("請同意條款");
                     return;
@@ -136,7 +130,6 @@ public class RegisterActivity extends BaseActivity<RegisterView, RegistPresenter
 
     @Override
     public void getDataError(String message) {
-        XLog.e("message" + message);
         T.showShort(RegisterActivity.this, message);
     }
 

@@ -9,6 +9,11 @@ package com.healthclock.healthclock.ui.view;
 
 public interface ForgetPwdView {
 
-    void showProgress(String tipString);
+
+    void hideProgress();
+
+    void editSuccess();
+
+    void editFail(String errorMessage);
 
 }

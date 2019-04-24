@@ -6,24 +6,23 @@ public class ResponseData<T> implements Serializable {
 
     private static final long serialVersionUID = 5213230387175987834L;
 
-    private int status;
-    private String msg;
-    private T data;
+    public int status;
+    public String msg;
+    public T data;
 
-
-    public int getErrorCode() {
+    public int getStatus() {
         return status;
     }
 
-    public void setErrorCode(int status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public String getErrorMsg() {
+    public String getMsg() {
         return msg;
     }
 
-    public void setErrorMsg(String msg) {
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 
@@ -34,4 +33,5 @@ public class ResponseData<T> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
 }
