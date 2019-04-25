@@ -16,7 +16,7 @@
         android:gravity="center"
         android:text="@string/ic_back"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_28" />
+        android:textSize="@dimen/sp_26" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -34,14 +34,15 @@
 
     <com.healthclock.healthclock.widget.IconFontTextView
         android:id="@+id/tv_right"
-        android:layout_width="@dimen/topbar_icon_width_height"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:gravity="center"
+        android:layout_margin="@dimen/dp_10"
         android:textColor="@color/white"
         android:textSize="55px"
         android:text=""
-        android:visibility="gone" />
+      />
 
     <View
         style="@style/lineStyle"

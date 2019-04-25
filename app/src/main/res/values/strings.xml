@@ -1,10 +1,42 @@
 <resources>
     <string name="app_name">美康闹钟</string>
     <!--iconfont字体图标-->
+    //登录注册
     <string name="ic_back">&#xe7ed; </string> <!--返回-->
+    <string name="ic_location">&#xe611; </string> <!--定位-->
     <string name="ic_pwd">&#xe6c0; </string> <!--密码-->
     <string name="ic_phone">&#xe704; </string> <!--手机-->
+    <string name="ic_down">&#xe607; </string> <!--向下-->
+    <string name="ic_play">&#xe67d; </string> <!--播放-->
+    <string name="ic_close">&#xe80f; </string> <!--关闭-->
+    ////支付
+    <string name="ic_alipay">&#xe603; </string> <!--支付宝-->
+    <string name="ic_weixin">&#xe75a; </string> <!--微信-->
+    <string name="ic_shoukuan">&#xe6b1;</string> <!--收款-->
+    <string name="ic_select">&#xe637;</string> <!--选择-->
+    <string name="ic_checked">&#xe660; </string> <!--选中-->
+    <string name="ic_uncheck">&#xe625;</string> <!--未选中-->
 
+
+    //休闲
+    <string name="ic_meirong">&#xe602; </string> <!--美容磁操-->
+    <string name="ic_zhenshi">&#xe611; </string> <!--真视明操-->
+    <string name="ic_water">&#xe640; </string> <!--喝杯水-->
+    <string name="ic_kaifei">&#xe66f; </string> <!--喝咖啡-->
+    <string name="ic_more">&#xe601; </string> <!--省略号-->
+
+
+    //订单
+    <string name="ic_obligation">&#xe6ac; </string> <!--待付款-->
+    <string name="ic_send">&#xe671; </string> <!--待发货-->
+    <string name="ic_receive">&#xe673; </string> <!--待收货-->
+    <string name="ic_finish">&#xe675; </string> <!--已完成-->
+
+    //主页
+    <string name="ic_shop">&#xe653; </string> <!--商城-->
+    <string name="ic_clock">&#xe61f; </string> <!--闹钟-->
+    <string name="ic_health">&#xe600; </string> <!--健康管理-->
+    <string name="ic_member">&#xe606; </string> <!--个人-->
 
     //
     <string name="action_share">分享</string>
@@ -29,4 +61,18 @@
     <string name="user_forget_pwd">忘记密码？</string>
     <string name="user_register_account">注册账号</string>
     <string name="user_confirm">确认</string>
+    <string name="title_activity_welcome2">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 </resources>

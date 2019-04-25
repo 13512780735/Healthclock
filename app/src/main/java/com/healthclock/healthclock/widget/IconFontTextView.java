@@ -3,7 +3,6 @@ package com.healthclock.healthclock.widget;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-
 /**
  * @user  lqm
  * @desc  使用IConFont TextView

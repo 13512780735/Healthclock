@@ -28,7 +28,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     //皮肤设置
     implementation project(':android-multi-theme')
-
+    implementation project(':datelibrary')
 
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     //网络
@@ -47,4 +47,10 @@ dependencies {
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     //轮播图库
     implementation 'cn.bingoogolapple:bga-banner:2.1.7@aar'
+    //权限工具
+    implementation 'com.yanzhenjie.permission:support:2.0.1'
+
+    implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
+        exclude group: 'org.json', module: 'json'
+    }
 }

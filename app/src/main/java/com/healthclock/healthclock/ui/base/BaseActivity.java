@@ -24,7 +24,7 @@ import com.healthclock.healthclock.util.LoaddingDialog;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.widget.CustomDialog;
-
+import com.healthclock.healthclock.widget.IconFontTextView;
 import butterknife.ButterKnife;
 
 
@@ -155,20 +155,15 @@ public class BaseActivity extends AppCompatActivity  {
     }
 
 
-//    public void setRightText02(String txt, View.OnClickListener onClickListener) {
-//        IconfontTextView toolbar_righ_tv = (IconfontTextView) findViewById(R.id.toolbar_righ_tv);
-//        if (toolbar_righ_tv == null) {
-//            return;
-//        }
-//        ImageView toolbar_righ_iv = (ImageView) findViewById(R.id.toolbar_righ_iv);
-//        if (toolbar_righ_iv == null) {
-//            return;
-//        }
-//        toolbar_righ_iv.setVisibility(View.GONE);
-//        toolbar_righ_tv.setVisibility(View.VISIBLE);
-//        toolbar_righ_tv.setText(txt);
-//        toolbar_righ_tv.setOnClickListener(onClickListener);
-//    }
+    public void setRightText(String txt, View.OnClickListener onClickListener) {
+        IconFontTextView toolbar_righ_tv = (IconFontTextView) findViewById(R.id.tv_right);
+        if (toolbar_righ_tv == null) {
+            return;
+        }
+        toolbar_righ_tv.setVisibility(View.VISIBLE);
+        toolbar_righ_tv.setText(txt);
+        toolbar_righ_tv.setOnClickListener(onClickListener);
+    }
 
 
 

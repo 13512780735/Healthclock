@@ -21,6 +21,7 @@ import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.util.LoaddingDialog;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.widget.CustomDialog;
+import com.healthclock.healthclock.widget.IconFontTextView;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -42,7 +43,7 @@ public abstract class BaseFragment extends Fragment {
     public LoaddingDialog loaddingDialog;
     public String openid;
     public String theme_bg_tex;
-    public String lat,lng;
+    public String lat, lng;
 
 
     //是否是第一次开启网络加载
@@ -114,6 +115,7 @@ public abstract class BaseFragment extends Fragment {
 //        // 启动分享GUI
 //        oks.show(getActivity());
 //    }
+
     /**
      * 视图是否已经对用户可见，系统的方法
      */
@@ -154,27 +156,24 @@ public abstract class BaseFragment extends Fragment {
         title.setVisibility(View.VISIBLE);
         title.setText(txt);
     }
-//
+
+    //
 //    /**
 //     * 只显示右侧文字以及点击事件
 //     *
 //     * @param txt
 //     * @param onClickListener
 //     */
-//    public void setRightText(String txt, View.OnClickListener onClickListener) {
-//        TextView toolbar_righ_tv = (TextView) findViewById(R.id.toolbar_righ_tv);
-//        if (toolbar_righ_tv == null) {
-//            return;
-//        }
-//        ImageView toolbar_righ_iv = (ImageView) findViewById(R.id.toolbar_righ_iv);
-//        if (toolbar_righ_iv == null) {
-//            return;
-//        }
-//        toolbar_righ_iv.setVisibility(View.GONE);
-//        toolbar_righ_tv.setVisibility(View.VISIBLE);
-//        toolbar_righ_tv.setText(txt);
-//        toolbar_righ_tv.setOnClickListener(onClickListener);
-//    }
+    public void setRightText(String txt, View.OnClickListener onClickListener) {
+        IconFontTextView toolbar_righ_tv = (IconFontTextView) findViewById(R.id.tv_right);
+        if (toolbar_righ_tv == null) {
+            return;
+        }
+        toolbar_righ_tv.setVisibility(View.VISIBLE);
+        toolbar_righ_tv.setText(txt);
+        toolbar_righ_tv.setOnClickListener(onClickListener);
+    }
+
 //
 //    /**
 //     * 右侧只显示一个图片
@@ -266,7 +265,7 @@ public abstract class BaseFragment extends Fragment {
         } else {
             if (isLoad) {
                 stopLoad();
-               // GSYVideoManager.releaseAllVideos();
+                // GSYVideoManager.releaseAllVideos();
             }
         }
     }

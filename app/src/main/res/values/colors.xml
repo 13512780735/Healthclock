@@ -8,7 +8,8 @@
     <color name="black">#000</color>
     <color name="bt_gray">#999999</color>
     <color name="TRANSLUCENT">#00000000</color>
-
+    <!--主题背景色-->
+    <color name="default_window_background">#F7F7F7</color>
     <!-- red theme -->
     <color name="red_colorPrimary">#FEC5E0</color>
     <color name="red_colorPrimaryDark">#FEC5E0</color>

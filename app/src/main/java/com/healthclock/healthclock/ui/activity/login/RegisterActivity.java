@@ -1,4 +1,4 @@
-package com.healthclock.healthclock.ui.activity;
+package com.healthclock.healthclock.ui.activity.login;
 
 
 import android.content.Intent;
@@ -13,6 +13,7 @@ import com.healthclock.healthclock.listener.IEditTextChangeListener;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
+import com.healthclock.healthclock.ui.activity.MainActivity;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.AppManager;
 import com.healthclock.healthclock.util.EditTextSizeCheckUtil;
@@ -76,7 +77,7 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
-    @OnClick({R.id.send_code_btn, R.id.tv_register})
+    @OnClick({R.id.send_code_btn, R.id.tv_register, R.id.protocol_tv01})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.send_code_btn:
@@ -96,13 +97,16 @@ public class RegisterActivity extends BaseActivity {
                 pwd = etPwd.getText().toString().trim();
                 code = etCode.getText().toString().trim();
                 referralCode = etReferralCode.getText().toString().trim();
-               toRegist(phone, code, pwd, referralCode);
+                toRegist(phone, code, pwd, referralCode);
+                break;
+            case R.id.protocol_tv:
+                toActivity(RegisterProtocolActivity.class);
                 break;
         }
     }
 
     private void toRegist(final String phone, String code, final String pwd, String referralCode) {
-        RetrofitUtil.getInstance().getUserRegister(phone,code,pwd,referralCode,new Subscriber<BaseResponse<LoginRegisterBean>>() {
+        RetrofitUtil.getInstance().getUserRegister(phone, code, pwd, referralCode, new Subscriber<BaseResponse<LoginRegisterBean>>() {
 
             @Override
             public void onCompleted() {

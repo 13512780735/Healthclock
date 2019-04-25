@@ -32,7 +32,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/member/login")
+    @POST("member/login")
     Observable<BaseResponse<LoginRegisterBean>> UserLogin(@Field("username") String username,
                                                           @Field("password") String password,
                                                           @Field("openid") String openid

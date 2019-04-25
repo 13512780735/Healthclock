@@ -1,4 +1,4 @@
-package com.healthclock.healthclock.ui.activity;
+package com.healthclock.healthclock.ui.activity.login;
 
 
 import android.graphics.Color;
@@ -17,6 +17,7 @@ import com.healthclock.healthclock.listener.IEditTextChangeListener;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
+import com.healthclock.healthclock.ui.activity.MainActivity;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.EditTextSizeCheckUtil;
 import com.healthclock.healthclock.util.L;
@@ -126,7 +127,8 @@ public class LoginActivity extends BaseActivity {
                  toActivity(RegisterActivity.class);
                 break;
             case R.id.tv_forget_pwd:
-              toActivity(ForgetPwdActivity.class);
+              //toActivity(ForgetPwdActivity.class);
+              toActivity(PerfectInformationActivity.class);
                 break;
         }
     }

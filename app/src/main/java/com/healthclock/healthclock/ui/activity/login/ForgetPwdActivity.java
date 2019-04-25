@@ -1,4 +1,4 @@
-package com.healthclock.healthclock.ui.activity;
+package com.healthclock.healthclock.ui.activity.login;
 
 import android.graphics.Color;
 import android.os.Bundle;
