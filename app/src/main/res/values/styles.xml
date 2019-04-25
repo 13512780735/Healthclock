@@ -36,7 +36,9 @@
         <item name="android:layout_height">1.5px</item>
         <item name="android:background">@color/line</item>
     </style>
-
+    <style name="RadioButtonStyles">
+        <item name="android:button">@drawable/selector_radio_bg</item>
+    </style>
     <!--圆角Dialog-->
     <style name="MyDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>

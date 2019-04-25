@@ -22,6 +22,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
@@ -49,8 +50,11 @@ dependencies {
     implementation 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     //权限工具
     implementation 'com.yanzhenjie.permission:support:2.0.1'
-
+    implementation 'pub.devrel:easypermissions:1.0.1'
     implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
         exclude group: 'org.json', module: 'json'
     }
+    //相册选择
+    implementation 'com.guoqi.widget:actionsheet:1.0'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

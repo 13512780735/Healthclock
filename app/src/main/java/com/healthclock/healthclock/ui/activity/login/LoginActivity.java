@@ -1,6 +1,7 @@
 package com.healthclock.healthclock.ui.activity.login;
 
 
+import android.Manifest;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Selection;
@@ -10,6 +11,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.healthclock.healthclock.R;
@@ -21,9 +23,12 @@ import com.healthclock.healthclock.ui.activity.MainActivity;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.EditTextSizeCheckUtil;
 import com.healthclock.healthclock.util.L;
+import com.healthclock.healthclock.util.PermissionUtil;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.widget.BorderTextView;
+
+import java.security.acl.Permission;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,9 +53,10 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initUI();
-
         addListeners();
     }
+
+    private final int REQUEST_CONTACT = 50;
 
     private void initUI() {
         phone = SharedPreferencesUtils.getString(this, "phone");
@@ -124,11 +130,11 @@ public class LoginActivity extends BaseActivity {
                 login(phone, pwd, "0");
                 break;
             case R.id.tv_register_account:
-                 toActivity(RegisterActivity.class);
+                toActivity(RegisterActivity.class);
                 break;
             case R.id.tv_forget_pwd:
-              //toActivity(ForgetPwdActivity.class);
-              toActivity(PerfectInformationActivity.class);
+                //toActivity(ForgetPwdActivity.class);
+                toActivity(EditInformationActivity.class);
                 break;
         }
     }
@@ -142,12 +148,12 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable e) {
-                L.e("错误："+e+"");
+                L.e("错误：" + e + "");
             }
 
             @Override
             public void onNext(BaseResponse<LoginRegisterBean> baseResponse) {
-               // L.json(3, TAG, baseResponse.toString());
+                // L.json(3, TAG, baseResponse.toString());
                 L.e(baseResponse.msg);
                 if (baseResponse.getStatus() == 1) {
                     SharedPreferencesUtils.put(mContext, "phone", phone);

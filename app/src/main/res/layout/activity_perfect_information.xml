@@ -16,15 +16,16 @@
         android:orientation="vertical"
         android:padding="@dimen/dp_20">
 
-        <com.healthclock.healthclock.widget.RoundImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_30"
             android:scaleType="centerCrop"
+            android:layout_centerHorizontal="true"
             android:src="@mipmap/default_pic"
-            app:corner_radius="35dp" />
+          />
 
         <TextView
             android:layout_width="match_parent"
