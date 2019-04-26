@@ -53,7 +53,7 @@ public abstract class BaseFragment extends Fragment {
     protected boolean isViewInitiated;
     protected boolean isVisibleToUser;
     protected boolean isDataInitiated;
-    private String token;
+    public String token;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

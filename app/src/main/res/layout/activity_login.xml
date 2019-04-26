@@ -95,6 +95,7 @@
             android:inputType="textPassword"
             android:textColorHint="@color/gray"
             android:textSize="14sp" />
+
         <ToggleButton
             android:id="@+id/tb_re_pwd"
             android:layout_width="30dp"
@@ -118,15 +119,13 @@
     <com.healthclock.healthclock.widget.BorderTextView
         android:id="@+id/tv_login"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_marginLeft="@dimen/dp_50"
-        android:layout_marginRight="@dimen/dp_50"
-        android:layout_marginTop="28dip"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_20"
         android:gravity="center"
         android:padding="8dip"
         android:text="@string/user_login"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp_18"
+        android:textSize="@dimen/sp_16"
         app:contentBackColor="@color/bt_gray"
         app:cornerRadius="@dimen/dp_20"
         app:strokeColor01="@color/bt_gray"

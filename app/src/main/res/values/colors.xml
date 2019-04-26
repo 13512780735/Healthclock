@@ -7,7 +7,12 @@
     <color name="gray">#5000</color>
     <color name="black">#000</color>
     <color name="bt_gray">#999999</color>
+    <color name="text_color">#656565</color>
     <color name="TRANSLUCENT">#00000000</color>
+
+    <color name= "tab_nor_color">#969696</color>
+
+
     <!--主题背景色-->
     <color name="default_window_background">#F7F7F7</color>
     <!-- red theme -->
@@ -68,19 +73,4 @@
     <color name="yellow_img_cover_color">#40FFEB3B</color>
 
 
-    <!--相机相册-->
-    <!--普通按钮文字颜色-->
-    <color name="textColor_alert_button_others">#007aff</color>
-    <!--高亮按钮颜色-->
-    <color name="textColor_alert_button_destructive">#ff3b30</color>
-    <!--点击颜色-->
-    <color name="bgColor_alert_button_press">#EAEAEA</color>
-    <!--覆盖颜色-->
-    <color name="bgColor_overlay">#60000000</color>
-    <!--窗口背景颜色-->
-    <color name="bgColor_alertview_alert">#f8f8f8</color>
-    <color name="bgColor_alertview_alert_start">#f0f0f0</color>
-    <color name="textColor_actionsheet_msg">#8f8f8f</color>
-    <!--actionsheet模式的取消按钮背景颜色-->
-    <color name="bgColor_actionsheet_cancel_nor">#ffffff</color>
 </resources>

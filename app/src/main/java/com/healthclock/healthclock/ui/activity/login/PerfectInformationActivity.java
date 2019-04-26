@@ -1,20 +1,11 @@
 package com.healthclock.healthclock.ui.activity.login;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,36 +14,44 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codbking.widget.DatePickDialog;
 import com.codbking.widget.OnSureLisener;
 import com.codbking.widget.bean.DateType;
+import com.guoqi.actionsheet.ActionSheet;
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.network.model.BaseResponse;
+import com.healthclock.healthclock.network.model.EmptyEntity;
+import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.activity.MainActivity;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.AppManager;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.PopupWindowUtil;
 import com.healthclock.healthclock.util.StringUtil;
-import com.healthclock.healthclock.util.photo.FileUtils;
-import com.healthclock.healthclock.util.photo.callback.OnItemClickListener;
-import com.healthclock.healthclock.util.photo.callback.PhotoCallBack;
-import com.healthclock.healthclock.util.photo.view.AlertView;
+import com.healthclock.healthclock.util.T;
+import com.healthclock.healthclock.util.photos.PhotoUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+import rx.Subscriber;
 
 import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class PerfectInformationActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+public class PerfectInformationActivity extends BaseActivity implements ActionSheet.OnActionSheetSelected, EasyPermissions.PermissionCallbacks {
     @BindView(R.id.iv_avatar)
     CircleImageView ivAvatar;
     @BindView(R.id.tv_sex)
@@ -63,21 +62,8 @@ public class PerfectInformationActivity extends BaseActivity implements EasyPerm
     TextView tvBirthday;
     private String time;
     private String sex;
-
-    /**
-     * 拍照相册
-     */
-    public PhotoCallBack callBack;
-    public String path = "";
-    public Uri photoUri;
-    private File file;
-
-    private static final int TAKE_PICTURE = 0;
-    private static final int RESULT_LOAD_IMAGE = 1;
-    private static final int CUT_PHOTO_REQUEST_CODE = 2;
-    private static final String CAMERA_PERMISSION = Manifest.permission.CAMERA;
-    private static final String READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE;
-    private static final String WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private MultipartBody.Part requestfile;
+    private String path1;
 
 
     @Override
@@ -86,6 +72,50 @@ public class PerfectInformationActivity extends BaseActivity implements EasyPerm
         setContentView(R.layout.activity_perfect_information);
         sex = "1";
         initUI();
+        PhotoUtils.getInstance().init(this, true, new PhotoUtils.OnSelectListener() {
+            @Override
+            public void onFinish(File outputFile, Uri outputUri) {
+                photoPath(outputFile.getAbsolutePath());
+                Glide.with(PerfectInformationActivity.this).load(outputUri).into(ivAvatar);
+
+            }
+        });
+    }
+
+    public static final String MULTIPART_FORM_DATA = "image/jpg";
+
+    public void photoPath(String path) {
+        L.e("path->" + path);
+        File file = new File(path);
+      //  String token = "97ca6b3aabf14217bebd812f2711cd41";
+        RequestBody requestToken = RequestBody.create(MediaType.parse("multipart/form-data"), token);
+        RequestBody requestFile =               // 根据文件格式封装文件
+                RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
+        MultipartBody.Part requestImgPart =
+                MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        L.e("requestApiKey->" + requestToken);
+        L.e("requestImgPart->" + requestImgPart);
+        RetrofitUtil.getInstance().UserUploadImg(requestToken, requestfile, new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                L.e("msg->"+baseResponse.getMsg());
+                if (baseResponse.getStatus() == 1) {
+                    T.showShort(mContext, baseResponse.getMsg());
+                } else {
+                    T.showShort(mContext, baseResponse.getMsg());
+                }
+            }
+        });
     }
 
     private void initUI() {
@@ -100,11 +130,11 @@ public class PerfectInformationActivity extends BaseActivity implements EasyPerm
         });
     }
 
-    @OnClick({R.id.ll_birthday, R.id.ll_sex, R.id.iv_avatar})
+    @OnClick({R.id.ll_birthday, R.id.ll_sex, R.id.iv_avatar, R.id.tv_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_avatar:
-                changeAvater();
+                ActionSheet.showSheet(PerfectInformationActivity.this, PerfectInformationActivity.this, null);
                 break;
             case R.id.ll_sex:
                 showPopupWindow(ll_sex);
@@ -113,7 +143,35 @@ public class PerfectInformationActivity extends BaseActivity implements EasyPerm
             case R.id.ll_birthday:
                 showDatePickDialog(DateType.TYPE_YMD);
                 break;
+            case R.id.tv_confirm:
+                editInfo();
+                break;
         }
+    }
+
+    private void editInfo() {
+        RetrofitUtil.getInstance().UserInfoEdit(token, "", "", "", "", "", "", sex, "", "", new Subscriber<BaseResponse<EmptyEntity>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BaseResponse<EmptyEntity> baseResponse) {
+                if (baseResponse.getStatus() == 1) {
+                    T.showShort(mContext, baseResponse.getMsg());
+                    toActivityFinish(MainActivity.class);
+                    AppManager.getAppManager().finishAllActivity();
+                } else {
+                    T.showShort(mContext, baseResponse.getMsg());
+                }
+            }
+        });
     }
 
     private void setBackgroundAlpha(float bgAlpha) {
@@ -216,62 +274,34 @@ public class PerfectInformationActivity extends BaseActivity implements EasyPerm
         dialog.show();
     }
 
-
-    private void changeAvater() {
-        callBack = new PhotoCallBack() {
-            @Override
-            public void doSuccess(String path) {
-                //将图片传给服务器
-//                File file = new File(path);
-//                RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-//                MultipartBody.Builder builder = new MultipartBody.Builder()
-//                        .setType(MultipartBody.FORM)//表单类型
-//                        .addFormDataPart("id", SaveUserInfo.getUid());
-//                builder.addFormDataPart("head_portrait", file.getName(), imageBody);
-//                List<MultipartBody.Part> partList=builder.build().parts();
-//                mPresenter.startUpdateHeadRequest(partList,SaveUserInfo.getUid());
-            }
-
-            @Override
-            public void doError() {
-
-            }
-        };
-        comfireImgSelection(getApplicationContext(), ivAvatar);
-    }
-
     String[] takePhotoPerms = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, CAMERA};
+    String[] selectPhotoPerms = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
 
-    // 拍照
-    public void comfireImgSelection(Context context, CircleImageView my_info) {
-        ivAvatar = my_info;
-        new AlertView(null, null, "取消", null, new String[]{"从手机相册选择", "拍照"}, this, AlertView.Style.ActionSheet,
-                new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(Object o, int position) {
-                        if (position == 0) {
-                            // 从相册中选择
-                            checkPermission(takePhotoPerms, 2);
-                        } else if (position == 1) {
-                            // 拍照
-                            checkPermission(takePhotoPerms, 1);
-                        }
-                    }
-                }
-        ).show();
+    @Override
+    public void onClick(int whichButton) {
+        switch (whichButton) {
+            case ActionSheet.CHOOSE_PICTURE:
+                //相册
+                checkPermission(selectPhotoPerms, 2);
+                break;
+            case ActionSheet.TAKE_PICTURE:
+                //拍照
+                checkPermission(takePhotoPerms, 1);
+                break;
+            case ActionSheet.CANCEL:
+                //取消
+                break;
+        }
     }
 
     private void checkPermission(String[] perms, int requestCode) {
         if (EasyPermissions.hasPermissions(this, perms)) {//已经有权限了
             switch (requestCode) {
                 case 1:
-                    photo();
+                    PhotoUtils.getInstance().takePhoto();
                     break;
                 case 2:
-                    Intent i = new Intent(
-                            // 相册
-                            Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(i, RESULT_LOAD_IMAGE);
+                    PhotoUtils.getInstance().selectPhoto();
                     break;
             }
         } else {//没有权限去请求
@@ -290,13 +320,10 @@ public class PerfectInformationActivity extends BaseActivity implements EasyPerm
     public void onPermissionsGranted(int requestCode, List<String> perms) {//设置成功
         switch (requestCode) {
             case 1:
-                photo();
+                PhotoUtils.getInstance().takePhoto();
                 break;
             case 2:
-                Intent i = new Intent(
-                        // 相册
-                        Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+                PhotoUtils.getInstance().selectPhoto();
                 break;
         }
     }
@@ -313,119 +340,10 @@ public class PerfectInformationActivity extends BaseActivity implements EasyPerm
         }
     }
 
-
-    private boolean checkPermission(String permission) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
-                Log.e("checkPermission", "PERMISSION_GRANTED" + ContextCompat.checkSelfPermission(this, permission));
-                return true;
-            } else {
-                Log.e("checkPermission", "PERMISSION_DENIED" + ContextCompat.checkSelfPermission(this, permission));
-                return false;
-            }
-        } else {
-            Log.e("checkPermission", "M以下" + ContextCompat.checkSelfPermission(this, permission));
-            return true;
-        }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        PhotoUtils.getInstance().bindForResult(requestCode, resultCode, data);
     }
 
-    public void photo() {
-
-        try {
-            Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            String sdcardState = Environment.getExternalStorageState();
-            String sdcardPathDir = Environment.getExternalStorageDirectory().getPath() + "/tempImage/";
-            file = null;
-            if (Environment.MEDIA_MOUNTED.equals(sdcardState)) {
-                // 有sd卡，是否有myImage文件夹
-                File fileDir = new File(sdcardPathDir);
-                if (!fileDir.exists()) {
-                    fileDir.mkdirs();
-                }
-                // 是否有headImg文件
-                long l = System.currentTimeMillis();
-                file = new File(sdcardPathDir + l + ".JPEG");
-            }
-            if (file != null) {
-                path = file.getPath();
-
-                photoUri = Uri.fromFile(file);
-                if (Build.VERSION.SDK_INT >= 24) {
-                    photoUri = FileProvider.getUriForFile(this, "com.barnettwong.changeavaterview.fileProvider", file);
-                } else {
-                    photoUri = Uri.fromFile(file);
-                }
-                openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(openCameraIntent, TAKE_PICTURE);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case TAKE_PICTURE:
-                if (file != null && file.exists())
-                    startPhotoZoom(photoUri);
-                break;
-            case RESULT_LOAD_IMAGE:
-                if (data != null) {
-                    Uri uri = data.getData();
-                    if (uri != null) {
-                        startPhotoZoom(uri);
-                    }
-                }
-                break;
-            case CUT_PHOTO_REQUEST_CODE:
-                if (resultCode == RESULT_OK && null != data) {// 裁剪返回
-                    if (path != null && path.length() != 0) {
-                        Bitmap bitmap = BitmapFactory.decodeFile(path);
-                        //给头像设置图片源
-                        ivAvatar.setImageBitmap(bitmap);
-                        if (callBack != null)
-                            callBack.doSuccess(path);
-                    }
-                }
-                break;
-        }
-    }
-
-    private void startPhotoZoom(Uri uri) {
-        try {
-            // 获取系统时间 然后将裁剪后的图片保存至指定的文件夹
-            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
-            String address = sDateFormat.format(new Date());
-            if (!FileUtils.isFileExist("")) {
-                FileUtils.createSDDir("");
-            }
-
-            Uri imageUri = Uri.parse("file:///sdcard/formats/" + address + ".JPEG");
-            final Intent intent = new Intent("com.android.camera.action.CROP");
-
-            // 照片URL地址
-            intent.setDataAndType(uri, "image/*");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            intent.putExtra("crop", "true");
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            intent.putExtra("outputX", 480);
-            intent.putExtra("outputY", 480);
-            // 输出路径
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            // 输出格式
-            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-            // 不启用人脸识别
-            intent.putExtra("noFaceDetection", false);
-            intent.putExtra("return-data", false);
-            intent.putExtra("fileurl", FileUtils.SDPATH + address + ".JPEG");
-            path = FileUtils.SDPATH + address + ".JPEG";
-            startActivityForResult(intent, CUT_PHOTO_REQUEST_CODE);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 }

@@ -25,6 +25,7 @@ import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.widget.CustomDialog;
 import com.healthclock.healthclock.widget.IconFontTextView;
+
 import butterknife.ButterKnife;
 
 
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/11.
  */
 
-public class BaseActivity extends AppCompatActivity  {
+public class BaseActivity extends AppCompatActivity {
     protected final static int DATA_LOAD_ING = 0x001;
     protected final static int DATA_LOAD_COMPLETE = 0x002;
     protected final static int DATA_LOAD_FAIL = 0x003;
@@ -50,7 +51,7 @@ public class BaseActivity extends AppCompatActivity  {
     public ProgressDialog progress;
     private CustomDialog dialog;
     public LoaddingDialog loaddingDialog;
-    private String token;
+    public String token;
 
     /**
      * 初始化创建
@@ -63,6 +64,18 @@ public class BaseActivity extends AppCompatActivity  {
         loaddingDialog = new LoaddingDialog(this);
         token = SharedPreferencesUtils.getString(this, "token");
 
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 
@@ -164,8 +177,6 @@ public class BaseActivity extends AppCompatActivity  {
         toolbar_righ_tv.setText(txt);
         toolbar_righ_tv.setOnClickListener(onClickListener);
     }
-
-
 
 
     /**
@@ -352,7 +363,8 @@ public class BaseActivity extends AppCompatActivity  {
     public void showToast(String msg) {
         T.showShort(mContext, msg);
     }
-//    public void showShare(String url){
+
+    //    public void showShare(String url){
 //        Resources res = mContext.getResources();
 //        Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
 //        OnekeyShare oks = new OnekeyShare();

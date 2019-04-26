@@ -11,6 +11,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
+        android:isScrollContainer="true"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -19,7 +20,10 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:orientation="vertical">
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/ll_age"
                 android:layout_width="match_parent"
@@ -245,7 +249,7 @@
                 android:background="@color/line"></View>
 
             <LinearLayout
-                android:id="@+id/ll_sex"
+                android:id="@+id/ll_isSelect"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_gravity="center_vertical"
@@ -386,7 +390,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/line"></View>
-
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_headache"
                 android:layout_width="match_parent"
@@ -722,18 +726,68 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/line"></View>
+            <LinearLayout
+                android:id="@+id/ll_step"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:text="今日步"
+                    android:textColor="@color/black" />
+                <EditText
+                    android:id="@+id/et_step"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:background="@color/line"
+                    android:gravity="center"
+                    android:hint="1000步"
+                    android:inputType="number"
+                    android:textColorHint="@color/gray"
+                    android:textSize="14sp" />
+                <com.healthclock.healthclock.widget.BorderTextView
+                    android:id="@+id/tv_getStep"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_8"
+                    app:contentBackColor="@color/white"
+                    app:cornerRadius="@dimen/dp_20"
+                    app:strokeColor01="?title_text_color"
+                    app:strokeWidth01="1dp"
+                    android:text="手动获取步数"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/black" />
+
+
+
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@color/line"></View>
             <com.healthclock.healthclock.widget.BorderTextView
                 android:id="@+id/tv_confirm"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
+                android:layout_height="@dimen/dp_40"
                 android:layout_margin="@dimen/dp_20"
-                android:layout_marginTop="28dip"
                 android:gravity="center"
                 android:padding="8dip"
                 android:text="@string/user_confirm"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_18"
+                android:textSize="@dimen/sp_16"
                 app:contentBackColor="?title_text_color"
                 app:cornerRadius="@dimen/dp_20"
                 app:strokeColor01="?title_text_color"

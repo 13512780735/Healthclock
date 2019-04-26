@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- 用于申请调用相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission
@@ -61,7 +62,13 @@
         <activity android:name=".ui.activity.login.ForgetPwdActivity" />
         <activity android:name=".ui.activity.login.RegisterProtocolActivity" />
         <activity android:name=".ui.activity.login.PerfectInformationActivity" />
-        <activity android:name=".ui.activity.login.EditInformationActivity"></activity>
+        <activity
+            android:name=".ui.activity.login.EditInformationActivity"
+            android:exported="false"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -71,6 +78,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <activity android:name=".ui.activity.member.IndentActivity" />
+        <activity android:name=".ui.activity.member.UserInfoActivity"></activity>
     </application>
 
 </manifest>

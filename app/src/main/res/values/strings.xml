@@ -9,6 +9,7 @@
     <string name="ic_down">&#xe607; </string> <!--向下-->
     <string name="ic_play">&#xe67d; </string> <!--播放-->
     <string name="ic_close">&#xe80f; </string> <!--关闭-->
+    <string name="ic_set">&#xe822; </string> <!--设置-->
     ////支付
     <string name="ic_alipay">&#xe603; </string> <!--支付宝-->
     <string name="ic_weixin">&#xe75a; </string> <!--微信-->
@@ -36,7 +37,7 @@
     <string name="ic_shop">&#xe653; </string> <!--商城-->
     <string name="ic_clock">&#xe61f; </string> <!--闹钟-->
     <string name="ic_health">&#xe600; </string> <!--健康管理-->
-    <string name="ic_member">&#xe606; </string> <!--个人-->
+    <string name="ic_member">&#xe78b; </string> <!--个人-->
 
     //
     <string name="action_share">分享</string>
@@ -61,7 +62,18 @@
     <string name="user_forget_pwd">忘记密码？</string>
     <string name="user_register_account">注册账号</string>
     <string name="user_confirm">确认</string>
+    <string name="user_logout">退出账号</string>
     <string name="title_activity_welcome2">Sign in</string>
+
+
+    <!--个人中心-->
+    <string name="app_people_all_order">订单记录</string>
+    <string name="app_people_looker_all">查看</string>
+    <string name="app_people_obligation">待付款</string>
+    <string name="app_people_shipments">待发货</string>
+    <string name="app_people_Receiving">待收货</string>
+    <string name="app_people_after_sale">已完成</string>
+
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -75,4 +87,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

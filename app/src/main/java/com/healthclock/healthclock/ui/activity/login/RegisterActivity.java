@@ -120,10 +120,11 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void onNext(BaseResponse<LoginRegisterBean> loginRegisterBeanBaseResponse) {
+
                 SharedPreferencesUtils.put(mContext, "phone", phone);
                 SharedPreferencesUtils.put(mContext, "pwd", pwd);
-                toActivityFinish(MainActivity.class);
-                AppManager.getAppManager().finishAllActivity();
+                SharedPreferencesUtils.put(mContext,"token",loginRegisterBeanBaseResponse.getData().getToken());
+                toActivity(EditInformationActivity.class);
             }
         });
     }
