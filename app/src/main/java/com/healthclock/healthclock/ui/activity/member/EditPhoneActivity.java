@@ -1,4 +1,4 @@
-package com.healthclock.healthclock.ui.activity.login;
+package com.healthclock.healthclock.ui.activity.member;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,51 +7,43 @@ import android.widget.EditText;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.listener.IEditTextChangeListener;
-import com.healthclock.healthclock.network.model.BaseResponse;
-import com.healthclock.healthclock.network.model.EmptyEntity;
-import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.EditTextSizeCheckUtil;
-import com.healthclock.healthclock.util.L;
-import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.widget.BorderTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Subscriber;
 
-public class ForgetPwdActivity extends BaseActivity {
-
+public class EditPhoneActivity extends BaseActivity {
     @BindView(R.id.forget_et_phone)
     EditText etPhone;//手机号
     @BindView(R.id.forget_et_code)
     EditText etCode;//验证码
     @BindView(R.id.forget_et_newPwd)
-    EditText etPwd;//新密码
-    @BindView(R.id.forget_et_newPwd01)
-    EditText etPwd01;//再次密码
-    private String phone, pwd, code, pwd01;
+    EditText etPwd;//登录密码
 
     @BindView(R.id.send_code_btn)
     BorderTextView sendCode;
     @BindView(R.id.tv_confirm)
     BorderTextView tvConfirm;
-
+    private String phone;
+    private String pwd;
+    private String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_pwd);
+        setContentView(R.layout.activity_edit_phone);
         initUI();
     }
 
     private void initUI() {
-        setTitle("找回密码");
         setBackView();
+        setTitle("修改手机");
         EditTextSizeCheckUtil.textChangeListener textChangeListener = new EditTextSizeCheckUtil.textChangeListener(tvConfirm);
-        textChangeListener.addAllEditText(etPhone, etPwd, etCode, etPwd01);
+        textChangeListener.addAllEditText(etPhone, etPwd, etCode);
         EditTextSizeCheckUtil.setChangeListener(new IEditTextChangeListener() {
             @Override
             public void textChange(boolean isHasContent) {
@@ -67,7 +59,6 @@ public class ForgetPwdActivity extends BaseActivity {
             }
         });
     }
-
     @OnClick({R.id.send_code_btn, R.id.tv_confirm})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -83,42 +74,11 @@ public class ForgetPwdActivity extends BaseActivity {
                 phone = etPhone.getText().toString().trim();
                 pwd = etPwd.getText().toString().trim();
                 code = etCode.getText().toString().trim();
-                pwd01 = etPwd01.getText().toString().trim();
-                if (!pwd01.equals(pwd)) {
-                    T.showShort(mContext, "两次密码不一样，请重新输入");
-                    etPwd.setText("");
-                    etPwd01.setText("");
-                    return;
-                }
-                toFindPwd(phone, code, pwd);
+                //toFindPwd(phone, code, pwd);
                 break;
         }
     }
-
-    private void toFindPwd(final String phone, String code, final String pwd) {
-        RetrofitUtil.getInstance().getUserForgetPwd(phone, code, pwd, new Subscriber<BaseResponse<EmptyEntity>>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(BaseResponse<EmptyEntity> emptyEntityBaseResponse) {
-                SharedPreferencesUtils.put(mContext, "phone", phone);
-                SharedPreferencesUtils.put(mContext, "pwd", pwd);
-                toActivityFinish(LoginActivity.class);
-            }
-        });
-    }
-
     private void sendCode() {
 
     }
-
-
 }

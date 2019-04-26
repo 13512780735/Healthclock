@@ -95,7 +95,7 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
                 MultipartBody.Part.createFormData("file", file.getName(), requestFile);
         L.e("requestApiKey->" + requestToken);
         L.e("requestImgPart->" + requestImgPart);
-        RetrofitUtil.getInstance().UserUploadImg(requestToken, requestfile, new Subscriber<BaseResponse<EmptyEntity>>() {
+        RetrofitUtil.getInstance().UserUploadImg(requestToken, requestImgPart, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {
 

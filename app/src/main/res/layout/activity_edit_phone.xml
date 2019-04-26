@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.member.EditPhoneActivity">
+
+    <include layout="@layout/topbar_nor"></include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_edittext"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center|left"
+            android:text="@string/user_phone"
+            android:textColor="@color/black" />
+
+
+        <EditText
+            android:id="@+id/forget_et_phone"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:background="@null"
+            android:hint="@string/user_phone_hint"
+            android:inputType="number"
+            android:textColorHint="@color/gray"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/line"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_edittext"
+        android:layout_margin="10dip"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="left|center"
+            android:text="@string/user_code"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="7"
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/forget_et_code"
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:background="@null"
+                android:drawablePadding="10dip"
+                android:hint="@string/user_code_hint"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <com.healthclock.healthclock.widget.BorderTextView
+                android:id="@+id/send_code_btn"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dip"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:padding="10dip"
+                android:text="@string/user_get_code"
+                android:textColor="?title_text_color"
+                android:textSize="12sp"
+                app:contentBackColor="@color/white"
+                app:cornerRadius="@dimen/dp_20"
+                app:strokeColor01="?title_text_color"
+                app:strokeWidth01="1dp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/line"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dip_edittext"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center|left"
+            android:text="登录密码"
+            android:textColor="@color/black" />
+
+
+        <EditText
+            android:id="@+id/forget_et_newPwd"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:background="@null"
+            android:hint="请输入登录密码"
+            android:inputType="textPassword"
+            android:textColorHint="@color/gray"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/line"></View>
+
+
+
+    <com.healthclock.healthclock.widget.BorderTextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_20"
+        android:gravity="center"
+        android:padding="8dip"
+        android:text="@string/user_confirm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16"
+        app:contentBackColor="@color/bt_gray"
+        app:cornerRadius="@dimen/dp_20"
+        app:strokeColor01="@color/bt_gray"
+        app:strokeWidth01="1dp" />
+</LinearLayout>

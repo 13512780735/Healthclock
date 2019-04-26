@@ -127,7 +127,8 @@ public class LoginActivity extends BaseActivity {
                 L.e("点击了");
                 phone = etPhone.getText().toString().trim();
                 pwd = etPwd.getText().toString().trim();
-                login(phone, pwd, "0");
+               // login(phone, pwd, "0");
+                toActivity(MainActivity.class);
                 break;
             case R.id.tv_register_account:
                 toActivity(RegisterActivity.class);

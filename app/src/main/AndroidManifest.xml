@@ -80,7 +80,18 @@
         </provider>
 
         <activity android:name=".ui.activity.member.IndentActivity" />
-        <activity android:name=".ui.activity.member.UserInfoActivity"></activity>
+        <activity android:name=".ui.activity.member.UserInfoActivity" />
+        <activity android:name=".ui.activity.member.EditPhoneActivity" />
+        <activity android:name=".ui.activity.member.VideoRecordActivity" />
+        <activity android:name=".ui.activity.member.EditPwdActivity" />
+        <activity android:name=".ui.activity.member.FeedbackActivity" />
+        <activity android:name=".ui.activity.member.MyWalletActivity" />
+        <activity android:name=".ui.activity.member.InvitationCodeActivity" />
+        <activity android:name=".ui.activity.member.SelectAddressActivity" />
+        <activity android:name=".ui.activity.member.EditAddressActivity" />
+        <activity android:name=".ui.activity.member.HealthScoreActivity" />
+        <activity android:name=".ui.activity.member.HealthManagementActivity" />
+        <activity android:name=".ui.activity.member.HealthRecordsActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@
     //图标颜色
     <color name="white">#fff</color>
     <color name="gray">#5000</color>
+    <color name="hint_color">#5000</color>
     <color name="black">#000</color>
     <color name="bt_gray">#999999</color>
     <color name="text_color">#656565</color>

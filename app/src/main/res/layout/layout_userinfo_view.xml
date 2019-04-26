@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="@dimen/dp_10"
+            android:textColor="@color/black"
             android:text="修改头像" />
 
         <LinearLayout
@@ -54,16 +57,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:paddingLeft="@dimen/dp_10"
+            android:textColor="@color/black"
             android:paddingRight="@dimen/dp_5"
             android:text="手机号" />
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/tv_bind01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_toRightOf="@+id/tv_tv01"
-            android:textColorHint="@color/black" />
+            android:text="xxx"
+            android:layout_marginRight="@dimen/dp_10"
+            android:textColorHint="@color/black" />-->
 
         <LinearLayout
             android:id="@+id/ll_bind"
@@ -79,7 +85,7 @@
                 android:layout_marginRight="@dimen/dp_10"
                 android:gravity="center_vertical"
                 android:padding="@dimen/dp_10"
-                android:text="绑定" />
+                android:text="修改手机" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -90,10 +96,6 @@
 
         </LinearLayout>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/line"></View>
 
     <LinearLayout
         android:id="@+id/ll_nickName"
@@ -101,6 +103,7 @@
         android:layout_height="@dimen/dp_50"
         android:layout_gravity="center_vertical"
         android:background="@color/white"
+        android:layout_marginTop="@dimen/dp_10"
         android:orientation="horizontal">
 
         <TextView
@@ -122,7 +125,7 @@
             android:background="@null"
             android:textSize="@dimen/sp_14"
             android:hint="请输入昵称"
-            android:textColorHint="@color/text_color" />
+            android:textColorHint="@color/hint_color" />
     </LinearLayout>
 
 
@@ -148,17 +151,19 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
-                android:text="姓名" />
+                android:textColor="@color/black"
+                android:text="职业" />
 
             <EditText
-                android:id="@+id/ed_name"
+                android:id="@+id/ed_profession"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="3"
                 android:background="@null"
-                android:hint="请输入您的姓名"
-                android:textColorHint="@color/text_color" />
+                android:textSize="@dimen/sp_14"
+                android:hint="请输入您的职业"
+                android:textColorHint="@color/hint_color" />
         </LinearLayout>
 
 
@@ -174,48 +179,32 @@
             android:layout_height="@dimen/dp_50"
             android:layout_gravity="center_vertical"
             android:layout_marginTop="@dimen/dp_10"
+            android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
-                android:text="性别" />
+                android:text="性别"
+                android:textColor="@color/black" />
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
+            <TextView
+                android:id="@+id/tv_sex"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:background="@null"
+                android:drawableRight="@mipmap/icon_more"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    style="@style/RadioButtonStyles"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:padding="10dp"
-                    android:text="男" />
-
-                <RadioButton
-                    android:id="@+id/radioButton1"
-                    style="@style/RadioButtonStyles"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="女" />
-
-            </RadioGroup>
+                android:drawablePadding="@dimen/dp_20"
+                android:hint="请选择性别"
+                android:textColor="@color/black"
+                android:paddingRight="@dimen/dp_10"
+                android:textColorHint="@color/gray" />
         </LinearLayout>
 
 
@@ -238,6 +227,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_10"
+                android:textColor="@color/black"
                 android:text="出生日期" />
 
             <TextView
@@ -251,7 +241,7 @@
                 android:gravity="center_vertical"
                 android:hint="请选择出生日期"
                 android:paddingRight="@dimen/dp_10"
-                android:textColorHint="@color/text_color" />
+                android:textColorHint="@color/hint_color" />
         </LinearLayout>
 
 
@@ -260,40 +250,6 @@
             android:layout_height="1dp"
             android:background="@color/line"></View>
 
-        <LinearLayout
-            android:id="@+id/ll_address"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_10"
-                android:text="所在地区" />
-
-            <TextView
-                android:id="@+id/tv_address"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="3"
-                android:background="@null"
-                android:drawableRight="@mipmap/icon_more"
-                android:gravity="center_vertical"
-                android:hint="请选择城市"
-                android:paddingRight="@dimen/dp_10"
-                android:textColorHint="@color/text_color" />
-        </LinearLayout>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"></View>
 
 
     </LinearLayout>

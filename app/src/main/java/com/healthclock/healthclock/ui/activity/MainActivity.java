@@ -3,9 +3,11 @@ package com.healthclock.healthclock.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.ui.fragment.main.AlarmClockFragment;
@@ -13,6 +15,7 @@ import com.healthclock.healthclock.ui.fragment.main.MemberFragment;
 import com.healthclock.healthclock.ui.fragment.main.ShopFragment;
 import com.healthclock.healthclock.ui.adapter.FragPagerAdapter;
 import com.healthclock.healthclock.ui.base.BaseActivity;
+import com.healthclock.healthclock.util.AppManager;
 import com.healthclock.healthclock.util.PermissionUtil;
 import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.widget.IconFontTextView;
@@ -121,5 +124,22 @@ public class MainActivity extends BaseActivity {
         icon.setTextColor(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));
         textView.setTextColor(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));
     }
+    private long firstTime = 0;
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        long secondTime = System.currentTimeMillis();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (secondTime - firstTime < 2000) {
+                //finish();
+                AppManager.getAppManager().finishAllActivity();
+                // System.exit(0);
+            } else {
+                Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                firstTime = System.currentTimeMillis();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
