@@ -30,7 +30,7 @@ dependencies {
     //皮肤设置
     implementation project(':android-multi-theme')
     implementation project(':datelibrary')
-
+    implementation project(':addresslibrary')
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     //网络
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'

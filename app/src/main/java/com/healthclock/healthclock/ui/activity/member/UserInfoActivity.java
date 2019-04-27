@@ -22,6 +22,7 @@ import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.EmptyEntity;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
+import com.healthclock.healthclock.ui.activity.login.LoginActivity;
 import com.healthclock.healthclock.ui.activity.login.PerfectInformationActivity;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.L;
@@ -107,6 +108,11 @@ public class UserInfoActivity extends BaseActivity implements ActionSheet.OnActi
                 L.e("msg->"+baseResponse.getMsg());
                 if (baseResponse.getStatus() == 1) {
                     T.showShort(mContext, baseResponse.getMsg());
+                }else if (baseResponse.getStatus() == -1) {
+                    T.showShort(mContext, baseResponse.getMsg());
+                    Bundle bundle=new Bundle();
+                    bundle.putString("isLogin","1");
+                    toActivity(LoginActivity.class,bundle);
                 } else {
                     T.showShort(mContext, baseResponse.getMsg());
                 }

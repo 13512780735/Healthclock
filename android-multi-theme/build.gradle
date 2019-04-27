@@ -51,7 +51,6 @@ install {
                 developers {
                     developer {
                         id 'leonhover'
-                        name '王宗亮'
                         email 'leonhover@gmail.com'
                     }
                 }

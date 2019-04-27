@@ -7,6 +7,8 @@ import com.healthclock.healthclock.network.api.ApiService;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.EmptyEntity;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
+import com.healthclock.healthclock.network.model.indent.AddressModel;
+import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.network.model.user.UserInfoModel;
 import com.ihsanbal.logging.Level;
@@ -109,6 +111,7 @@ public class RetrofitUtil {
 
     /**
      * 退出登录
+     *
      * @param token
      * @param subscriber
      */
@@ -157,6 +160,7 @@ public class RetrofitUtil {
 
     /**
      * 获取用户信息
+     *
      * @param token
      * @param subscriber
      */
@@ -239,6 +243,99 @@ public class RetrofitUtil {
                 .subscribe(subscriber);
     }
 
+    /**
+     * 添加地址
+     * @param token
+     * @param phone
+     * @param contact
+     * @param province
+     * @param city
+     * @param district
+     * @param detail
+     * @param subscriber
+     */
+    public void addAddress(String token,  String phone, String contact, String province, String city, String district, String detail,
+                            Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.addAddress(token,  phone, contact, province, city, district, detail)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+    /**
+     * 获取收货地址
+     *
+     * @param token
+     * @param subscriber
+     */
+    public void GetAddressList(String token, String page,
+                               Subscriber<BaseResponse<AddressModel>> subscriber) {
+        mApiService.GetAddressList(token, page)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取用户默认地址
+     *
+     * @param token
+     * @param subscriber
+     */
+    public void defaultAddress(String token,
+                               Subscriber<BaseResponse<DefaultAddressModel>> subscriber) {
+        mApiService.defaultAddress(token)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 设置默认地址
+     *
+     * @param token
+     * @param subscriber
+     */
+    public void isDefaultAddress(String token, String id,
+                                 Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.isDefaultAddress(token, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 删除地址
+     *
+     * @param token
+     * @param subscriber
+     */
+    public void deleteAddress(String token, String id,
+                              Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.deleteAddress(token, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 编辑地址
+     *
+     * @param token
+     * @param subscriber
+     */
+    public void editAddress(String token, String id, String phone, String contact, String province, String city, String district, String detail,
+                            Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.editAddress(token, id, phone, contact, province, city, district, detail)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
 
     private <T> void toSubscribe(Observable<T> observable, Subscriber<T> subscriber) {
         observable.subscribeOn(Schedulers.io())

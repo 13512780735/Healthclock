@@ -148,10 +148,11 @@ public class MemberFragment extends BaseFragment {
                     T.showShort(getActivity(), baseResponse.getMsg());
                     toActivityFinish(LoginActivity.class);
                     AppManager.getAppManager().finishAllActivity();
-                } else if (baseResponse.getStatus() == -1) {
+                }else if (baseResponse.getStatus() == -1) {
                     T.showShort(getActivity(), baseResponse.getMsg());
-                    toActivityFinish(LoginActivity.class);
-                    AppManager.getAppManager().finishAllActivity();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("isLogin","1");
+                    toActivity(LoginActivity.class,bundle);
                 } else {
                     T.showShort(getActivity(), baseResponse.getMsg());
                 }

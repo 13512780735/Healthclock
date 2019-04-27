@@ -1,22 +1,23 @@
 package com.healthclock.healthclock.network.model.indent;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class AddressModel {
+
+
     /**
-     * total : 3
-     * list : [{"id":"777","realname":"aaa","province":"北京","city":"石家庄市","area":"井陉矿区","address":"31231","mobile":"12312312123"},{"id":"758","realname":"李四","province":"广东","city":"中山","area":"东区","address":"测试1","mobile":"12345678978"},{"id":"778","realname":"111","province":"天津","city":"唐山市","area":"井陉矿区","address":"2222","mobile":"1111"}]
+     * total : 2
+     * list : [{"address":"测试地址","city":"长沙","country":"","district":"长沙","id":1,"isdefault":false,"isvalid":true,"province":"湖南","remark":"","userId":6},{"address":"测试地址","city":"长沙","country":"","district":"株洲","id":2,"isdefault":true,"isvalid":true,"province":"湖南","remark":"","userId":6}]
      */
 
-    private String total;
+    private int total;
     private List<ListBean> list;
 
-    public String getTotal() {
+    public int getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(int total) {
         this.total = total;
     }
 
@@ -28,79 +29,37 @@ public class AddressModel {
         this.list = list;
     }
 
-    public static class ListBean implements Serializable {
+    public static class ListBean {
         /**
-         * id : 777
-         * realname : aaa
-         * province : 北京
-         * city : 石家庄市
-         * area : 井陉矿区
-         * address : 31231
-         * mobile : 12312312123
+         * address : 测试地址
+         * city : 长沙
+         * country :
+         * district : 长沙
+         * id : 1
+         * isdefault : false
+         * isvalid : true
+         * province : 湖南
+         * remark :
+         * userId : 6
          */
-        public ListBean() {
-        }
 
-        private String id;
-        private String realname;
-        private String province;
-        private String city;
-        private String area;
         private String address;
-        private String mobile;
-        /**
-         * 0 为被选中
-         * 1 是默认选中的
-         */
-        private String isdefault = "0";
+        private String city;
+        private String country;
+        private String district;
+        private int id;
+        private boolean isdefault;
+        private boolean isvalid;
+        private String province;
+        private String remark;
+        private int userId;
 
-        public ListBean(String id, String realname, String province, String isdefault, String city, String area, String address, String mobile) {
-            this.id = id;
-            this.realname = realname;
-            this.mobile = mobile;
-            this.isdefault = isdefault;
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
             this.address = address;
-            this.province = province;
-            this.city = city;
-            this.area = area;
-        }
-
-        @Override
-        public String toString() {
-            return "ListBean{" +
-                    "id='" + id + '\'' +
-                    ", realname='" + realname + '\'' +
-                    ", province='" + province + '\'' +
-                    ", city='" + city + '\'' +
-                    ", area='" + area + '\'' +
-                    ", address='" + address + '\'' +
-                    ", mobile='" + mobile + '\'' +
-                    ", isdefault='" + isdefault + '\'' +
-                    '}';
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getRealname() {
-            return realname;
-        }
-
-        public void setRealname(String realname) {
-            this.realname = realname;
-        }
-
-        public String getProvince() {
-            return province;
-        }
-
-        public void setProvince(String province) {
-            this.province = province;
         }
 
         public String getCity() {
@@ -111,36 +70,68 @@ public class AddressModel {
             this.city = city;
         }
 
-        public String getArea() {
-            return area;
+        public String getCountry() {
+            return country;
         }
 
-        public void setArea(String area) {
-            this.area = area;
+        public void setCountry(String country) {
+            this.country = country;
         }
 
-        public String getAddress() {
-            return address;
+        public String getDistrict() {
+            return district;
         }
 
-        public void setAddress(String address) {
-            this.address = address;
+        public void setDistrict(String district) {
+            this.district = district;
         }
 
-        public String getMobile() {
-            return mobile;
+        public int getId() {
+            return id;
         }
 
-        public void setMobile(String mobile) {
-            this.mobile = mobile;
+        public void setId(int id) {
+            this.id = id;
         }
 
-        public String getIsdefault() {
+        public boolean isIsdefault() {
             return isdefault;
         }
 
-        public void setIsdefault(String isdefault) {
+        public void setIsdefault(boolean isdefault) {
             this.isdefault = isdefault;
+        }
+
+        public boolean isIsvalid() {
+            return isvalid;
+        }
+
+        public void setIsvalid(boolean isvalid) {
+            this.isvalid = isvalid;
+        }
+
+        public String getProvince() {
+            return province;
+        }
+
+        public void setProvince(String province) {
+            this.province = province;
+        }
+
+        public String getRemark() {
+            return remark;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
         }
     }
 }

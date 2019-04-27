@@ -167,6 +167,11 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
                     T.showShort(mContext, baseResponse.getMsg());
                     toActivityFinish(MainActivity.class);
                     AppManager.getAppManager().finishAllActivity();
+                }else if (baseResponse.getStatus() == -1) {
+                    T.showShort(mContext, baseResponse.getMsg());
+                    Bundle bundle=new Bundle();
+                    bundle.putString("isLogin","1");
+                    toActivity(LoginActivity.class,bundle);
                 } else {
                     T.showShort(mContext, baseResponse.getMsg());
                 }

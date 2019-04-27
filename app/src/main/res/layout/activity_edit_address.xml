@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
+                android:textColor="@color/black"
                 android:text="收件人" />
 
             <EditText
@@ -41,6 +42,7 @@
                 android:background="@null"
                 android:hint="请填写收件人姓名"
                 android:padding="@dimen/dp_10"
+                android:textSize="@dimen/sp_14"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hint_color" />
 
@@ -61,6 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:padding="@dimen/dp_10"
                 android:text="联系电话" />
 
@@ -73,6 +76,7 @@
                 android:hint="请填写联系电话"
                 android:inputType="number"
                 android:padding="@dimen/dp_10"
+                android:textSize="@dimen/sp_14"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hint_color" />
 
@@ -94,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
+                android:textColor="@color/black"
                 android:text="所在地区" />
 
             <TextView
@@ -103,6 +108,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="所在地区"
+                android:textSize="@dimen/sp_14"
                 android:padding="@dimen/dp_10"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hint_color" />
@@ -130,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
+                android:textColor="@color/black"
                 android:text="详细地址" />
 
             <EditText
@@ -138,12 +145,49 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@null"
+                android:textSize="@dimen/sp_14"
                 android:hint="街道，楼牌号等"
                 android:padding="@dimen/dp_10"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hint_color" />
 
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"></View>
+
+
+        <LinearLayout
+            android:id="@+id/ll_set_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:padding="@dimen/dp_10">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:textColor="@color/black"
+                android:text="设置默认地址" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_10"
+                android:layout_height="wrap_content">
+            <Switch
+                android:id="@+id/sw_onOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:thumb="@drawable/switch_custom_thumb_selector"
+                android:track="@drawable/switch_custom_track_selector" />
+            </RelativeLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
     <com.healthclock.healthclock.widget.BorderTextView

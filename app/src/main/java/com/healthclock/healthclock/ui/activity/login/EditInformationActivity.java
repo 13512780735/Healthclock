@@ -131,8 +131,13 @@ public class EditInformationActivity extends BaseActivity {
                 if(baseResponse.getStatus()==1){
                     T.showShort(mContext,baseResponse.getMsg());
                     toActivity(PerfectInformationActivity.class);
-                }
-                T.showShort(mContext,baseResponse.getMsg());
+                }else if (baseResponse.getStatus() == -1) {
+                    T.showShort(mContext, baseResponse.getMsg());
+                    Bundle bundle=new Bundle();
+                    bundle.putString("isLogin","1");
+                    toActivity(LoginActivity.class,bundle);
+                }else {
+                T.showShort(mContext,baseResponse.getMsg());}
             }
         });
     }

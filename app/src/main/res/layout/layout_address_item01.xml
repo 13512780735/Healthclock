@@ -1,114 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     android:background="#ffffff"
-    android:orientation="vertical">
-
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp_10">
-
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:text="xx"
-            android:textColor="#444444"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_toRightOf="@+id/tv_name"
-            android:text="xx"
-            android:textColor="#444444"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-
-    <TextView
-        android:id="@+id/tv_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:paddingLeft="@dimen/dp_10"
-        android:text="xx"
-        android:textColor="#656565"
-        android:textSize="14sp" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_30"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10">
-
-        <CheckBox
-            android:id="@+id/cb_selected"
-            style="@style/mycheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:clickable="true" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_10">
+
 
             <TextView
-                android:id="@+id/iv_edit_address01"
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/sp_14"
-                android:textColor="#444444"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
                 android:text="xx"
-                />
+                android:textColor="#444444"
+                android:textSize="16sp" />
+
             <TextView
-                android:id="@+id/iv_edit_address"
+                android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="xx"
-                android:layout_marginLeft="@dimen/dp_5"
-                android:paddingRight="@dimen/dp_5"
-                android:paddingLeft="@dimen/dp_5"
-                android:gravity="center_vertical"
-                android:textColor="#444444"
-                />
-            <TextView
-                android:id="@+id/iv_del_address01"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="xx"
-                android:textSize="@dimen/sp_14"
-                android:textColor="#444444"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
-                />
-            <TextView
-                android:id="@+id/iv_del_address"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_toRightOf="@+id/tv_name"
                 android:text="xx"
                 android:textColor="#444444"
-                android:paddingRight="@dimen/dp_5"
-                android:paddingLeft="@dimen/dp_5"
-                android:layout_marginLeft="@dimen/dp_5"
-                />
+                android:textSize="16sp" />
         </LinearLayout>
-    </RelativeLayout>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10">
+
+            <com.healthclock.healthclock.widget.BorderTextView
+                android:id="@+id/tv_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="4dip"
+                android:text="默认"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12"
+                app:contentBackColor="?title_text_color"
+                android:layout_marginRight="@dimen/dp_10"
+                app:cornerRadius="@dimen/dp_4"
+                app:strokeColor01="?title_text_color"
+                app:strokeWidth01="1dp" />
+
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:padding="@dimen/dp_20"
+        android:text="编辑" />
 </LinearLayout>

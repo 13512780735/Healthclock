@@ -3,6 +3,8 @@ package com.healthclock.healthclock.network.api;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.EmptyEntity;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
+import com.healthclock.healthclock.network.model.indent.AddressModel;
+import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.network.model.user.UserInfoModel;
 
@@ -52,6 +54,7 @@ public interface ApiService {
 
     /**
      * 退出登录
+     *
      * @param token
      * @return
      */
@@ -94,12 +97,13 @@ public interface ApiService {
 
     /**
      * 获取用户信息
+     *
      * @param token
      * @return
      */
 
     @FormUrlEncoded
-    @POST("/member/info")
+    @POST("member/info")
     Observable<BaseResponse<UserInfoModel>> GetUserInfo(@Field("token") String token
     );
 
@@ -119,7 +123,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/member/info/edit")
+    @POST("member/info/edit")
     Observable<BaseResponse<EmptyEntity>> UserInfoEdit(@Field("token") String token,
                                                        @Field("head_img") String head_img,
                                                        @Field("phone") String phone,
@@ -140,7 +144,7 @@ public interface ApiService {
      * @return
      */
     @Multipart
-    @POST("/member/upload/header")
+    @POST("member/upload/header")
     Observable<BaseResponse<EmptyEntity>> UserUploadImg(@Part("token") RequestBody token,
                                                         @Part MultipartBody.Part file
     );
@@ -172,7 +176,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/health/save")
+    @POST("health/save")
     Observable<BaseResponse<healthInfoModel>> UserHealthSave(@Field("token") String token,
                                                              @Field("age") String age,
                                                              @Field("blood") String blood,
@@ -190,5 +194,102 @@ public interface ApiService {
                                                              @Field("morningWood") String morningWood,
                                                              @Field("runNumber") String runNumber,
                                                              @Field("remark") String remark
+    );
+
+    /**
+     * 获取地址列表
+     *
+     * @param token
+     * @param page
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("address/list")
+    Observable<BaseResponse<AddressModel>> GetAddressList(@Field("token") String token,
+                                                          @Field("page") String page
+    );
+
+    /**
+     * 添加地址
+     * @param token
+     * @param phone
+     * @param contact
+     * @param province
+     * @param city
+     * @param district
+     * @param detail
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("address/add")
+    Observable<BaseResponse<EmptyEntity>> addAddress(@Field("token") String token,
+                                                          @Field("phone") String phone,
+                                                          @Field("contact") String contact,
+                                                          @Field("province") String province,
+                                                          @Field("city") String city,
+                                                          @Field("district") String district,
+                                                          @Field("detail") String detail
+    );
+
+    /**
+     * 获取用户默认地址
+     *
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("address/default")
+    Observable<BaseResponse<DefaultAddressModel>> defaultAddress(@Field("token") String token
+    );
+
+    /**
+     * 设置默认地址
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("address/isDefault")
+    Observable<BaseResponse<EmptyEntity>> isDefaultAddress(@Field("token") String token,
+                                                           @Field("id") String id
+    );
+
+    /**
+     * 删除地址
+     *
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("address/delete")
+    Observable<BaseResponse<EmptyEntity>> deleteAddress(@Field("token") String token,
+                                                        @Field("id") String id
+    );
+
+    /**
+     * 编辑地址
+     *
+     * @param token
+     * @param id
+     * @param phone
+     * @param contact
+     * @param province
+     * @param city
+     * @param district
+     * @param detail
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("address/eidt")
+    Observable<BaseResponse<EmptyEntity>> editAddress(@Field("token") String token,
+                                                      @Field("id") String id,
+                                                      @Field("phone") String phone,
+                                                      @Field("contact") String contact,
+                                                      @Field("province") String province,
+                                                      @Field("city") String city,
+                                                      @Field("district") String district,
+                                                      @Field("detail") String detail
     );
 }

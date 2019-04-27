@@ -47,11 +47,13 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_login)
     BorderTextView tvLogin;
     private String phone, pwd;
+    private String isLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        isLogin = getIntent().getExtras().getString("isLogin");
         initUI();
         addListeners();
     }
@@ -127,15 +129,15 @@ public class LoginActivity extends BaseActivity {
                 L.e("点击了");
                 phone = etPhone.getText().toString().trim();
                 pwd = etPwd.getText().toString().trim();
-               // login(phone, pwd, "0");
-                toActivity(MainActivity.class);
+                login(phone, pwd, "0");
+                //  toActivity(MainActivity.class);
                 break;
             case R.id.tv_register_account:
                 toActivity(RegisterActivity.class);
                 break;
             case R.id.tv_forget_pwd:
-                //toActivity(ForgetPwdActivity.class);
-                toActivity(EditInformationActivity.class);
+                toActivity(ForgetPwdActivity.class);
+                // toActivity(EditInformationActivity.class);
                 break;
         }
     }
@@ -160,7 +162,12 @@ public class LoginActivity extends BaseActivity {
                     SharedPreferencesUtils.put(mContext, "phone", phone);
                     SharedPreferencesUtils.put(mContext, "pwd", pwd);
                     SharedPreferencesUtils.put(mContext, "token", baseResponse.getData().getToken());
-                    toActivity(MainActivity.class);
+                    if ("0".equals(isLogin)) {
+                        toActivity(MainActivity.class);
+                    } else {
+                        finish();
+                    }
+
                 }
             }
         });
