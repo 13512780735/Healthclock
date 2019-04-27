@@ -29,6 +29,8 @@ import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.activity.login.LoginActivity;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.AppManager;
+import com.healthclock.healthclock.util.L;
+import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.widget.BorderTextView;
@@ -66,6 +68,13 @@ public class SelectAddressActivity extends BaseActivity implements SwipeRefreshL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_address);
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initUI();
     }
 
@@ -89,6 +98,7 @@ public class SelectAddressActivity extends BaseActivity implements SwipeRefreshL
     }
 
     private void initData(int pageNum, final boolean isloadmore) {
+        String token = getToken(mContext);
         RetrofitUtil.getInstance().GetAddressList(token, String.valueOf(pageNum), new Subscriber<BaseResponse<AddressModel>>() {
             @Override
             public void onCompleted() {
@@ -118,12 +128,13 @@ public class SelectAddressActivity extends BaseActivity implements SwipeRefreshL
 
                 } else if (baseResponse.getStatus() == -1) {
                     T.showShort(mContext, baseResponse.getMsg());
-                    Bundle bundle=new Bundle();
-                    bundle.putString("isLogin","1");
-                    toActivity(LoginActivity.class,bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("isLogin", "1");
+                    toActivity(LoginActivity.class, bundle);
                 } else {
                     mAdapter.setEmptyView(R.layout.notdata_view);
-                    showProgress(baseResponse.getMsg());
+                   // T.showShort(mContext, baseResponse.getMsg());
+
                 }
 
             }
@@ -159,6 +170,8 @@ public class SelectAddressActivity extends BaseActivity implements SwipeRefreshL
                     bundle.putString("province", item.getProvince());
                     bundle.putString("city", item.getCity());
                     bundle.putString("area", item.getDistrict());
+                    bundle.putBoolean("isdefault", item.isIsdefault());
+
                     intent.putExtras(bundle);
                     startActivityForResult(intent, 1000);
                 }
@@ -228,7 +241,7 @@ public class SelectAddressActivity extends BaseActivity implements SwipeRefreshL
                 bundle.putString("province", "");
                 bundle.putString("city", "");
                 bundle.putString("area", "");
-                toActivity(EditAddressActivity.class, bundle);
+                bundle.putBoolean("isdefault", false);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 1000);
                 break;

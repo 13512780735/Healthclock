@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/11.
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     protected final static int DATA_LOAD_ING = 0x001;
     protected final static int DATA_LOAD_COMPLETE = 0x002;
     protected final static int DATA_LOAD_FAIL = 0x003;
@@ -62,7 +62,8 @@ public class BaseActivity extends AppCompatActivity {
         mContext = this;
         AppManager.getAppManager().addActivity(this);
         loaddingDialog = new LoaddingDialog(this);
-        token = SharedPreferencesUtils.getString(this, "token");
+       // token = SharedPreferencesUtils.getString(this, "token");
+        token= getToken(this);
 
     }
 
@@ -401,5 +402,10 @@ public class BaseActivity extends AppCompatActivity {
         if (!loaddingDialog.isShowing()) {
             loaddingDialog.show();
         }
+    }
+
+    public static String getToken(Context context) {
+       String token=SharedPreferencesUtils.getString(context,"token");
+        return token;
     }
 }

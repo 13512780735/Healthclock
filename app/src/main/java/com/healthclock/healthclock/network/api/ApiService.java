@@ -2,6 +2,7 @@ package com.healthclock.healthclock.network.api;
 
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.EmptyEntity;
+import com.healthclock.healthclock.network.model.good.ShopListModel;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
 import com.healthclock.healthclock.network.model.indent.AddressModel;
 import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
@@ -59,7 +60,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("/member/logout")
+    @POST("member/logout")
     Observable<BaseResponse<EmptyEntity>> UserLogout(@Field("token") String token
     );
 
@@ -291,5 +292,11 @@ public interface ApiService {
                                                       @Field("city") String city,
                                                       @Field("district") String district,
                                                       @Field("detail") String detail
+            );
+    @FormUrlEncoded
+    @POST("shop/list")
+    Observable<BaseResponse<ShopListModel>> GetShopList(@Field("token") String token,
+                                                        @Field("category") String category,
+                                                        @Field("page") String page
     );
 }

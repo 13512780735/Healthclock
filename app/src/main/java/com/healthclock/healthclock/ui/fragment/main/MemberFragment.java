@@ -23,6 +23,7 @@ import com.healthclock.healthclock.ui.activity.member.UserInfoActivity;
 import com.healthclock.healthclock.ui.activity.member.VideoRecordActivity;
 import com.healthclock.healthclock.ui.base.BaseFragment;
 import com.healthclock.healthclock.util.AppManager;
+import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.T;
 
 import android.view.View;
@@ -146,7 +147,11 @@ public class MemberFragment extends BaseFragment {
             public void onNext(BaseResponse<EmptyEntity> baseResponse) {
                 if (baseResponse.getStatus() == 1) {
                     T.showShort(getActivity(), baseResponse.getMsg());
-                    toActivityFinish(LoginActivity.class);
+                    SharedPreferencesUtils.put(getContext(),"pwd","");
+                    Bundle bundle=new Bundle();
+                    bundle.putString("isLogin","0");
+                    toActivity(LoginActivity.class,bundle);
+                    getActivity().finish();
                     AppManager.getAppManager().finishAllActivity();
                 }else if (baseResponse.getStatus() == -1) {
                     T.showShort(getActivity(), baseResponse.getMsg());

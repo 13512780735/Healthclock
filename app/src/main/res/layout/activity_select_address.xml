@@ -32,8 +32,8 @@
         android:text="新增地址"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16"
-        app:contentBackColor="@color/bt_gray"
+        app:contentBackColor="?title_text_color"
         app:cornerRadius="@dimen/dp_20"
-        app:strokeColor01="@color/bt_gray"
+        app:strokeColor01="?title_text_color"
         app:strokeWidth01="1dp" />
 </LinearLayout>

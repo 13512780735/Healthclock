@@ -63,6 +63,7 @@ public class EditAddressActivity extends BaseActivity {
     private String id, address, realname, mobile, province, city, area;
     private LinkageDialog dialog;
     private List<LinkageItem> cityList;
+    private boolean isdefault;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +79,16 @@ public class EditAddressActivity extends BaseActivity {
         province = getIntent().getExtras().getString("province");
         city = getIntent().getExtras().getString("city");
         area = getIntent().getExtras().getString("area");
+        isdefault = getIntent().getExtras().getBoolean("isdefault");
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initUI();
         initCityBtn();
-        // initData();
-
-
     }
 
     private void initCityBtn() {
@@ -105,16 +111,16 @@ public class EditAddressActivity extends BaseActivity {
     }
 
     //
-    private void initData() {
-        String json = getJson("city1.json");
-        Gson gson = new Gson();
-        Type type = new TypeToken<ArrayList<ProvincesModel>>() {
-        }.getType();
-        List<ProvincesModel> citys = gson.fromJson(json, type);
-        List<LinkageItem> cityList = new ArrayList<>();
-        cityList.addAll(citys);
-        // return cityList;
-    }
+//    private void initData() {
+//        String json = getJson("city1.json");
+//        Gson gson = new Gson();
+//        Type type = new TypeToken<ArrayList<ProvincesModel>>() {
+//        }.getType();
+//        List<ProvincesModel> citys = gson.fromJson(json, type);
+//        List<LinkageItem> cityList = new ArrayList<>();
+//        cityList.addAll(citys);
+//        // return cityList;
+//    }
 
     //
     public String getJson(String fileName) {
@@ -152,6 +158,14 @@ public class EditAddressActivity extends BaseActivity {
                     deleteAddress();
                 }
             });
+            mTvSave.setContentColorResource01(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));
+            mTvSave.setStrokeColor01(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));
+            mTvSave.setEnabled(true);
+        }
+        if(isdefault){
+            sw_onOff.setChecked(true);
+        }else {
+            sw_onOff.setChecked(false);
         }
         mEdRecipientsName.setText(realname);
         mEdRecipientsPhone.setText(mobile);
@@ -210,6 +224,7 @@ public class EditAddressActivity extends BaseActivity {
      * 设置默认地址
      */
     private void setDefault() {
+        String token=getToken(mContext);
         RetrofitUtil.getInstance().isDefaultAddress(token, id, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {
@@ -239,6 +254,7 @@ public class EditAddressActivity extends BaseActivity {
      * 删除地址
      */
     private void deleteAddress() {
+        String token=getToken(mContext);
         RetrofitUtil.getInstance().deleteAddress(token, id, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {
@@ -260,7 +276,9 @@ public class EditAddressActivity extends BaseActivity {
                     finish();
                 }  else if (baseResponse.getStatus() == -1) {
                     T.showShort(mContext, baseResponse.getMsg());
-                    toActivity(LoginActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString("isLogin","1");
+                    toActivity(LoginActivity.class,bundle);
                 }else {
                     showToast(baseResponse.getMsg());
                 }
@@ -275,6 +293,7 @@ public class EditAddressActivity extends BaseActivity {
      * 编辑地址
      */
     private void editAdress() {
+        String token=getToken(mContext);
         RetrofitUtil.getInstance().editAddress(token, id, realname, mobile, province, city, area, address, new Subscriber<BaseResponse<EmptyEntity>>() {
             @Override
             public void onCompleted() {
@@ -309,6 +328,7 @@ public class EditAddressActivity extends BaseActivity {
      * 添加地址
      */
     private void addAdress() {
+        String token=getToken(mContext);
         realname = mEdRecipientsName.getText().toString().trim();
         mobile = mEdRecipientsPhone.getText().toString().trim();
         address = mEdRecipientsDetailedAddress.getText().toString().trim();
