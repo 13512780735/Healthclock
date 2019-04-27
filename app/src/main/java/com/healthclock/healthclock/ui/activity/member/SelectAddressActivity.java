@@ -118,8 +118,9 @@ public class SelectAddressActivity extends BaseActivity implements SwipeRefreshL
 
                 } else if (baseResponse.getStatus() == -1) {
                     T.showShort(mContext, baseResponse.getMsg());
-                    toActivityFinish(LoginActivity.class);
-                    AppManager.getAppManager().finishAllActivity();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("isLogin","1");
+                    toActivity(LoginActivity.class,bundle);
                 } else {
                     mAdapter.setEmptyView(R.layout.notdata_view);
                     showProgress(baseResponse.getMsg());
