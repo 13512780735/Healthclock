@@ -24,6 +24,7 @@ import android.hardware.Camera;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
+
 import com.google.zxing.PlanarYUVLuminanceSource;
 import com.king.zxing.camera.open.OpenCamera;
 import com.king.zxing.camera.open.OpenCameraInterface;

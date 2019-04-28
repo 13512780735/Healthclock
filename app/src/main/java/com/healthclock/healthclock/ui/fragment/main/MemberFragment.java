@@ -10,6 +10,7 @@ import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.EmptyEntity;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.activity.login.LoginActivity;
+import com.healthclock.healthclock.ui.activity.main.CodeActivity;
 import com.healthclock.healthclock.ui.activity.member.EditPwdActivity;
 import com.healthclock.healthclock.ui.activity.member.FeedbackActivity;
 import com.healthclock.healthclock.ui.activity.member.HealthManagementActivity;
@@ -35,6 +36,11 @@ import rx.Subscriber;
  * A simple {@link Fragment} subclass.
  */
 public class MemberFragment extends BaseFragment {
+
+    public static final String KEY_TITLE = "key_title";
+    public static final String KEY_IS_QR_CODE = "key_code";
+    public static final String KEY_IS_CONTINUOUS = "key_continuous_scan";
+
 
     private int status;
 
@@ -91,7 +97,8 @@ public class MemberFragment extends BaseFragment {
                 toActivity(MyWalletActivity.class);
                 break;
             case R.id.ll_Invitation_code://邀请码
-                toActivity(InvitationCodeActivity.class);
+                //toActivity(InvitationCodeActivity.class);
+                startCode(true);
                 break;
             case R.id.ll_address://我的收货地址
                 toActivity(SelectAddressActivity.class);
@@ -127,7 +134,16 @@ public class MemberFragment extends BaseFragment {
                 break;
         }
     }
-
+    /**
+     * 生成二维码/条形码
+     * @param isQRCode
+     */
+    private void startCode(boolean isQRCode){
+        Intent intent = new Intent(getActivity(),CodeActivity.class);
+        intent.putExtra(KEY_IS_QR_CODE,isQRCode);
+        intent.putExtra(KEY_TITLE,isQRCode ? getString(R.string.qr_code) : getString(R.string.bar_code));
+        startActivity(intent);
+    }
     /**
      * 退出
      */

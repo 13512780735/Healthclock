@@ -64,7 +64,7 @@ public class Indent03Fragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void initAdapter() {
-        mAdapter = new IndentListAdapter(R.layout.shop_list_item, data);
+        mAdapter = new IndentListAdapter(R.layout.indent_items, data);
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.disableLoadMoreIfNotFullPage();

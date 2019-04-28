@@ -5,7 +5,7 @@ apply plugin: 'com.novoda.bintray-release'
 //    userOrg = 'jenly'//bintray.com用户名
 //    groupId = 'com.king.zxing'//jcenter上的路径
 //    artifactId = 'zxing-lite'//项目名称
-//    publishVersion = app_version.versionName//版本号
+//    publishVersion = 1//版本号
 //    desc = 'ZXingLite for Android'//描述
 //    website = 'https://github.com/jenly1314/ZXingLite'//网站
 //

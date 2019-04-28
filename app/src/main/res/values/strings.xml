@@ -76,6 +76,10 @@
     <string name="app_people_after_sale">已完成</string>
 
     <string name="permission_camera">App扫码需要用到拍摄权限</string>
+    <string name="tips_scan_code1">将二维码放入框内，即可自动扫描</string>
+
+    <string name="qr_code">二维码</string>
+    <string name="bar_code">条形码</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

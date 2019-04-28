@@ -111,6 +111,11 @@
     <style name="mycheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/address_check</item>
     </style>
+
+    <style name="OnClick">
+        <item name="android:clickable">true</item>
+        <item name="android:onClick">OnClick</item>
+    </style>
     <!--Activity进场。出场动画-->
     <!--<style name="AnimationActivity" parent="@android:style/Animation.Activity">-->
         <!--&lt;!&ndash;用于设置打开新的Activity并进入新的Activity展示的动画&ndash;&gt;-->

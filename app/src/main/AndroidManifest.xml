@@ -54,7 +54,7 @@
 
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.login.RegisterActivity" />
-        <activity android:name=".ui.activity.login.LoginActivity"></activity>
+        <activity android:name=".ui.activity.login.LoginActivity" />
         <activity android:name=".ui.activity.login.ForgetPwdActivity" />
         <activity android:name=".ui.activity.login.RegisterProtocolActivity" />
         <activity android:name=".ui.activity.login.PerfectInformationActivity" />
@@ -95,7 +95,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.main.CaptureActivity"></activity>
+        <activity
+            android:name=".ui.activity.main.CustomActivity"
+            android:screenOrientation="portrait" />
+        <!--
+            <activity
+            android:name="com.king.zxing.CaptureActivity"
+            android:screenOrientation="portrait"/>
+        -->
+        <activity android:name=".ui.activity.main.CodeActivity" />
+        <activity android:name=".ui.activity.indent.ConfirmOrderActivity"></activity>
     </application>
 
 </manifest>

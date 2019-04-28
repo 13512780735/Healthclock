@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.ui.activity.main.CustomActivity;
 import com.healthclock.healthclock.ui.base.BaseFragment;
 import com.healthclock.healthclock.util.PopupWindowUtil;
 import com.healthclock.healthclock.widget.IconFontTextView;
@@ -20,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -78,8 +78,8 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
         switch (v.getId()) {
             case R.id.tv_scan:
                 isContinuousScan = false;
-                this.cls = CaptureActivity.class;
-                this.title = ((Button)v).getText().toString();
+                this.cls = CustomActivity.class;
+                this.title = ((IconFontTextView)v).getText().toString();
                 checkCameraPermissions();
 
                 break;
@@ -168,7 +168,7 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
             switch (requestCode){
                 case REQUEST_CODE_SCAN:
                     String result = data.getStringExtra(Intents.Scan.RESULT);
-                   // Toast.makeText(this,result,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
                     break;
                 case REQUEST_CODE_PHOTO:
                   //  parsePhoto(data);
