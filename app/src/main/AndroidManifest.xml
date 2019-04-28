@@ -22,6 +22,8 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <!-- 用于申请调用相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -52,9 +54,7 @@
 
         <activity android:name=".ui.activity.MainActivity" />
         <activity android:name=".ui.activity.login.RegisterActivity" />
-        <activity android:name=".ui.activity.login.LoginActivity">
-
-        </activity>
+        <activity android:name=".ui.activity.login.LoginActivity"></activity>
         <activity android:name=".ui.activity.login.ForgetPwdActivity" />
         <activity android:name=".ui.activity.login.RegisterProtocolActivity" />
         <activity android:name=".ui.activity.login.PerfectInformationActivity" />
@@ -95,6 +95,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.main.CaptureActivity"></activity>
     </application>
 
 </manifest>

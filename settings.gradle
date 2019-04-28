@@ -1,1 +1,1 @@
-include ':app', ':android-multi-theme',':datelibrary',':addresslibrary'
+include ':app', ':android-multi-theme',':datelibrary',':addresslibrary',':ZXinglib'

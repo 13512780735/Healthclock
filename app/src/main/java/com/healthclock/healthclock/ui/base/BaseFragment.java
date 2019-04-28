@@ -1,5 +1,6 @@
 package com.healthclock.healthclock.ui.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,7 +69,7 @@ public abstract class BaseFragment extends Fragment {
         view = inflater.inflate(setContentView(), container, false);
         /**初始化的时候去加载数据**/
         unbinder = ButterKnife.bind(this, view);
-        token = SharedPreferencesUtils.getString(getActivity(), "token");
+        token = getToken(getActivity());
         loaddingDialog = new LoaddingDialog(getActivity());
         return view;
     }
@@ -362,5 +363,9 @@ public abstract class BaseFragment extends Fragment {
         Intent intent = new Intent(getActivity(), activity);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+    public static String getToken(Context context) {
+        String token=SharedPreferencesUtils.getString(context,"token");
+        return token;
     }
 }

@@ -8,6 +8,7 @@
     <color name="hint_color">#5000</color>
     <color name="black">#000</color>
     <color name="bt_gray">#999999</color>
+    <color name="bg_red">#FF0000</color>
     <color name="text_color">#656565</color>
     <color name="TRANSLUCENT">#00000000</color>
 

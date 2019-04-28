@@ -6,6 +6,7 @@ import com.healthclock.healthclock.network.model.good.ShopListModel;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
 import com.healthclock.healthclock.network.model.indent.AddressModel;
 import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
+import com.healthclock.healthclock.network.model.indent.OrderListModel;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.network.model.user.UserInfoModel;
 
@@ -212,6 +213,7 @@ public interface ApiService {
 
     /**
      * 添加地址
+     *
      * @param token
      * @param phone
      * @param contact
@@ -224,12 +226,12 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("address/add")
     Observable<BaseResponse<EmptyEntity>> addAddress(@Field("token") String token,
-                                                          @Field("phone") String phone,
-                                                          @Field("contact") String contact,
-                                                          @Field("province") String province,
-                                                          @Field("city") String city,
-                                                          @Field("district") String district,
-                                                          @Field("detail") String detail
+                                                     @Field("phone") String phone,
+                                                     @Field("contact") String contact,
+                                                     @Field("province") String province,
+                                                     @Field("city") String city,
+                                                     @Field("district") String district,
+                                                     @Field("detail") String detail
     );
 
     /**
@@ -292,11 +294,34 @@ public interface ApiService {
                                                       @Field("city") String city,
                                                       @Field("district") String district,
                                                       @Field("detail") String detail
-            );
+    );
+
+    /**
+     * 商品列表
+     * @param token
+     * @param category
+     * @param page
+     * @return
+     */
     @FormUrlEncoded
     @POST("shop/list")
     Observable<BaseResponse<ShopListModel>> GetShopList(@Field("token") String token,
                                                         @Field("category") String category,
                                                         @Field("page") String page
+    );
+
+    /**
+     * 获取订单
+     * 状态0.已取消 1.待付款 2.已付款 3.待发货 4.已完成
+     * @param token
+     * @param status
+     * @param page
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("order/list")
+    Observable<BaseResponse<OrderListModel>> GetOrderList(@Field("token") String token,
+                                                          @Field("status") String status,
+                                                          @Field("page") String page
     );
 }

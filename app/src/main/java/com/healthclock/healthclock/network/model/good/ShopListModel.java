@@ -4,6 +4,7 @@ import java.util.List;
 
 public class ShopListModel {
 
+
     /**
      * total : 1
      * list : [{"barcode":"","categoryId":0,"content":"","cost":"","createTime":null,"description":"","discount":"","id":1,"keywords":"","number":0,"pic":"","price":"","proNo":"","remark":"","status":0,"subTitle":"","thumb":"","title":"","titleDesc":"","updateTime":null,"url":""}]

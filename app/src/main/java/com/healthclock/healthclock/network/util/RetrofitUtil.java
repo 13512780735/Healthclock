@@ -10,6 +10,7 @@ import com.healthclock.healthclock.network.model.good.ShopListModel;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
 import com.healthclock.healthclock.network.model.indent.AddressModel;
 import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
+import com.healthclock.healthclock.network.model.indent.OrderListModel;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.network.model.user.UserInfoModel;
 import com.ihsanbal.logging.Level;
@@ -340,9 +341,34 @@ public class RetrofitUtil {
                 .subscribe(subscriber);
     }
 
+    /**
+     * 商品列表
+     *
+     * @param token
+     * @param category
+     * @param page
+     * @param subscriber
+     */
     public void GetShopList(String token, String category, String page,
                             Subscriber<BaseResponse<ShopListModel>> subscriber) {
         mApiService.GetShopList(token, category, page)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 获取订单列表
+     *
+     * @param token
+     * @param status
+     * @param page
+     * @param subscriber
+     */
+    public void GetOrderList(String token, String status, String page,
+                             Subscriber<BaseResponse<OrderListModel>> subscriber) {
+        mApiService.GetOrderList(token, status, page)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

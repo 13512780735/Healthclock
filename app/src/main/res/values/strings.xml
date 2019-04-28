@@ -3,6 +3,7 @@
     <!--iconfont字体图标-->
     //登录注册
     <string name="ic_back">&#xe7ed; </string> <!--返回-->
+    <string name="ic_scan">&#xe60b; </string> <!--扫码-->
     <string name="ic_location">&#xe611; </string> <!--定位-->
     <string name="ic_pwd">&#xe6c0; </string> <!--密码-->
     <string name="ic_phone">&#xe704; </string> <!--手机-->
@@ -74,7 +75,7 @@
     <string name="app_people_Receiving">待收货</string>
     <string name="app_people_after_sale">已完成</string>
 
-
+    <string name="permission_camera">App扫码需要用到拍摄权限</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

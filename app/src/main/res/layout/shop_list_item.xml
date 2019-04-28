@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:layout_margin="@dimen/dp_5"
+    android:orientation="vertical">
+
+    <com.healthclock.healthclock.widget.RatioImageView
+        android:id="@+id/iv_shop_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/default_pic"
+        app:is_height_fix_drawable_size_ratio="true" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/text_color"
+        android:padding="@dimen/dp_5" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="30dp"
+            android:text="¥ 396"
+            android:layout_margin="@dimen/dp_10"
+            android:textColor="@color/bg_red"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sp_16"/>
+        <com.healthclock.healthclock.widget.BorderTextView
+            android:id="@+id/tv_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:text="购买"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            android:textColor="@color/white"
+            app:contentBackColor="@color/bg_red"
+            app:cornerRadius="@dimen/dp_4"
+            android:textSize="@dimen/sp_14"
+            app:strokeColor01="@color/bt_gray"
+            android:layout_margin="@dimen/dp_10"
+            app:strokeWidth01="0dp"/>
+
+    </LinearLayout>
+</LinearLayout>
