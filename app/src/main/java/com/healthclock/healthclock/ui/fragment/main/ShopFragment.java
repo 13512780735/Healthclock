@@ -16,7 +16,9 @@ import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.good.ShopListModel;
 import com.healthclock.healthclock.network.model.indent.AddressModel;
+import com.healthclock.healthclock.network.model.indent.CreateOrderModel;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
+import com.healthclock.healthclock.ui.activity.indent.ConfirmOrderActivity;
 import com.healthclock.healthclock.ui.activity.login.LoginActivity;
 import com.healthclock.healthclock.ui.activity.member.SelectAddressActivity;
 import com.healthclock.healthclock.ui.adapter.ShopListAdapter;
@@ -88,7 +90,7 @@ public class ShopFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+                toActivity(ConfirmOrderActivity.class);
             }
         });
     }

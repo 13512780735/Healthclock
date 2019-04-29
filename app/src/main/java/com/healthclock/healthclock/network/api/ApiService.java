@@ -5,6 +5,7 @@ import com.healthclock.healthclock.network.model.EmptyEntity;
 import com.healthclock.healthclock.network.model.good.ShopListModel;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
 import com.healthclock.healthclock.network.model.indent.AddressModel;
+import com.healthclock.healthclock.network.model.indent.CreateOrderModel;
 import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
 import com.healthclock.healthclock.network.model.indent.OrderListModel;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
@@ -311,7 +312,7 @@ public interface ApiService {
     );
 
     /**
-     * 获取订单
+     * 获取订单列表
      * 状态0.已取消 1.待付款 2.已付款 3.待发货 4.已完成
      * @param token
      * @param status
@@ -323,5 +324,33 @@ public interface ApiService {
     Observable<BaseResponse<OrderListModel>> GetOrderList(@Field("token") String token,
                                                           @Field("status") String status,
                                                           @Field("page") String page
+    );
+
+    /**
+     * 创建订单
+     * @param token
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("order/create")
+    Observable<BaseResponse<CreateOrderModel>> CreateOrder(@Field("token") String token,
+                                                           @Field("shopId") String shopId,
+                                                           @Field("number") String number,
+                                                           @Field("sum") String sum,
+                                                           @Field("discount") String discount,
+                                                           @Field("addressId") String addressId,
+                                                           @Field("type") String type
+    );
+
+    /**
+     * 删除订单
+     * @param token
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("order/delete")
+    Observable<BaseResponse<EmptyEntity>> deleteOrder(@Field("token") String token,
+                                                           @Field("id") String id
     );
 }

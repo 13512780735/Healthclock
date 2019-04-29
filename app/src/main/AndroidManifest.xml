@@ -104,7 +104,9 @@
             android:screenOrientation="portrait"/>
         -->
         <activity android:name=".ui.activity.main.CodeActivity" />
-        <activity android:name=".ui.activity.indent.ConfirmOrderActivity"></activity>
+        <activity android:name=".ui.activity.indent.ConfirmOrderActivity" />
+        <activity android:name=".wxapi.PayActivity" />
+        <activity android:name=".wxapi.WXPayEntryActivity"></activity>
     </application>
 
 </manifest>

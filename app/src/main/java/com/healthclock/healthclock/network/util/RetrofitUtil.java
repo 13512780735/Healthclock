@@ -9,6 +9,7 @@ import com.healthclock.healthclock.network.model.EmptyEntity;
 import com.healthclock.healthclock.network.model.good.ShopListModel;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
 import com.healthclock.healthclock.network.model.indent.AddressModel;
+import com.healthclock.healthclock.network.model.indent.CreateOrderModel;
 import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
 import com.healthclock.healthclock.network.model.indent.OrderListModel;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
@@ -369,6 +370,42 @@ public class RetrofitUtil {
     public void GetOrderList(String token, String status, String page,
                              Subscriber<BaseResponse<OrderListModel>> subscriber) {
         mApiService.GetOrderList(token, status, page)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 创建订单
+     * @param token
+     * @param shopId
+     * @param number
+     * @param sum
+     * @param discount
+     * @param addressId
+     * @param type
+     * @param subscriber
+     */
+    public void CreateOrder(String token, String shopId, String number, String sum, String discount, String addressId, String type,
+                            Subscriber<BaseResponse<CreateOrderModel>> subscriber) {
+        mApiService.CreateOrder(token, shopId, number, sum, discount, addressId, type)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 删除订单
+     *
+     * @param token
+     * @param id
+     * @param subscriber
+     */
+    public void deleteOrder(String token, String id,
+                            Subscriber<BaseResponse<EmptyEntity>> subscriber) {
+        mApiService.deleteOrder(token, id)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

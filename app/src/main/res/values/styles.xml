@@ -116,6 +116,14 @@
         <item name="android:clickable">true</item>
         <item name="android:onClick">OnClick</item>
     </style>
+    <style name="NavPage">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+        <!-- <item name="android:background">@drawable/nav_page</item> -->
+        <item name="android:background">@color/navpage</item>
+    </style>
     <!--Activity进场。出场动画-->
     <!--<style name="AnimationActivity" parent="@android:style/Animation.Activity">-->
         <!--&lt;!&ndash;用于设置打开新的Activity并进入新的Activity展示的动画&ndash;&gt;-->
