@@ -152,7 +152,7 @@ public class EditAddressActivity extends BaseActivity {
         } else if (flag == 1) {
             setTitle("编辑地址");
             ll_set_default.setVisibility(View.VISIBLE);
-            setRightText("删除", new View.OnClickListener() {
+            setRightText("删除", 14,new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     deleteAddress();

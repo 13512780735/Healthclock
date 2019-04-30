@@ -121,7 +121,7 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
     private void initUI() {
         setBackView();
         setTitle("完善健康信息");
-        setRightText("跳过", new View.OnClickListener() {
+        setRightText("跳过", 14,new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toActivityFinish(MainActivity.class);

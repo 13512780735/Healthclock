@@ -63,7 +63,7 @@ public class EditInformationActivity extends BaseActivity {
     private void initUI() {
         setBackView();
         setTitle("健康评分");
-        setRightText("跳过", new View.OnClickListener() {
+        setRightText("跳过", 14,new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toActivity(PerfectInformationActivity.class);

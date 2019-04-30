@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.ui.activity.main.CustomActivity;
+import com.healthclock.healthclock.ui.activity.main.MyAlarmClockActivity;
 import com.healthclock.healthclock.ui.base.BaseFragment;
 import com.healthclock.healthclock.util.PopupWindowUtil;
 import com.healthclock.healthclock.widget.IconFontTextView;
@@ -36,7 +37,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlarmClockFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks{
+public class AlarmClockFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
     @BindView(R.id.tv_right)
     IconFontTextView tvRight;
     public static final String KEY_TITLE = "key_title";
@@ -79,7 +80,7 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
             case R.id.tv_scan:
                 isContinuousScan = false;
                 this.cls = CustomActivity.class;
-                this.title = ((IconFontTextView)v).getText().toString();
+                this.title = ((IconFontTextView) v).getText().toString();
                 checkCameraPermissions();
 
                 break;
@@ -116,12 +117,11 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
                 //Toast.makeText(v.getContext(), "Click " + ((TextView) v).getText(), Toast.LENGTH_SHORT).show();
                 // showProgress("已举报成功！");
                 //ToastUtils.showToast(mContext, "已举报成功！");
-                switch (v.getId()){
+                switch (v.getId()) {
                     case R.id.menu_item1:
+                        toActivity(MyAlarmClockActivity.class);
                         break;
                     case R.id.menu_item2:
-                        break;
-                    case R.id.menu_item3:
                         break;
                 }
                 if (mPopupWindow != null) {
@@ -132,7 +132,6 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
         };
         contentView.findViewById(R.id.menu_item1).setOnClickListener(menuItemOnClickListener);
         contentView.findViewById(R.id.menu_item2).setOnClickListener(menuItemOnClickListener);
-        contentView.findViewById(R.id.menu_item3).setOnClickListener(menuItemOnClickListener);
         return contentView;
     }
 
@@ -148,49 +147,53 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
         windowPos[0] -= xOff;
         mPopupWindow.showAtLocation(anchorView, Gravity.TOP | Gravity.START, windowPos[0], windowPos[1]);
     }
+
     /**
      * 扫码
+     *
      * @param cls
      * @param title
      */
-    private void startScan(Class<?> cls,String title){
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(getActivity(),R.anim.in,R.anim.out);
+    private void startScan(Class<?> cls, String title) {
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeCustomAnimation(getActivity(), R.anim.in, R.anim.out);
         Intent intent = new Intent(getActivity(), cls);
-        intent.putExtra(KEY_TITLE,title);
-        intent.putExtra(KEY_IS_CONTINUOUS,isContinuousScan);
-        ActivityCompat.startActivityForResult(getActivity(),intent,REQUEST_CODE_SCAN,optionsCompat.toBundle());
+        intent.putExtra(KEY_TITLE, title);
+        intent.putExtra(KEY_IS_CONTINUOUS, isContinuousScan);
+        ActivityCompat.startActivityForResult(getActivity(), intent, REQUEST_CODE_SCAN, optionsCompat.toBundle());
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && data!=null){
-            switch (requestCode){
+        if (resultCode == RESULT_OK && data != null) {
+            switch (requestCode) {
                 case REQUEST_CODE_SCAN:
                     String result = data.getStringExtra(Intents.Scan.RESULT);
-                    Toast.makeText(getActivity(),result,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
                     break;
                 case REQUEST_CODE_PHOTO:
-                  //  parsePhoto(data);
+                    //  parsePhoto(data);
                     break;
             }
 
         }
     }
+
     /**
      * 检测拍摄权限
      */
     @AfterPermissionGranted(RC_CAMERA)
-    private void checkCameraPermissions(){
+    private void checkCameraPermissions() {
         String[] perms = {Manifest.permission.CAMERA};
         if (EasyPermissions.hasPermissions(getActivity(), perms)) {//有权限
-            startScan(cls,title);
+            startScan(cls, title);
         } else {
             // Do not have permissions, request them now
             EasyPermissions.requestPermissions(this, getString(R.string.permission_camera),
                     RC_CAMERA, perms);
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -198,6 +201,7 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
         // Forward results to EasyPermissions
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
+
     @Override
     public void onPermissionsGranted(int requestCode, List<String> perms) {
 

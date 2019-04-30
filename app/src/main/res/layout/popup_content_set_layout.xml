@@ -12,12 +12,32 @@
         android:background="@drawable/shape_round_pop_bg_5"
         android:orientation="vertical">
 
+        <!--<TextView-->
+            <!--android:id="@+id/menu_item1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/dp_45"-->
+            <!--android:gravity="center"-->
+            <!--android:text="间隔闹"-->
+            <!--android:textColor="@color/text_color" />-->
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/line"-->
+            <!--android:layout_marginRight="@dimen/dp_10"-->
+            <!--android:layout_marginLeft="@dimen/dp_10"></View>-->
+        <!--<TextView-->
+            <!--android:id="@+id/menu_item2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/dp_45"-->
+            <!--android:gravity="center"-->
+            <!--android:text="定点闹"-->
+            <!--android:textColor="@color/text_color" />-->
         <TextView
             android:id="@+id/menu_item1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:gravity="center"
-            android:text="间隔闹"
+            android:text="我的闹钟"
             android:textColor="@color/text_color" />
         <View
             android:layout_width="match_parent"
@@ -27,19 +47,6 @@
             android:layout_marginLeft="@dimen/dp_10"></View>
         <TextView
             android:id="@+id/menu_item2"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_45"
-            android:gravity="center"
-            android:text="定点闹"
-            android:textColor="@color/text_color" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/line"
-            android:layout_marginRight="@dimen/dp_10"
-            android:layout_marginLeft="@dimen/dp_10"></View>
-        <TextView
-            android:id="@+id/menu_item3"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:gravity="center"

@@ -106,7 +106,19 @@
         <activity android:name=".ui.activity.main.CodeActivity" />
         <activity android:name=".ui.activity.indent.ConfirmOrderActivity" />
         <activity android:name=".wxapi.PayActivity" />
-        <activity android:name=".wxapi.WXPayEntryActivity"></activity>
+        <activity android:name=".wxapi.WXPayEntryActivity" />
+        <activity android:name=".ui.activity.main.MyAlarmClockActivity" />
+
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.wei.BC_ACTION" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".ui.activity.main.EditAlarmActivity"></activity>
     </application>
 
 </manifest>

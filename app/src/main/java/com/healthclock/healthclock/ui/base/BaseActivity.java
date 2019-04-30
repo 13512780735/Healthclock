@@ -169,13 +169,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-    public void setRightText(String txt, View.OnClickListener onClickListener) {
+    public void setRightText(String txt, float size,View.OnClickListener onClickListener) {
         IconFontTextView toolbar_righ_tv = (IconFontTextView) findViewById(R.id.tv_right);
         if (toolbar_righ_tv == null) {
             return;
         }
         toolbar_righ_tv.setVisibility(View.VISIBLE);
         toolbar_righ_tv.setText(txt);
+        toolbar_righ_tv.setTextSize(size);
         toolbar_righ_tv.setOnClickListener(onClickListener);
     }
 
