@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.network.model.main.AlarmInfo;
 import com.healthclock.healthclock.ui.base.BaseActivity;
+import com.healthclock.healthclock.widget.BorderTextView;
+import com.healthclock.healthclock.widget.IconFontTextView;
 import com.healthclock.healthclock.widget.popwindows.SelectRemindCyclePopup;
 import com.loonggg.lib.alarmmanager.clock.AlarmManagerUtil;
 
@@ -33,12 +36,11 @@ public class EditAlarmActivity extends BaseActivity {
     private PendingIntent pendingIntent;
     private AlarmManager mAlarmManager;
 
-    private CheckBox mCheckBox;
+    private Switch mCheckBox;
     private TimePicker mTimePicker;
-    private Button mBtnSave, mBtnCancel;
+    private IconFontTextView mBtnSave, mBtnCancel;
     private LinearLayout mRingTone,allLayout,mRepeat;
-    private ImageButton mImageButton;
-    private EditText mEditText;
+    private BorderTextView mImageButton;
     private TextView tv_repeat_value;
     private int cycle;
     private int ring;
@@ -46,6 +48,25 @@ public class EditAlarmActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_alarm);
+        initView();
+        initAlarmInfo();
+        clickListener();
+    }
+
+
+    //初始化 View
+    private void initView() {
+        tv_repeat_value = findViewById(R.id.tv_repeat_value);
+        allLayout = findViewById(R.id.allLayout);
+
+        mCheckBox = findViewById(R.id.cb_shock);
+        mRepeat = findViewById(R.id.linear_repeat);
+        mRingTone = findViewById(R.id.linear_ringtone);
+        mBtnSave = findViewById(R.id.btn_save);
+        mBtnCancel = findViewById(R.id.btn_cancel);
+        mTimePicker = findViewById(R.id.time_picker);
+        mImageButton = findViewById(R.id.ibtn_delete);
+        mTimePicker.setIs24HourView(true);
     }
     //初始化 alarmInfo
     private void initAlarmInfo() {
@@ -61,7 +82,6 @@ public class EditAlarmActivity extends BaseActivity {
             //修改
             alarmInfo = (AlarmInfo) getIntent().getSerializableExtra("updateAlarmInfo");
             display_time = alarmInfo.getAlarm_time();
-            mEditText.setText(alarmInfo.getNote());
             tv_repeat_value.setText(alarmInfo.getRepeat());
             position = getIntent().getIntExtra("position", 0);
         }
@@ -313,12 +333,10 @@ public class EditAlarmActivity extends BaseActivity {
     public void returnInfo() {
 
         int position = getIntent().getIntExtra("position", 0);
-        String note = mEditText.getText().toString();
         String repeat = tv_repeat_value.getText().toString();
 
         alarmInfo.setAlarm_time(display_time);
         alarmInfo.setRepeat(repeat);
-        alarmInfo.setNote(note);
         alarmInfo.setCheckBox(true);
         //数据是使用Intent返回
         Intent intent = new Intent();

@@ -63,7 +63,7 @@ public class MyAlarmClockActivity extends BaseActivity implements MyClickListene
     }
 
     private void initUI() {
-
+        intent = new Intent(mContext, EditAlarmActivity.class);
         mAlarmAdapter = new AlarmAdapter(mContext, mDatas);
 
         //初始化 RecyclerView
@@ -80,6 +80,7 @@ public class MyAlarmClockActivity extends BaseActivity implements MyClickListene
 
     @Override
     public void onClick(View v, int position) {
+
         //传入 需要修改的 数据
         intent.putExtra("isAdd", false);
         intent.putExtra("updateAlarmInfo", mDatas.get(position));
