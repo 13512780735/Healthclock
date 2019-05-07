@@ -123,7 +123,30 @@
     <string name="payment_inst_hk">付款方: HK</string>
     <string name="payment_inst_cn">付款方: CN</string>
     <!--闹钟-->
-
+    <string name="monday">周一</string>
+    <string name="tuesday">周二</string>
+    <string name="wednesday">周三</string>
+    <string name="thursday">周四</string>
+    <string name="friday">周五</string>
+    <string name="saturday">周六</string>
+    <string name="sunday">周日</string>
+    <string name="repeat_once">只响一次</string>
+    <string name="one_h">一</string>
+    <string name="two_h">二</string>
+    <string name="three_h">三</string>
+    <string name="four_h">四</string>
+    <string name="five_h">五</string>
+    <string name="six_h">六</string>
+    <string name="day">日</string>
+    <string name="every_day">每天</string>
+    <string name="week_day">平日</string>
+    <string name="week_end">周末</string>
+    <string name="week">周</string>
+    <string name="caesura">、</string>
+    <string name="countdown_day_hour_minute">距闹钟响起还有%1$d天%2$d小时%3$d分</string>
+    <string name="countdown_hour_minute">距闹钟响起还有%1$d小时%2$d分</string>
+    <string name="countdown_minute">距闹钟响起还有%1$d分钟</string>
+    <string name="version">1.1.3</string>
     <string name="mon">周一</string>
     <string name="tue">周二</string>
     <string name="wed">周三</string>

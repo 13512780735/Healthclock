@@ -128,6 +128,65 @@
         <item name="android:windowEnterAnimation">@anim/popup_alpha_out</item>
         <item name="android:windowExitAnimation">@anim/popup_alpha_in</item>
     </style>
+
+
+
+    <style name="Theme.picker" parent="android:Theme.Holo.NoActionBar">
+        <item name="android:editTextStyle">@style/Widget.EditText.White</item>
+    </style>
+
+    <style name="Widget.EditText.White" parent="@android:style/Widget.EditText">
+        <item name="android:textColor">@color/hint_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="new_alarm_clcok_item_type">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="new_alarm_clcok_item_describe">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="new_alarm_clcok_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">54dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@drawable/shape_round_pop_bg_5</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="new_alarm_clcok_item_toggle_btn">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginRight">18dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:checked">true</item>
+        <item name="android:button">@drawable/toggle_btn_alarm_on_off</item>
+        <item name="android:textOff">""</item>
+        <item name="android:textOn">""</item>
+    </style>
+    <style name="new_alarm_clock_repeat_days_llyt">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="new_alarm_clcok_repeat_days_tog_btn">
+        <item name="android:layout_width">38dp</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:background">@drawable/toggle_btn_repeat_week</item>
+        <item name="android:checked">false</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@drawable/text_color_toggle_btn_circle</item>
+    </style>
     <!--Activity进场。出场动画-->
     <!--<style name="AnimationActivity" parent="@android:style/Animation.Activity">-->
         <!--&lt;!&ndash;用于设置打开新的Activity并进入新的Activity展示的动画&ndash;&gt;-->

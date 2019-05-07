@@ -70,4 +70,6 @@ dependencies {
     implementation files('libs/ShareSDK-Wechat-Favorite-3.3.0.jar')
     implementation files('libs/ShareSDK-Wechat-Moments-3.3.0.jar')
     implementation project(':alarmmanagerclock')
+    implementation project(':litepal')
+    implementation project(':daemon')
 }

@@ -13,6 +13,15 @@
     <color name="TRANSLUCENT">#00000000</color>
     <color name="navpage">#FFE1E8EB</color>
     <color name= "tab_nor_color">#969696</color>
+    <!-- 灰色5 -->
+    <color name="black_text_normal_common">#4B4B4B</color>
+    <!-- 灰色6 -->
+    <color name="darkgray">#A9A9A9</color>
+    <color name="gray_background_color">#F4F4F4</color>
+    <!-- 灰色1 -->
+    <color name="gray_divider_line">#DDDDDD</color>
+
+
 
 
     <!--主题背景色-->

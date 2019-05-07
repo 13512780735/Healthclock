@@ -1,1 +1,1 @@
-include ':app', ':android-multi-theme',':datelibrary',':addresslibrary',':ZXinglib',':alarmmanagerclock'
+include ':app', ':android-multi-theme',':datelibrary',':addresslibrary',':ZXinglib',':alarmmanagerclock',':litepal',':daemon'
