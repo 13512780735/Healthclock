@@ -187,6 +187,14 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@drawable/text_color_toggle_btn_circle</item>
     </style>
+    <style name="ring_select_no_file_tv">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black_text_normal_common</item>
+    </style>
     <!--Activity进场。出场动画-->
     <!--<style name="AnimationActivity" parent="@android:style/Animation.Activity">-->
         <!--&lt;!&ndash;用于设置打开新的Activity并进入新的Activity展示的动画&ndash;&gt;-->

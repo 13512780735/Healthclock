@@ -21,13 +21,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
-import com.kaku.weac.activities.AlarmClockOntimeActivity;
-import com.kaku.weac.bean.AlarmClock;
-import com.kaku.weac.common.WeacConstants;
-import com.kaku.weac.common.WeacStatus;
-import com.kaku.weac.db.AlarmClockOperate;
-import com.kaku.weac.util.LogUtil;
-import com.kaku.weac.util.MyUtil;
+import com.healthclock.healthclock.common.WeacConstants;
+import com.healthclock.healthclock.common.WeacStatus;
+import com.healthclock.healthclock.db.AlarmClockOperate;
+import com.healthclock.healthclock.network.model.main.AlarmClock;
+import com.healthclock.healthclock.ui.activity.main.AlarmClockOntimeActivity;
+import com.healthclock.healthclock.util.L;
+import com.healthclock.healthclock.util.MyUtil;
+
 
 /**
  * 闹钟响起广播
@@ -71,9 +72,9 @@ public class AlarmClockBroadcast extends BroadcastReceiver {
             // 当上一次响起任务距离现在小于3秒时
         } else if ((now - WeacStatus.sLastStartTime) <= 3000) {
 
-            LogUtil.d(LOG_TAG, "进入3秒以内再次响铃 小睡次数：" + napTimesRan + "距离时间毫秒数："
+            L.d(LOG_TAG, "进入3秒以内再次响铃 小睡次数：" + napTimesRan + "距离时间毫秒数："
                     + (now - WeacStatus.sLastStartTime));
-            LogUtil.d(LOG_TAG, "WeacStatus.strikerLevel："
+            L.d(LOG_TAG, "WeacStatus.strikerLevel："
                     + WeacStatus.sStrikerLevel);
 //            LogUtil.d(LOG_TAG, "闹钟名：" + alarmClock.getTag());
 

@@ -123,7 +123,7 @@
                             android:ellipsize="end"
                             android:maxWidth="230dp"
                             android:singleLine="true"
-                            android:text="只响一次" />
+                            android:text="@string/repeat_once"/>
 
                     </LinearLayout>
 
@@ -265,12 +265,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:gravity="center_vertical"
-                        android:layout_marginRight="6dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginRight="6dp"
+                        android:gravity="center_vertical"
                         android:thumb="@drawable/switch_custom_thumb_selector"
                         android:track="@drawable/switch_custom_track_selector" />
                 </LinearLayout>
+
+
 
 
             </LinearLayout>

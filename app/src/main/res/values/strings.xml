@@ -139,7 +139,7 @@
     <string name="six_h">六</string>
     <string name="day">日</string>
     <string name="every_day">每天</string>
-    <string name="week_day">平日</string>
+    <string name="week_day">工作日</string>
     <string name="week_end">周末</string>
     <string name="week">周</string>
     <string name="caesura">、</string>
@@ -147,6 +147,23 @@
     <string name="countdown_hour_minute">距闹钟响起还有%1$d小时%2$d分</string>
     <string name="countdown_minute">距闹钟响起还有%1$d分钟</string>
     <string name="version">1.1.3</string>
+    <string name="alarm_clock">闹钟</string>
+    <string name="default_ring">默认铃声</string>
+
+    <!-- 铃声选择界面 -->
+    <string name="ring_select">铃声选择</string>
+    <string name="no_system_ring_file">没有系统铃声文件</string>
+    <string name="no_local_music_file">没有本地音乐文件</string>
+    <string name="no_record_file">没有录音文件</string>
+    <string name="save">保存</string>
+    <string name="system_ring">系统铃声</string>
+    <string name="local_music">本地音乐</string>
+    <string name="record">录音</string>
+    <string name="no_ring">无铃声</string>
+    <string name="no_sd_card">无存储设备</string>
+    <!-- 音频播放 -->
+    <string name="play_fail">播放失败</string>
+
     <string name="mon">周一</string>
     <string name="tue">周二</string>
     <string name="wed">周三</string>

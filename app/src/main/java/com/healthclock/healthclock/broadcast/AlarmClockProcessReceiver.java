@@ -20,8 +20,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.kaku.weac.bean.Event.AlarmClockUpdateEvent;
-import com.kaku.weac.util.OttoAppConfig;
+import com.healthclock.healthclock.network.model.main.AlarmClockUpdateEvent;
+import com.healthclock.healthclock.util.OttoAppConfig;
+
 
 /**
  * 单次闹钟响起，通过此BroadcastReceiver来实现多进程通信，更新闹钟开关

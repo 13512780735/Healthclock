@@ -20,8 +20,9 @@
     <color name="gray_background_color">#F4F4F4</color>
     <!-- 灰色1 -->
     <color name="gray_divider_line">#DDDDDD</color>
-
-
+    <color name="white_trans30">#4dffffff</color>
+    <color name="white_trans20">#33ffffff</color>
+    <color name="black_trans20">#33000000</color>
 
 
     <!--主题背景色-->

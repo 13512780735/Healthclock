@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ring_select_llyt"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.main.RingSelectFragment">
+
+    <RelativeLayout
+        android:id="@+id/rl_topbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_70"
+        android:background="@color/TRANSLUCENT"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_20">
+
+        <com.healthclock.healthclock.widget.IconFontTextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="@dimen/topbar_icon_width_height"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5px"
+            android:gravity="center"
+            android:text="@string/ic_back"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_26" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/RedTitleTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="120px"
+            android:layout_marginRight="120px"
+            android:maxLines="1"
+            android:paddingTop="@dimen/dp_20"
+            android:text="铃声选择"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+
+        <com.healthclock.healthclock.widget.IconFontTextView
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14" />
+
+        <View
+            style="@style/lineStyle"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray_background_color"
+        android:orientation="vertical">
+
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/tabstrip"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textColor="?title_text_color"
+            android:textSize="18sp"
+            app:mySelectedColor="?title_text_color"
+            app:pstsDividerColor="?title_text_color"
+            app:pstsIndicatorColor="?title_text_color"
+            app:pstsIndicatorHeight="3dp"
+            app:pstsShouldExpand="true"
+            app:pstsTabBackground="?title_text_color" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/fragment_ring_select_sort"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>
