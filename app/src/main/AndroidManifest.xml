@@ -36,6 +36,10 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".app.App"
@@ -182,7 +186,9 @@
         <activity android:name=".ui.activity.main.AlarmClockOntimeActivity" />
         <activity android:name=".ui.activity.main.AlarmClockEditActivity" />
         <activity android:name=".ui.activity.main.SingleFragmentOrdinaryActivity" />
-        <activity android:name=".ui.activity.main.AlarmClockNewActivity"></activity>
+        <activity android:name=".ui.activity.main.SingleFragmentDialogActivity" />
+        <activity android:name=".ui.activity.main.AlarmClockNewActivity" />
+        <activity android:name=".ui.activity.clock.EditAlarmActivity"></activity>
     </application>
 
 </manifest>

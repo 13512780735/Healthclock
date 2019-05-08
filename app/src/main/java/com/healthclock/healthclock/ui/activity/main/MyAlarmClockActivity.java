@@ -45,7 +45,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import jp.wasabeef.recyclerview.animators.ScaleInLeftAnimator;
 
-public class MyAlarmClockActivity extends BaseActivity {
+public class MyAlarmClockActivity extends BaseActivity implements MyClickListener {
     @BindView(R.id.tv_right)
     IconFontTextView tvRight;
     @BindView(R.id.recyclerview)
@@ -75,7 +75,6 @@ public class MyAlarmClockActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_alarm_clock);
-        OttoAppConfig.getInstance().register(this);
         setBackView();
         initUI();
     }
@@ -91,78 +90,21 @@ public class MyAlarmClockActivity extends BaseActivity {
     }
 
     private void initUI() {
-        mAlarmClockList = new ArrayList<>();
-        mAdapter = new AlarmClockAdapter(mContext, mAlarmClockList);
-       // intent = new Intent(mContext, EditAlarmActivity.class);
+        intent = new Intent(mContext, EditAlarmActivity.class);
+
+        mAlarmAdapter = new AlarmAdapter(mContext, mDatas);
 
         //初始化 RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-        //设置布局管理器
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(mAlarmAdapter);
+        mAlarmAdapter.setMyClickListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        //设置Item增加、移除动画
-        mRecyclerView.setItemAnimator(new ScaleInLeftAnimator(new OvershootInterpolator(1f)));
-        mRecyclerView.getItemAnimator().setAddDuration(300);
-        mRecyclerView.getItemAnimator().setRemoveDuration(300);
-        mRecyclerView.getItemAnimator().setMoveDuration(300);
-        mRecyclerView.getItemAnimator().setChangeDuration(300);
-        mRecyclerView.setAdapter(mAdapter);
 
-//        OverScrollDecoratorHelper.setUpOverScroll(mRecyclerView, OverScrollDecoratorHelper.ORIENTATION_VERTICAL);
-
-        // 监听闹铃item点击事件Listener
-        OnItemClickListener onItemClickListener = new OnItemClickListenerImpl();
-        mAdapter.setOnItemClickListener(onItemClickListener);
-
-
-       updateList();
         //设置 RecyclerView 分割线
-//        DividerItemDecoration divider = new DividerItemDecoration(Objects.requireNonNull(mContext), DividerItemDecoration.VERTICAL);
-//        divider.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(mContext, R.drawable.my_divider)));
-//        mRecyclerView.addItemDecoration(divider);
-
-    }
-
-    private void updateList() {
-        mAlarmClockList.clear();
-
-        List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
-        for (AlarmClock alarmClock : list) {
-            mAlarmClockList.add(alarmClock);
-
-            // 当闹钟为开时刷新开启闹钟
-            if (alarmClock.isOnOff()) {
-                MyUtil.startAlarmClock(mContext, alarmClock);
-            }
-        }
+        DividerItemDecoration divider = new DividerItemDecoration(Objects.requireNonNull(mContext), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(mContext, R.drawable.my_divider)));
+        mRecyclerView.addItemDecoration(divider);
 
 
-        mAdapter.notifyDataSetChanged();
-    }
-
-    class OnItemClickListenerImpl implements OnItemClickListener {
-
-        @Override
-        public void onItemClick(View view, int position) {
-            // 不响应重复点击
-            if (MyUtil.isFastDoubleClick()) {
-                return;
-            }
-            AlarmClock alarmClock = mAlarmClockList.get(position);
-            Intent intent = new Intent(mContext,
-                    AlarmClockEditActivity.class);
-            intent.putExtra(WeacConstants.ALARM_CLOCK, alarmClock);
-            // 开启编辑闹钟界面
-            startActivityForResult(intent, REQUEST_ALARM_CLOCK_EDIT);
-            // 启动移动进入效果动画
-            overridePendingTransition(R.anim.move_in_bottom,
-                    0);
-        }
-
-        @Override
-        public void onItemLongClick(View view, int position) {
-            // 显示删除，完成按钮，隐藏修改按钮
-        }
     }
 
 
@@ -190,15 +132,9 @@ public class MyAlarmClockActivity extends BaseActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.menu_item1:
-                        if (MyUtil.isFastDoubleClick()) {
-                            return;
-                        }
-                        Intent intent = new Intent(mContext,
-                                AlarmClockNewActivity.class);
-                        // 开启新建闹钟界面
-                        startActivityForResult(intent, REQUEST_ALARM_CLOCK_NEW);
-                        // 启动渐变放大效果动画
-                        overridePendingTransition(R.anim.zoomin, 0);
+                        //跳转到编辑闹钟界面
+                        intent.putExtra("isAdd", true);
+                        startActivityForResult(intent, 1);
                         break;
                     case R.id.menu_item2:
                         break;
@@ -226,91 +162,40 @@ public class MyAlarmClockActivity extends BaseActivity {
         windowPos[0] -= xOff;
         mPopupWindow.showAtLocation(anchorView, Gravity.TOP | Gravity.START, windowPos[0], windowPos[1]);
     }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-        AlarmClock ac = data
-                .getParcelableExtra(WeacConstants.ALARM_CLOCK);
-        switch (requestCode) {
-            // 新建闹钟
-            case REQUEST_ALARM_CLOCK_NEW:
-                // 插入新闹钟数据
-//                TabAlarmClockOperate.getInstance(getActivity()).insert(ac);
-                AlarmClockOperate.getInstance().saveAlarmClock(ac);
-                addList(ac);
 
-                showAlarmExplain();
-                break;
-            // 修改闹钟
-            case REQUEST_ALARM_CLOCK_EDIT:
-                // 更新闹钟数据
-//                TabAlarmClockOperate.getInstance(getActivity()).update(ac);
-                AlarmClockOperate.getInstance().updateAlarmClock(ac);
-                updateList();
-                break;
-
-        }
-    }
-    private void showAlarmExplain() {
-//        if (isShow()) {
-//            new AlertDialogWrapper.Builder(mContext)
-//                    .setTitle(mContext.getString(R.string.warm_tips_title))
-//                    .setMessage(mContext.getString(R.string.warm_tips_detail))
-//                    .setPositiveButton(R.string.roger, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    })
-//                    .setNegativeButton(R.string.no_tip, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            SharedPreferences share = getActivity().getSharedPreferences(
-//                                    WeacConstants.EXTRA_WEAC_SHARE, Activity.MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = share.edit();
-//                            editor.putBoolean(WeacConstants.ALARM_CLOCK_EXPLAIN, false);
-//                            editor.apply();
-//                        }
-//                    })
-//                    .show();
-//        }
-    }
-
-    private boolean isShow() {
-        SharedPreferences share = mContext.getSharedPreferences(
-                WeacConstants.EXTRA_WEAC_SHARE, Activity.MODE_PRIVATE);
-        return share.getBoolean(WeacConstants.ALARM_CLOCK_EXPLAIN, true);
-    }
-    private void addList(AlarmClock ac) {
-        mAlarmClockList.clear();
-
-        int id = ac.getId();
-        int count = 0;
-        int position = 0;
-        List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
-        for (AlarmClock alarmClock : list) {
-            mAlarmClockList.add(alarmClock);
-
-            if (id == alarmClock.getId()) {
-                position = count;
-                if (alarmClock.isOnOff()) {
-                    MyUtil.startAlarmClock(mContext, alarmClock);
-                }
+        if (data != null) {
+            position = data.getIntExtra("position", 0);
+            isDelete = data.getBooleanExtra("isDelete", false);
+            alarmInfo = (AlarmInfo) data.getSerializableExtra("alarmInfo");
+            //添加 闹钟 (Item)
+            if (requestCode == 1) {
+                mDatas.add(alarmInfo);
+                mAlarmAdapter.setData(mDatas);
             }
-            count++;
+            //更新 闹钟 数据
+            if (requestCode == 2) {
+                mDatas.set(position, alarmInfo);
+                mAlarmAdapter.setData(mDatas);
+            }
+            //删除 闹钟
+            if (isDelete) {
+                mDatas.remove(position);
+                mAlarmAdapter.setData(mDatas);
+            }
         }
-
-        //checkIsEmpty(list);
-
-        mAdapter.notifyItemInserted(position);
-        mRecyclerView.scrollToPosition(position);
     }
+
+    // 点击 闹钟 Item 跳转 编辑 界面
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        OttoAppConfig.getInstance().unregister(this);
+    public void onClick(View v, int position) {
+        //传入 需要修改的 数据
+        intent.putExtra("isAdd", false);
+        intent.putExtra("updateAlarmInfo", mDatas.get(position));
+        intent.putExtra("position", position);
+        startActivityForResult(intent, 2);
     }
 }

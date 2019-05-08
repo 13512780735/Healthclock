@@ -50,6 +50,7 @@ public class AlarmClockNewFragment extends Fragment implements View.OnClickListe
      * 闹钟实例
      */
     private AlarmClock mAlarmClock;
+
     /**
      * 周一按钮状态，默认未选中
      */

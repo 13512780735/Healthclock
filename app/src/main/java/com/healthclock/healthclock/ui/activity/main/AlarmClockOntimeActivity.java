@@ -6,26 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.ui.fragment.clock.AlarmClockOntimeFragment;
 
-public abstract class AlarmClockOntimeActivity extends AppCompatActivity {
-    /**
-     * 抽象方法：创建Fragment
-     *
-     * @return Fragment
-     */
-    protected abstract Fragment createFragment();
+public abstract class AlarmClockOntimeActivity extends SingleFragmentDialogActivity {
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm_clock_ontime);
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_containers);
-        if (fragment == null) {
-            fragment = createFragment();
-            fm.beginTransaction().add(R.id.fragment_containers, fragment)
-                    .commit();
-
-        }
-
+    protected Fragment createFragment() {
+        return new AlarmClockOntimeFragment();
     }
+
+    @Override
+    public void onBackPressed() {
+        // 禁用back键
+    }
+
 }
