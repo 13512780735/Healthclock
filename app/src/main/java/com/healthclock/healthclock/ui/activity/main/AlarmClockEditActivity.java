@@ -1,11 +1,9 @@
 package com.healthclock.healthclock.ui.activity.main;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.healthclock.healthclock.R;
-import com.healthclock.healthclock.ui.base.BaseActivity;
+import com.healthclock.healthclock.ui.fragment.clock.AlarmClockEditFragment;
 
 public class AlarmClockEditActivity extends SingleFragmentOrdinaryActivity {
 

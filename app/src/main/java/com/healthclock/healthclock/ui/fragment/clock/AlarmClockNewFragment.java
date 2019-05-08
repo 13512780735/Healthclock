@@ -1,10 +1,11 @@
-package com.healthclock.healthclock.ui.activity.main;
+package com.healthclock.healthclock.ui.fragment.clock;
 
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,43 +22,34 @@ import android.widget.ToggleButton;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.common.WeacConstants;
 import com.healthclock.healthclock.network.model.main.AlarmClock;
+import com.healthclock.healthclock.ui.activity.main.RingSelectActivity;
 import com.healthclock.healthclock.ui.base.BaseFragment;
+import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.MyUtil;
+import com.healthclock.healthclock.widget.IconFontTextView;
 
 import java.util.Collection;
 import java.util.TreeMap;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlarmClockEditFragment extends BaseFragment implements
-        View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class AlarmClockNewFragment extends Fragment implements View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener
 
-    /**
-     * Log tag ：AlarmClockEditFragment
-     */
-    private static final String LOG_TAG = "AlarmClockEditFragment";
-
+{
     /**
      * 铃声选择按钮的requestCode
      */
     private static final int REQUEST_RING_SELECT = 1;
-
-    /**
-     * 小睡按钮的requestCode
-     */
-    private static final int REQUEST_NAP_EDIT = 2;
-
+    private TextView mTimePickerTv;
     /**
      * 闹钟实例
      */
     private AlarmClock mAlarmClock;
-
-    /**
-     * 下次响铃时间提示控件
-     */
-    private TextView mTimePickerTv;
-
     /**
      * 周一按钮状态，默认未选中
      */
@@ -97,55 +89,72 @@ public class AlarmClockEditFragment extends BaseFragment implements
      * 保存重复描述信息String
      */
     private StringBuilder mRepeatStr;
-
     /**
      * 重复描述组件
      */
     private TextView mRepeatDescribe;
-
     /**
      * 按键值顺序存放重复描述信息
      */
     private TreeMap<Integer, String> mMap;
-
     /**
      * 铃声描述
      */
     private TextView mRingDescribe;
+    private IconFontTextView tvBack, tvSave;
 
+
+//    @Override
+//    protected int setContentView() {
+//        return R.layout.activity_edit_alarm;
+//    }
 
     @Override
-    protected int setContentView() {
-        return R.layout.activity_edit_alarm;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAlarmClock = new AlarmClock();
+        // 闹钟默认开启
+        mAlarmClock.setOnOff(true);
     }
 
+    @Nullable
     @Override
-    protected void lazyLoad() {
-        // 初始化时间选择
-        initTimeSelect();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.activity_edit_alarm,
+                container, false);
+        ButterKnife.bind(view);
+        initTimeSelect(view);
         // 初始化重复
-        initRepeat();
+        initRepeat(view);
         // 初始化标签
-        initTag();
+        initTag(view);
         // 初始化铃声
-        initRing();
-        // 初始化音量
-        // 初始化振动、小睡、天气提示
-        initToggleButton();
+        initRing(view);
+        // 初始化振动
+        initToggleButton(view);
+        return view;
     }
+
 
     /**
      * 设置时间选择
      *
      * @param
+     * @param view
      */
-    private void initTimeSelect() {
+    private void initTimeSelect(View view) {
         // 下次响铃提示
-        mTimePickerTv = findViewById(R.id.tv_time);
+        mTimePickerTv = view.findViewById(R.id.tv_time);
         // 计算倒计时显示
         displayCountDown();
         // 闹钟时间选择器
-        TimePicker timePicker = (TimePicker) findViewById(R.id.time_picker);
+        TimePicker timePicker = (TimePicker) view.findViewById(R.id.time_picker);
+        tvBack = view.findViewById(R.id.btn_cancel);
+        tvSave = view.findViewById(R.id.btn_save);
+
+        tvBack.setOnClickListener(this);
+        tvSave.setOnClickListener(this);
         timePicker.setIs24HourView(true);
         // 初始化时间选择器的小时
         //noinspection deprecation
@@ -173,26 +182,27 @@ public class AlarmClockEditFragment extends BaseFragment implements
      * 设置重复信息
      *
      * @param
+     * @param view
      */
-    private void initRepeat() {
+    private void initRepeat(View view) {
         // 重复描述
-        mRepeatDescribe = findViewById(R.id.repeat_describe);
+        mRepeatDescribe = view.findViewById(R.id.repeat_describe);
 
         // 周选择按钮
         // 周一按钮
-        ToggleButton monday = findViewById(R.id.tog_btn_monday);
+        ToggleButton monday = view.findViewById(R.id.tog_btn_monday);
         // 周二按钮
-        ToggleButton tuesday = findViewById(R.id.tog_btn_tuesday);
+        ToggleButton tuesday = view.findViewById(R.id.tog_btn_tuesday);
         // 周三按钮
-        ToggleButton wednesday = findViewById(R.id.tog_btn_wednesday);
+        ToggleButton wednesday = view.findViewById(R.id.tog_btn_wednesday);
         // 周四按钮
-        ToggleButton thursday = findViewById(R.id.tog_btn_thursday);
+        ToggleButton thursday = view.findViewById(R.id.tog_btn_thursday);
         // 周五按钮
-        ToggleButton friday = findViewById(R.id.tog_btn_friday);
+        ToggleButton friday = view.findViewById(R.id.tog_btn_friday);
         // 周六按钮
-        ToggleButton saturday = findViewById(R.id.tog_btn_saturday);
+        ToggleButton saturday = view.findViewById(R.id.tog_btn_saturday);
         // 周日按钮
-        ToggleButton sunday = findViewById(R.id.tog_btn_sunday);
+        ToggleButton sunday = view.findViewById(R.id.tog_btn_sunday);
 
         monday.setOnCheckedChangeListener(this);
         tuesday.setOnCheckedChangeListener(this);
@@ -243,13 +253,14 @@ public class AlarmClockEditFragment extends BaseFragment implements
      * 设置标签
      *
      * @param
+     * @param view
      */
-    private void initTag() {
+    private void initTag(View view) {
         // 初始化闹钟实例的标签
         mAlarmClock.setTag(getString(R.string.alarm_clock));
 
         // 标签描述控件
-        EditText tag = findViewById(R.id.tag_edit_text);
+        EditText tag = view.findViewById(R.id.tag_edit_text);
         tag.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
@@ -276,51 +287,68 @@ public class AlarmClockEditFragment extends BaseFragment implements
 
     /**
      * 设置铃声
+     *
+     * @param view
      */
-    private void initRing() {
+    private void initRing(View view) {
         // 取得铃声选择配置信息
-        ViewGroup ring = (ViewGroup)findViewById(R.id.ring_llyt);
+        SharedPreferences share = getActivity().getSharedPreferences(
+                WeacConstants.EXTRA_WEAC_SHARE, Activity.MODE_PRIVATE);
+        String ringName = share.getString(WeacConstants.RING_NAME,
+                getString(R.string.default_ring));
+        String ringUrl = share.getString(WeacConstants.RING_URL,
+                WeacConstants.DEFAULT_RING_URL);
+
+        // 初始化闹钟实例的铃声名
+        mAlarmClock.setRingName(ringName);
+        // 初始化闹钟实例的铃声播放地址
+        mAlarmClock.setRingUrl(ringUrl);
+        // 铃声控件
+        ViewGroup ring = (ViewGroup) view.findViewById(R.id.ring_llyt);
+        mRingDescribe = (TextView) view.findViewById(R.id.ring_describe);
+        mRingDescribe.setText(ringName);
         ring.setOnClickListener(this);
-        mRingDescribe = (TextView) findViewById(R.id.ring_describe);
-        mRingDescribe.setText(mAlarmClock.getRingName());
     }
 
     /**
      * 设置振动
+     *
+     * @param view
      */
-    private void initToggleButton() {
+    private void initToggleButton(View view) {
         // 初始化闹钟实例的振动，默认振动
-//        mAlarmClock.setVibrate(true);
-//
-//        // 初始化闹钟实例的小睡信息
-//        // 默认小睡
-//        mAlarmClock.setNap(true);
-//        // 小睡间隔10分钟
-//        mAlarmClock.setNapInterval(10);
-//        // 小睡3次
-//        mAlarmClock.setNapTimes(3);
-//
-//        // 初始化闹钟实例的天气提示，默认开启
-//        mAlarmClock.setWeaPrompt(true);
+        mAlarmClock.setVibrate(true);
+
+        // 初始化闹钟实例的小睡信息
+        // 默认小睡
+        mAlarmClock.setNap(true);
+        // 小睡间隔10分钟
+        mAlarmClock.setNapInterval(10);
+        // 小睡3次
+        mAlarmClock.setNapTimes(3);
+
+        // 初始化闹钟实例的天气提示，默认开启
+        mAlarmClock.setWeaPrompt(true);
 
         // 振动
-        Switch vibrateBtn = (Switch) findViewById(R.id.vibrate_btn);
+        Switch vibrateBtn = (Switch) view.findViewById(R.id.vibrate_btn);
 
         vibrateBtn.setOnCheckedChangeListener(this);
     }
 
 
-    @Override
+    @OnClick({R.id.ring_llyt})
     public void onClick(View v) {
         switch (v.getId()) {
             // 当点击取消按钮
             case R.id.btn_cancel:
+                L.e("点击了");
                 drawAnimation();
                 break;
             // 当点击确认按钮
             case R.id.btn_save:
+                L.e("点击了2");
                 saveDefaultAlarmTime();
-
                 Intent data = new Intent();
                 data.putExtra(WeacConstants.ALARM_CLOCK, mAlarmClock);
                 getActivity().setResult(Activity.RESULT_OK, data);
@@ -344,6 +372,7 @@ public class AlarmClockEditFragment extends BaseFragment implements
      * 结束新建闹钟界面时开启渐变缩小效果动画
      */
     private void drawAnimation() {
+        L.e("点击了3");
         getActivity().finish();
         getActivity().overridePendingTransition(0, R.anim.zoomout);
     }

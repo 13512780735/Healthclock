@@ -1,4 +1,4 @@
-package com.healthclock.healthclock.ui.activity.main;
+package com.healthclock.healthclock.ui.fragment.clock;
 
 
 import android.os.Bundle;

@@ -40,7 +40,7 @@ public class App extends LitePalApplication {
     public void onCreate() {
         super.onCreate();
         mContext = this.getApplicationContext();
-        initLeakCanary();
+        //initLeakCanary();
         initActivityLifecycleLogs();
 
     }

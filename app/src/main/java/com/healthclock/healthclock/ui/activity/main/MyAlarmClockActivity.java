@@ -228,7 +228,5 @@ public class MyAlarmClockActivity extends BaseActivity {
     public void onDestroy() {
         super.onDestroy();
         OttoAppConfig.getInstance().unregister(this);
-        RefWatcher refWatcher = App.getRefWatcher(mContext);
-        refWatcher.watch(this);
     }
 }

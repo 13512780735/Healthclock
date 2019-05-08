@@ -174,7 +174,7 @@ public class MyUtil {
             Field field = drawable.getField(value);
             resId = field.getInt(field.getName());
         } catch (Exception e) {
-            resId = R.drawable.wallpaper_0;
+            resId = R.drawable.dialog_bg;
             L.e(LOG_TAG, "setWallPaper(Context context): " + e.toString());
         }
         return resId;

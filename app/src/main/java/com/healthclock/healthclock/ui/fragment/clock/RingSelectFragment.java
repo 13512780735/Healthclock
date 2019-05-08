@@ -1,4 +1,4 @@
-package com.healthclock.healthclock.ui.activity.main;
+package com.healthclock.healthclock.ui.fragment.clock;
 
 
 import android.app.Activity;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,8 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.healthclock.healthclock.R;
@@ -28,10 +27,12 @@ import com.healthclock.healthclock.widget.IconFontTextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RingSelectFragment extends BaseFragment implements View.OnClickListener {
+public class RingSelectFragment extends Fragment implements View.OnClickListener {
 
     /**
      * 铃声种类集合
@@ -70,32 +71,33 @@ public class RingSelectFragment extends BaseFragment implements View.OnClickList
         sRingRequestType = intent.getIntExtra(WeacConstants.RING_REQUEST_TYPE, 0);
     }
 
-
+    @Nullable
     @Override
-    protected int setContentView() {
-        return R.layout.fragment_ring_select;
-    }
-
-    @Override
-    protected void lazyLoad() {
-// 铃声选择界面
-        ViewGroup viewGroup = (ViewGroup)findViewById(R.id.ring_select_llyt);
-        // 设置页面背景
-        MyUtil.setBackground(viewGroup, getActivity());
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_ring_select,
+                container, false);
+        ButterKnife.bind(view);
+        // 铃声选择界面
+//        ViewGroup viewGroup = (ViewGroup) view.findViewById(R.id.ring_select_llyt);
+//        // 设置页面背景
+//        MyUtil.setBackground(viewGroup, getActivity());
 
         // 设置显示铃声列表的Fragment
         initFragment();
         // 设置ViewPager
-        initViewPager();
+        initViewPager(view);
 
         // 返回按钮
-        IconFontTextView actionCancel = (IconFontTextView) findViewById(R.id.btn_cancel);
+        IconFontTextView actionCancel = (IconFontTextView) view.findViewById(R.id.btn_cancel);
         actionCancel.setOnClickListener(this);
 
         // 保存按钮
-        IconFontTextView actionSave = (IconFontTextView) findViewById(R.id.btn_save);
+        IconFontTextView actionSave = (IconFontTextView) view.findViewById(R.id.btn_save);
         actionSave.setOnClickListener(this);
+        return view;
     }
+
 
     @Override
     public void onDestroy() {
@@ -170,11 +172,11 @@ public class RingSelectFragment extends BaseFragment implements View.OnClickList
     /**
      * 设置ViewPager并与开源组件【PagerSlidingTabStrip】相关联
      *
-     *
+     * @param view
      */
-    private void initViewPager() {
+    private void initViewPager(View view) {
 //      铃声种类
-        ViewPager viewPager = (ViewPager) findViewById(R.id.fragment_ring_select_sort);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_ring_select_sort);
         viewPager.setAdapter(new MyFragmentPagerAdapter(getActivity()
                 .getSupportFragmentManager()));
         viewPager.setOffscreenPageLimit(2);
@@ -195,7 +197,7 @@ public class RingSelectFragment extends BaseFragment implements View.OnClickList
             currentIndex = position;
         }
 
-        PagerSlidingTabStrip strip = (PagerSlidingTabStrip) findViewById(R.id.tabstrip);
+        PagerSlidingTabStrip strip = (PagerSlidingTabStrip) view.findViewById(R.id.tabstrip);
         strip.setViewPager(viewPager);
         // 设置当前铃声界面位置，来初始化选中文字颜色
         strip.setCurrentIndex(currentIndex);

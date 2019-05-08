@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <ListView
@@ -12,6 +13,7 @@
 
     <TextView
         android:id="@android:id/empty"
+        android:visibility="gone"
         style="@style/ring_select_no_file_tv"
         android:text="@string/no_local_music_file" />
 
