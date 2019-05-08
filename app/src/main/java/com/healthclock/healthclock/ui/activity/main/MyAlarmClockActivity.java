@@ -1,6 +1,9 @@
 package com.healthclock.healthclock.ui.activity.main;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -73,7 +76,7 @@ public class MyAlarmClockActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_alarm_clock);
         OttoAppConfig.getInstance().register(this);
-
+        setBackView();
         initUI();
     }
 
@@ -223,7 +226,88 @@ public class MyAlarmClockActivity extends BaseActivity {
         windowPos[0] -= xOff;
         mPopupWindow.showAtLocation(anchorView, Gravity.TOP | Gravity.START, windowPos[0], windowPos[1]);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        AlarmClock ac = data
+                .getParcelableExtra(WeacConstants.ALARM_CLOCK);
+        switch (requestCode) {
+            // 新建闹钟
+            case REQUEST_ALARM_CLOCK_NEW:
+                // 插入新闹钟数据
+//                TabAlarmClockOperate.getInstance(getActivity()).insert(ac);
+                AlarmClockOperate.getInstance().saveAlarmClock(ac);
+                addList(ac);
 
+                showAlarmExplain();
+                break;
+            // 修改闹钟
+            case REQUEST_ALARM_CLOCK_EDIT:
+                // 更新闹钟数据
+//                TabAlarmClockOperate.getInstance(getActivity()).update(ac);
+                AlarmClockOperate.getInstance().updateAlarmClock(ac);
+                updateList();
+                break;
+
+        }
+    }
+    private void showAlarmExplain() {
+//        if (isShow()) {
+//            new AlertDialogWrapper.Builder(mContext)
+//                    .setTitle(mContext.getString(R.string.warm_tips_title))
+//                    .setMessage(mContext.getString(R.string.warm_tips_detail))
+//                    .setPositiveButton(R.string.roger, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    })
+//                    .setNegativeButton(R.string.no_tip, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            SharedPreferences share = getActivity().getSharedPreferences(
+//                                    WeacConstants.EXTRA_WEAC_SHARE, Activity.MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = share.edit();
+//                            editor.putBoolean(WeacConstants.ALARM_CLOCK_EXPLAIN, false);
+//                            editor.apply();
+//                        }
+//                    })
+//                    .show();
+//        }
+    }
+
+    private boolean isShow() {
+        SharedPreferences share = mContext.getSharedPreferences(
+                WeacConstants.EXTRA_WEAC_SHARE, Activity.MODE_PRIVATE);
+        return share.getBoolean(WeacConstants.ALARM_CLOCK_EXPLAIN, true);
+    }
+    private void addList(AlarmClock ac) {
+        mAlarmClockList.clear();
+
+        int id = ac.getId();
+        int count = 0;
+        int position = 0;
+        List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
+        for (AlarmClock alarmClock : list) {
+            mAlarmClockList.add(alarmClock);
+
+            if (id == alarmClock.getId()) {
+                position = count;
+                if (alarmClock.isOnOff()) {
+                    MyUtil.startAlarmClock(mContext, alarmClock);
+                }
+            }
+            count++;
+        }
+
+        //checkIsEmpty(list);
+
+        mAdapter.notifyItemInserted(position);
+        mRecyclerView.scrollToPosition(position);
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
