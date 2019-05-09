@@ -5,6 +5,6 @@
     <version value="1"/>
 
     <list>
-        <mapping class="com.healthclock.healthclock.network.model.main.AlarmClock"/>
+        <mapping class="com.healthclock.healthclock.clock.model.AlarmClock"/>
     </list>
 </litepal>  

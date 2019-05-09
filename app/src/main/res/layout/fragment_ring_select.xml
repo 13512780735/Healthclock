@@ -6,7 +6,7 @@
     android:id="@+id/ring_select_llyt"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.clock.RingSelectFragment">
+    tools:context=".clock.fragment.RingSelectFragment">
 
     <RelativeLayout
         android:id="@+id/rl_topbar_layout"

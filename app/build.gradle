@@ -8,11 +8,59 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0.0.1"
+        flavorDimensions "versionCode"
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Umeng"]
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    // gradle bug 去掉release编译警告
+    packagingOptions {
+/*        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude '.readme'*/
+
+/*        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'*/
+
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.xml'
+        exclude 'META-INF/maven/com.squareup.okio/okio/pom.properties'
+    }
+    productFlavors {
+        _360 {}
+        wandoujia {}
+        yingyongbao {}
+        baidu {}
+
+//-----------------------------------
+//        bugly {}
+//        _91zhushou {}
+//        baidu {}
+//        uc {}
+//        jifeng {}
+//        yingyonghui {}
+//        ku {}
+//        anzhi {}
+//        mumayi {}
+//        huawei {}
+//        xiaomi {}
+//        meizu {}
+//        lianxiang {}
+//        google {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }
     }
 }
@@ -63,7 +111,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.3'
     implementation 'com.king.zxing:zxing-lite:1.1.0'
     //微信支付宝
-    implementation(name: 'alipaySdk-15.6.2-20190416165036', ext: 'aar')
+    //implementation(name: 'alipaySdk-15.6.2-20190416165036', ext: 'aar')
     implementation files('libs/libammsdk.jar')
     implementation files('libs/ShareSDK-Wechat-3.3.0.jar')
     implementation files('libs/ShareSDK-Wechat-Core-3.3.0.jar')

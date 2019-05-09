@@ -1,9 +1,9 @@
 package com.healthclock.healthclock.wxapi.alipay;
 
-import com.alipay.sdk.app.PayTask;
-import com.alipay.sdk.util.H5PayResultModel;
-import com.alipay.sdk.app.H5PayCallback;
-import com.alipay.sdk.app.PayTask;
+//import com.alipay.sdk.app.PayTask;
+//import com.alipay.sdk.util.H5PayResultModel;
+//import com.alipay.sdk.app.H5PayCallback;
+//import com.alipay.sdk.app.PayTask;
 import com.healthclock.healthclock.R;
 
 import android.app.Activity;
@@ -126,29 +126,29 @@ public class H5PayDemoActivity extends Activity {
 			/**
 			 * 推荐采用的新的二合一接口(payInterceptorWithUrl),只需调用一次
 			 */
-			final PayTask task = new PayTask(H5PayDemoActivity.this);
-			boolean isIntercepted = task.payInterceptorWithUrl(url, true, new H5PayCallback() {
-				@Override
-				public void onPayResult(final H5PayResultModel result) {
-					final String url = result.getReturnUrl();
-					if (!TextUtils.isEmpty(url)) {
-						H5PayDemoActivity.this.runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								view.loadUrl(url);
-							}
-						});
-					}
-				}
-			});
+//			final PayTask task = new PayTask(H5PayDemoActivity.this);
+//			boolean isIntercepted = task.payInterceptorWithUrl(url, true, new H5PayCallback() {
+//				@Override
+//				public void onPayResult(final H5PayResultModel result) {
+//					final String url = result.getReturnUrl();
+//					if (!TextUtils.isEmpty(url)) {
+//						H5PayDemoActivity.this.runOnUiThread(new Runnable() {
+//							@Override
+//							public void run() {
+//								view.loadUrl(url);
+//							}
+//						});
+//					}
+//				}
+//			});
 
 			/**
 			 * 判断是否成功拦截
 			 * 若成功拦截，则无需继续加载该URL；否则继续加载
 			 */
-			if (!isIntercepted) {
-				view.loadUrl(url);
-			}
+//			if (!isIntercepted) {
+//				view.loadUrl(url);
+//			}
 			return true;
 		}
 	}

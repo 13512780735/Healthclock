@@ -24,25 +24,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.healthclock.healthclock.R;
-import com.healthclock.healthclock.db.AlarmClockOperate;
-import com.healthclock.healthclock.listener.OnItemClickListener;
-import com.healthclock.healthclock.network.model.main.AlarmClock;
-import com.healthclock.healthclock.network.model.main.AlarmClockDeleteEvent;
-import com.healthclock.healthclock.network.model.main.AlarmClockUpdateEvent;
-import com.healthclock.healthclock.util.AudioPlayer;
-import com.healthclock.healthclock.util.MyUtil;
-import com.healthclock.healthclock.util.OttoAppConfig;
+import com.healthclock.healthclock.clock.db.AlarmClockOperate;
+import com.healthclock.healthclock.clock.listener.OnItemClickListener;
+import com.healthclock.healthclock.clock.model.AlarmClock;
+import com.healthclock.healthclock.clock.model.AlarmClockDeleteEvent;
+import com.healthclock.healthclock.clock.model.AlarmClockUpdateEvent;
+import com.healthclock.healthclock.clock.util.AudioPlayer;
+import com.healthclock.healthclock.clock.util.MyUtil;
+import com.healthclock.healthclock.clock.util.OttoAppConfig;
 
 import java.util.List;
 

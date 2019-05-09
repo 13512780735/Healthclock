@@ -9,8 +9,8 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.clock.activity.MyAlarmClockActivity;
 import com.healthclock.healthclock.ui.activity.main.CustomActivity;
-import com.healthclock.healthclock.ui.activity.main.MyAlarmClockActivity;
 import com.healthclock.healthclock.ui.base.BaseFragment;
 import com.healthclock.healthclock.util.PopupWindowUtil;
 import com.healthclock.healthclock.widget.IconFontTextView;

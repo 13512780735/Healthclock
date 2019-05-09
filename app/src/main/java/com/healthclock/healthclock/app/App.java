@@ -16,6 +16,7 @@ import org.litepal.util.LogUtil;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -36,11 +37,12 @@ public class App extends LitePalApplication {
         App application = (App) context.getApplicationContext();
         return application.refWatcher;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this.getApplicationContext();
-      initLeakCanary();
+        initLeakCanary();
         initActivityLifecycleLogs();
 
     }
@@ -98,6 +100,7 @@ public class App extends LitePalApplication {
             }
         });
     }
+
     /**
      * 配置AutoLayout
      */

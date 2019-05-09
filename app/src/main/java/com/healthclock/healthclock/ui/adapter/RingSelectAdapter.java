@@ -26,8 +26,8 @@ import android.widget.TextView;
 
 
 import com.healthclock.healthclock.R;
-import com.healthclock.healthclock.common.WeacConstants;
-import com.healthclock.healthclock.network.model.main.RingSelectItem;
+import com.healthclock.healthclock.clock.common.WeacConstants;
+import com.healthclock.healthclock.clock.model.RingSelectItem;
 
 import java.util.List;
 import java.util.Map;

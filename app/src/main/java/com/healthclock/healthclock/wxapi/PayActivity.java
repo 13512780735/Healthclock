@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.alipay.sdk.app.PayTask;
+//import com.alipay.sdk.app.PayTask;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.wxapi.alipay.PayResult;
@@ -192,13 +192,13 @@ public class PayActivity extends BaseActivity {
             @Override
             public void run() {
                 // 构造PayTask 对象
-                PayTask alipay = new PayTask(PayActivity.this);
-                // 调用支付接口，获取支付结果
-                String result = alipay.pay(payInfo, true);
-                Message msg = new Message();
-                msg.what = SDK_PAY_FLAG;
-                msg.obj = result;
-                mHandler.sendMessage(msg);
+//                PayTask alipay = new PayTask(PayActivity.this);
+//                // 调用支付接口，获取支付结果
+//                String result = alipay.pay(payInfo, true);
+//                Message msg = new Message();
+//                msg.what = SDK_PAY_FLAG;
+//                msg.obj = result;
+//                mHandler.sendMessage(msg);
             }
         };
 

@@ -111,7 +111,7 @@
         <activity android:name=".ui.activity.indent.ConfirmOrderActivity" />
         <activity android:name=".wxapi.PayActivity" />
         <activity android:name=".wxapi.WXPayEntryActivity" />
-        <activity android:name=".ui.activity.main.MyAlarmClockActivity" />
+        <activity android:name=".clock.activity.MyAlarmClockActivity" />
 
         <receiver
             android:name=".receiver.AlarmReceiver"
@@ -122,7 +122,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".broadcast.AlarmClockBroadcast"
+            android:name=".clock.broadcast.AlarmClockBroadcast"
             android:process=":daemon">
 
             <!-- 广播定义单独进程，在6.0上接受不到，不定义进程退到后台也接受不到。 -->
@@ -131,13 +131,13 @@
             <!-- <action android:name="android.intent.action.BOOT_COMPLETED"/> -->
             <!-- </intent-filter> -->
         </receiver>
-        <receiver android:name=".broadcast.BootBroadcastReceiver">
+        <receiver android:name=".clock.broadcast.BootBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".broadcast.AlarmClockProcessReceiver"
+            android:name=".clock.broadcast.AlarmClockProcessReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.kaku.weac.AlarmClockOff" />
@@ -153,7 +153,7 @@
         -->
 
         <receiver
-            android:name=".broadcast.WakeReceiver"
+            android:name=".clock.broadcast.WakeReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -162,34 +162,53 @@
         </receiver>
 
         <service
-            android:name=".service.DaemonService$DaemonInnerService"
+            android:name=".clock.service.DaemonService$DaemonInnerService"
             android:enabled="true"
             android:exported="false"
             android:process=":daemon" />
         <service
-            android:name=".broadcast.WakeReceiver$WakeNotifyService"
+            android:name=".clock.broadcast.WakeReceiver$WakeNotifyService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".broadcast.WakeReceiver$WakeGrayInnerService"
+            android:name=".clock.broadcast.WakeReceiver$WakeGrayInnerService"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".service.DaemonService"
+            android:name=".clock.service.DaemonService"
             android:exported="true"
             android:process=":daemon" />
-        <service android:name=".service.CountDownService" />
+        <service android:name=".clock.service.CountDownService" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}"/>
 
-        <activity android:name=".ui.activity.clock.EditAlarmActivity" />
-        <activity android:name=".ui.activity.clock.RingSelectActivity" />
-        <activity android:name=".ui.activity.clock.SingleFragmentActivity" />
-        <activity android:name=".ui.activity.clock.AlarmClockOntimeActivity" />
-        <activity android:name=".ui.activity.clock.AlarmClockEditActivity" />
-        <activity android:name=".ui.activity.clock.SingleFragmentOrdinaryActivity" />
-        <activity android:name=".ui.activity.clock.SingleFragmentDialogActivity" />
-        <activity android:name=".ui.activity.clock.AlarmClockNewActivity" />
-        <activity android:name=".ui.activity.clock.EditAlarmActivity" />
-        <activity android:name=".ui.activity.clock.AlarmClockNapNotificationActivity"></activity>
+        <!--
+        <activity
+        android:name="com.umeng.fb.ConversationActivity"
+        android:theme="@style/Transparent.Light"/>
+        -->
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService">
+        </service>
+
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <activity android:name=".clock.activity.EditAlarmActivity" />
+        <activity android:name=".clock.activity.RingSelectActivity" />
+       <!-- <activity android:name=".ui.activity.clock.SingleFragmentActivity" />-->
+        <activity android:name=".clock.activity.AlarmClockOntimeActivity" />
+        <activity android:name=".clock.activity.AlarmClockEditActivity" />
+        <!--<activity android:name=".ui.activity.clock.SingleFragmentOrdinaryActivity" />
+        <activity android:name=".ui.activity.clock.SingleFragmentDialogActivity" />-->
+        <activity android:name=".clock.activity.AlarmClockNewActivity"
+            android:launchMode="singleTop"/>
+      <!--  <activity android:name=".ui.activity.clock.EditAlarmActivity" />-->
+        <activity android:name=".clock.activity.AlarmClockNapNotificationActivity"></activity>
     </application>
 
 </manifest>
