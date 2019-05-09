@@ -4,8 +4,8 @@
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:background="#1C1C1C">
+    android:layout_margin="10dp"
+    android:background="@drawable/shape_circle_alarm_list_item_normal">
 
     <TextView
         android:id="@+id/alarm_time"

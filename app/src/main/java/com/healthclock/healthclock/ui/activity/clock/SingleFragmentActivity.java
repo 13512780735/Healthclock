@@ -1,4 +1,4 @@
-package com.healthclock.healthclock.ui.activity.main;
+package com.healthclock.healthclock.ui.activity.clock;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentManager;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 
-public abstract class SingleFragmentDialogActivity extends BaseActivity {
+public abstract class SingleFragmentActivity extends BaseActivity {
 
     /**
      * 抽象方法：创建Fragment

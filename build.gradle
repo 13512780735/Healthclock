@@ -20,7 +20,7 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
-
+        maven { url "https://raw.githubusercontent.com/umeng/mvn-repo-umeng/master/repository" }
         maven { url "https://maven.google.com" }
         jcenter()
         maven { url 'https://jitpack.io' }

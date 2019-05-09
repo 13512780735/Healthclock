@@ -14,7 +14,6 @@ import com.healthclock.healthclock.ui.activity.main.MyAlarmClockActivity;
 import com.healthclock.healthclock.ui.base.BaseFragment;
 import com.healthclock.healthclock.util.PopupWindowUtil;
 import com.healthclock.healthclock.widget.IconFontTextView;
-import com.king.zxing.CaptureActivity;
 import com.king.zxing.Intents;
 
 import android.view.Gravity;

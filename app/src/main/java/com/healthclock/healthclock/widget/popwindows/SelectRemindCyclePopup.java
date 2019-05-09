@@ -14,10 +14,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.util.T;
 
 public class SelectRemindCyclePopup implements OnClickListener {
     private TextView tv_mon, tv_tue, tv_wed, tv_thu, tv_fri, tv_sat, tv_sun, tv_sure, every_day,
-            tv_drugcycle_once;
+            tv_drugcycle_once,tv_cancel;
     public PopupWindow mPopupWindow;
     private SelectRemindCyclePopupOnClickListener selectRemindCyclePopupListener;
 
@@ -65,6 +66,7 @@ public class SelectRemindCyclePopup implements OnClickListener {
         tv_sat = (TextView) view.findViewById(R.id.tv_drugcycle_6);
         tv_sun = (TextView) view.findViewById(R.id.tv_drugcycle_7);
         tv_sure = (TextView) view.findViewById(R.id.tv_drugcycle_sure);
+        tv_cancel = (TextView) view.findViewById(R.id.tv_cancel);
 
         tv_drugcycle_once.setOnClickListener(this);
         tv_mon.setOnClickListener(this);
@@ -76,6 +78,7 @@ public class SelectRemindCyclePopup implements OnClickListener {
         tv_sun.setOnClickListener(this);
         tv_sure.setOnClickListener(this);
         every_day.setOnClickListener(this);
+        tv_cancel.setOnClickListener(this);
 
         return view;
     }
@@ -134,14 +137,31 @@ public class SelectRemindCyclePopup implements OnClickListener {
                 selectRemindCyclePopupListener.obtainMessage(6, "");
                 break;
             case R.id.tv_drugcycle_sure:
-                int remind = ((tv_mon.getCompoundDrawables()[2] == null) ? 0 : 1) * 1 // 周一
-                        + ((tv_tue.getCompoundDrawables()[2] == null) ? 0 : 1) * 2 // 周二
-                        + ((tv_wed.getCompoundDrawables()[2] == null) ? 0 : 1) * 4 // 周三
-                        + ((tv_thu.getCompoundDrawables()[2] == null) ? 0 : 1) * 8 // 周四
-                        + ((tv_fri.getCompoundDrawables()[2] == null) ? 0 : 1) * 16 // 周五
-                        + ((tv_sat.getCompoundDrawables()[2] == null) ? 0 : 1) * 32 // 周六
-                        + ((tv_sun.getCompoundDrawables()[2] == null) ? 0 : 1) * 64; // 周日
-                selectRemindCyclePopupListener.obtainMessage(7, String.valueOf(remind));
+//                if (tv_mon.getCompoundDrawables()[2] == null) {
+//                    int remind = ((tv_mon.getCompoundDrawables()[2] == null) ? 0 : 1) * 1;
+//                    selectRemindCyclePopupListener.obtainMessage(0, String.valueOf(remind));
+//                }else if(tv_tue.getCompoundDrawables()[2] == null){
+//                    int remind = ((tv_tue.getCompoundDrawables()[2] == null) ? 0 : 1) * 1;
+//                    selectRemindCyclePopupListener.obtainMessage(1, String.valueOf(remind));
+//                }
+                //  T.showShort(mContext,"请选择");
+                if (tv_mon.getCompoundDrawables()[2] != null || tv_tue.getCompoundDrawables()[2]!= null || tv_wed.getCompoundDrawables()[2] != null || tv_thu.getCompoundDrawables()[2] != null
+                        || tv_fri.getCompoundDrawables()[2] != null || tv_sat.getCompoundDrawables()[2] != null || tv_sun.getCompoundDrawables()[2] != null) {
+                    T.showShort(mContext, "请选择星期几");
+                    return;
+                } else {
+                    int remind = ((tv_mon.getCompoundDrawables()[2] == null) ? 0 : 1) * 1 // 周一
+                            + ((tv_tue.getCompoundDrawables()[2] == null) ? 0 : 1) * 2 // 周二
+                            + ((tv_wed.getCompoundDrawables()[2] == null) ? 0 : 1) * 4 // 周三
+                            + ((tv_thu.getCompoundDrawables()[2] == null) ? 0 : 1) * 8 // 周四
+                            + ((tv_fri.getCompoundDrawables()[2] == null) ? 0 : 1) * 16 // 周五
+                            + ((tv_sat.getCompoundDrawables()[2] == null) ? 0 : 1) * 32 // 周六
+                            + ((tv_sun.getCompoundDrawables()[2] == null) ? 0 : 1) * 64; // 周日7
+                    selectRemindCyclePopupListener.obtainMessage(7, String.valueOf(remind));
+                }
+                dismiss();
+                break;
+            case R.id.tv_cancel:
                 dismiss();
                 break;
             default:

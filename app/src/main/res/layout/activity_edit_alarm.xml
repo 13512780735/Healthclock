@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
     android:orientation="vertical"
-    tools:context=".ui.activity.main.EditAlarmActivity">
+    >
 
     <RelativeLayout
         android:id="@+id/rl_topbar_layout"

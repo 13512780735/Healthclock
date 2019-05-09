@@ -180,15 +180,16 @@
             android:process=":daemon" />
         <service android:name=".service.CountDownService" />
 
-        <activity android:name=".ui.activity.main.EditAlarmActivity" />
-        <activity android:name=".ui.activity.main.RingSelectActivity" />
-        <activity android:name=".ui.activity.main.SingleFragmentActivity" />
-        <activity android:name=".ui.activity.main.AlarmClockOntimeActivity" />
-        <activity android:name=".ui.activity.main.AlarmClockEditActivity" />
-        <activity android:name=".ui.activity.main.SingleFragmentOrdinaryActivity" />
-        <activity android:name=".ui.activity.main.SingleFragmentDialogActivity" />
-        <activity android:name=".ui.activity.main.AlarmClockNewActivity" />
-        <activity android:name=".ui.activity.clock.EditAlarmActivity"></activity>
+        <activity android:name=".ui.activity.clock.EditAlarmActivity" />
+        <activity android:name=".ui.activity.clock.RingSelectActivity" />
+        <activity android:name=".ui.activity.clock.SingleFragmentActivity" />
+        <activity android:name=".ui.activity.clock.AlarmClockOntimeActivity" />
+        <activity android:name=".ui.activity.clock.AlarmClockEditActivity" />
+        <activity android:name=".ui.activity.clock.SingleFragmentOrdinaryActivity" />
+        <activity android:name=".ui.activity.clock.SingleFragmentDialogActivity" />
+        <activity android:name=".ui.activity.clock.AlarmClockNewActivity" />
+        <activity android:name=".ui.activity.clock.EditAlarmActivity" />
+        <activity android:name=".ui.activity.clock.AlarmClockNapNotificationActivity"></activity>
     </application>
 
 </manifest>

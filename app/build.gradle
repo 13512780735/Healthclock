@@ -70,6 +70,7 @@ dependencies {
     implementation files('libs/ShareSDK-Wechat-Favorite-3.3.0.jar')
     implementation files('libs/ShareSDK-Wechat-Moments-3.3.0.jar')
     implementation project(':alarmmanagerclock')
+    implementation project(':SwipeBackLayout')
     implementation project(':litepal')
     implementation project(':daemon')
     implementation project(':PagerSlidingTabStrip')
@@ -78,4 +79,13 @@ dependencies {
     implementation 'com.squareup:otto:1.3.8'
     implementation 'com.balysv:material-ripple:1.0.2'
     implementation 'jp.wasabeef:recyclerview-animators:2.2.0'
+    implementation('com.github.afollestad.material-dialogs:core:0.8.5.4@aar') {
+        transitive = true
+    }
+    implementation('com.github.afollestad.material-dialogs:commons:0.8.5.4@aar') {
+        transitive = true
+    }
+    implementation 'com.umeng:fb:5.4.0'
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+    implementation files('libs/umeng-update-v2.6.0.1.jar')
 }

@@ -150,6 +150,41 @@
     <string name="alarm_clock">闹钟</string>
     <string name="default_ring">默认铃声</string>
 
+    <string name="warm_tips_title">温馨提示</string>
+    <string name="warm_tips_detail">亲，由于Android系统限制，如不响铃，可能是如下原因：\n
+    1.闹钟未被加入安全软件的应用保护名单\n
+    2.闹钟后台已被安全类软件误清理\n
+    3.软件安装在SD卡\n
+    4.关机</string>
+    <string name="roger">知道了</string>
+    <string name="no_tip">不再提示</string>
+
+
+    <!-- 闹钟响起界面 -->
+    <string name="touch_here_nap">轻按此处小睡%1$d分钟</string>
+    <string name="close_alarm_clock">右滑关闭闹钟</string>
+    <string name="xx_naping">%1$s (小睡中……)</string>
+    <string name="nap_to">小睡至%1$s闹钟再次响起，轻触取消</string>
+    <string name="nap_time">小睡%1$d分钟</string>
+    <string name="weather_type">%1$s&#160;%2$s~%3$s℃</string>
+    <string name="bring_an_umbrella">带伞</string>
+    <string name="alarm_error">未知闹钟异常</string>
+
+    <!-- 小睡编辑界面 -->
+    <string name="nap_set">小睡设置</string>
+    <string name="interval">间隔 (分钟)</string>
+    <string name="one">1</string>
+    <string name="three">3</string>
+    <string name="five">5</string>
+    <string name="eight">8</string>
+    <string name="ten">10</string>
+    <string name="twenty">20</string>
+    <string name="thirty">30</string>
+    <string name="num">60</string>
+    <string name="times">次数</string>
+    <string name="cancel">取消</string>
+
+
     <!-- 铃声选择界面 -->
     <string name="ring_select">铃声选择</string>
     <string name="no_system_ring_file">没有系统铃声文件</string>

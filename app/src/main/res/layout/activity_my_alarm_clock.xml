@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@mipmap/bg"
+    android:orientation="vertical"
     tools:context=".ui.activity.main.MyAlarmClockActivity">
 
     <RelativeLayout
@@ -57,11 +57,27 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+        <!--android:cacheColorHint：自定义listview的时候，当不使用android:cacheColorHint=“#00000000”
+        会出现选中一个空间黑色底色的情况，破坏整体美观度：当你不使用android:listSelector属性，
+        默认会显示选中的item为橙黄底色，有时候我们需要去掉这种效果：-->
+
+        <LinearLayout
+            android:id="@+id/alarm_clock_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+    </FrameLayout>
 </LinearLayout>

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/allLayout"
+    android:background="@mipmap/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,7 +11,6 @@
         android:id="@+id/rl_topbar_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_70"
-        android:background="@color/TRANSLUCENT"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingTop="@dimen/dp_20">
@@ -104,11 +104,11 @@
                 android:layout_marginStart="18dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_round_pop_bg_5"
-                    android:orientation="vertical">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@drawable/shape_round_pop_bg_5"-->
+                    <!--android:orientation="vertical">-->
 
                     <LinearLayout
                         android:id="@+id/linear_repeat"
@@ -130,77 +130,77 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:orientation="horizontal">
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="60dp"-->
+                        <!--android:layout_marginLeft="5dp"-->
+                        <!--android:layout_marginRight="5dp"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+                        <!--<LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">-->
 
-                            <ToggleButton
-                                android:id="@+id/tog_btn_monday"
-                                style="@style/new_alarm_clcok_repeat_days_tog_btn"
-                                android:textOff="@string/monday"
-                                android:textOn="@string/monday"></ToggleButton>
-                        </LinearLayout>
+                            <!--<ToggleButton-->
+                                <!--android:id="@+id/tog_btn_monday"-->
+                                <!--style="@style/new_alarm_clcok_repeat_days_tog_btn"-->
+                                <!--android:textOff="@string/monday"-->
+                                <!--android:textOn="@string/monday"></ToggleButton>-->
+                        <!--</LinearLayout>-->
 
-                        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+                        <!--<LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">-->
 
-                            <ToggleButton
-                                android:id="@+id/tog_btn_tuesday"
-                                style="@style/new_alarm_clcok_repeat_days_tog_btn"
-                                android:textOff="@string/tuesday"
-                                android:textOn="@string/tuesday"></ToggleButton>
-                        </LinearLayout>
+                            <!--<ToggleButton-->
+                                <!--android:id="@+id/tog_btn_tuesday"-->
+                                <!--style="@style/new_alarm_clcok_repeat_days_tog_btn"-->
+                                <!--android:textOff="@string/tuesday"-->
+                                <!--android:textOn="@string/tuesday"></ToggleButton>-->
+                        <!--</LinearLayout>-->
 
-                        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+                        <!--<LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">-->
 
-                            <ToggleButton
-                                android:id="@+id/tog_btn_wednesday"
-                                style="@style/new_alarm_clcok_repeat_days_tog_btn"
-                                android:textOff="@string/wednesday"
-                                android:textOn="@string/wednesday"></ToggleButton>
-                        </LinearLayout>
+                            <!--<ToggleButton-->
+                                <!--android:id="@+id/tog_btn_wednesday"-->
+                                <!--style="@style/new_alarm_clcok_repeat_days_tog_btn"-->
+                                <!--android:textOff="@string/wednesday"-->
+                                <!--android:textOn="@string/wednesday"></ToggleButton>-->
+                        <!--</LinearLayout>-->
 
-                        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+                        <!--<LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">-->
 
-                            <ToggleButton
-                                android:id="@+id/tog_btn_thursday"
-                                style="@style/new_alarm_clcok_repeat_days_tog_btn"
-                                android:textOff="@string/thursday"
-                                android:textOn="@string/thursday"></ToggleButton>
-                        </LinearLayout>
+                            <!--<ToggleButton-->
+                                <!--android:id="@+id/tog_btn_thursday"-->
+                                <!--style="@style/new_alarm_clcok_repeat_days_tog_btn"-->
+                                <!--android:textOff="@string/thursday"-->
+                                <!--android:textOn="@string/thursday"></ToggleButton>-->
+                        <!--</LinearLayout>-->
 
-                        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+                        <!--<LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">-->
 
-                            <ToggleButton
-                                android:id="@+id/tog_btn_friday"
-                                style="@style/new_alarm_clcok_repeat_days_tog_btn"
-                                android:textOff="@string/friday"
-                                android:textOn="@string/friday"></ToggleButton>
-                        </LinearLayout>
+                            <!--<ToggleButton-->
+                                <!--android:id="@+id/tog_btn_friday"-->
+                                <!--style="@style/new_alarm_clcok_repeat_days_tog_btn"-->
+                                <!--android:textOff="@string/friday"-->
+                                <!--android:textOn="@string/friday"></ToggleButton>-->
+                        <!--</LinearLayout>-->
 
-                        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+                        <!--<LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">-->
 
-                            <ToggleButton
-                                android:id="@+id/tog_btn_saturday"
-                                style="@style/new_alarm_clcok_repeat_days_tog_btn"
-                                android:textOff="@string/saturday"
-                                android:textOn="@string/saturday"></ToggleButton>
-                        </LinearLayout>
+                            <!--<ToggleButton-->
+                                <!--android:id="@+id/tog_btn_saturday"-->
+                                <!--style="@style/new_alarm_clcok_repeat_days_tog_btn"-->
+                                <!--android:textOff="@string/saturday"-->
+                                <!--android:textOn="@string/saturday"></ToggleButton>-->
+                        <!--</LinearLayout>-->
 
-                        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+                        <!--<LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">-->
 
-                            <ToggleButton
-                                android:id="@+id/tog_btn_sunday"
-                                style="@style/new_alarm_clcok_repeat_days_tog_btn"
-                                android:textOff="@string/sunday"
-                                android:textOn="@string/sunday"></ToggleButton>
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
+                            <!--<ToggleButton-->
+                                <!--android:id="@+id/tog_btn_sunday"-->
+                                <!--style="@style/new_alarm_clcok_repeat_days_tog_btn"-->
+                                <!--android:textOff="@string/sunday"-->
+                                <!--android:textOn="@string/sunday"></ToggleButton>-->
+                        <!--</LinearLayout>-->
+                    <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
 
 
 

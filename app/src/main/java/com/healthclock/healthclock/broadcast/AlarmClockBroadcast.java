@@ -25,7 +25,7 @@ import com.healthclock.healthclock.common.WeacConstants;
 import com.healthclock.healthclock.common.WeacStatus;
 import com.healthclock.healthclock.db.AlarmClockOperate;
 import com.healthclock.healthclock.network.model.main.AlarmClock;
-import com.healthclock.healthclock.ui.activity.main.AlarmClockOntimeActivity;
+import com.healthclock.healthclock.ui.activity.clock.AlarmClockOntimeActivity;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.MyUtil;
 
