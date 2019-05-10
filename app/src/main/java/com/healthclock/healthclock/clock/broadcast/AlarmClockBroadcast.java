@@ -28,6 +28,7 @@ import com.healthclock.healthclock.clock.model.AlarmClock;
 import com.healthclock.healthclock.clock.activity.AlarmClockOntimeActivity;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.clock.util.MyUtil;
+import com.healthclock.healthclock.util.T;
 
 
 /**
@@ -45,9 +46,11 @@ public class AlarmClockBroadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        AlarmClock alarmClock = intent
-                .getParcelableExtra(WeacConstants.ALARM_CLOCK);
+        T.showShort(context,"执行了");
+//        AlarmClock alarmClock = intent
+//                .getParcelableExtra(WeacConstants.ALARM_CLOCK);
         L.e("执行了4444！！！！");
+        T.showShort(context,"执行了4444！！！！"+intent.getExtras().get("test"));
 //        if (alarmClock != null) {
 //            // 单次响铃
 //            if (alarmClock.getWeeks() == null) {
@@ -88,7 +91,6 @@ public class AlarmClockBroadcast extends BroadcastReceiver {
 //            WeacStatus.sLastStartTime = now;
 //        }
         L.e("执行了8888！！！！");
-        L.e("数据：-->"+alarmClock);
         Intent it = new Intent(context, AlarmClockOntimeActivity.class);
 
 //
@@ -105,7 +107,7 @@ public class AlarmClockBroadcast extends BroadcastReceiver {
 //        }
 //
 //       // L.e("test:-->"+alarmClock.getTag());
-        it.putExtra(WeacConstants.ALARM_CLOCK, alarmClock);
+       //it.putExtra(WeacConstants.ALARM_CLOCK, alarmClock);
        // 清除栈顶的Activity
         it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TOP);

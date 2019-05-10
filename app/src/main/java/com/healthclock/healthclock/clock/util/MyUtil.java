@@ -501,6 +501,7 @@ public class MyUtil {
         L.e("闹钟数据：-->"+alarmClock.getRingName());
         Intent intent = new Intent(context, AlarmClockBroadcast.class);
         intent.putExtra(WeacConstants.ALARM_CLOCK, alarmClock);
+        intent.putExtra("test","123");
         // FLAG_UPDATE_CURRENT：如果PendingIntent已经存在，保留它并且只替换它的extra数据。
         // FLAG_CANCEL_CURRENT：如果PendingIntent已经存在，那么当前的PendingIntent会取消掉，然后产生一个新的PendingIntent。
 

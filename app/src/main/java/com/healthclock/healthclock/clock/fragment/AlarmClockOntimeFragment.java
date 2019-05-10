@@ -29,7 +29,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.healthclock.healthclock.R;
-import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.clock.broadcast.AlarmClockBroadcast;
 import com.healthclock.healthclock.clock.common.WeacConstants;
 import com.healthclock.healthclock.clock.common.WeacStatus;
@@ -38,7 +37,6 @@ import com.healthclock.healthclock.clock.activity.AlarmClockNapNotificationActiv
 import com.healthclock.healthclock.clock.util.AudioPlayer;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.clock.view.MySlidingView;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
