@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.healthclock.healthclock.ui.adapter;
+package com.healthclock.healthclock.clock.adapter;
 
 import android.app.Activity;
 import android.app.NotificationManager;

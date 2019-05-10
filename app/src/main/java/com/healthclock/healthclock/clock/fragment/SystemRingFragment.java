@@ -21,11 +21,9 @@ import android.widget.ListView;
 
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.app.App;
+import com.healthclock.healthclock.clock.adapter.RingSelectAdapter;
 import com.healthclock.healthclock.clock.common.WeacConstants;
-import com.healthclock.healthclock.clock.fragment.LocalMusicFragment;
-import com.healthclock.healthclock.clock.fragment.RingSelectFragment;
 import com.healthclock.healthclock.clock.model.RingSelectItem;
-import com.healthclock.healthclock.ui.adapter.RingSelectAdapter;
 import com.healthclock.healthclock.clock.util.AudioPlayer;
 import com.healthclock.healthclock.clock.util.MyUtil;
 import com.squareup.leakcanary.RefWatcher;
@@ -41,7 +39,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SystemRingFragment extends Fragment implements
+public class SystemRingFragment extends BaseListFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     /**
@@ -58,7 +56,6 @@ public class SystemRingFragment extends Fragment implements
      * 铃声选择位置
      */
     private int mPosition = 0;
-    private ListView mListView;
 
 
     @Nullable
@@ -68,53 +65,9 @@ public class SystemRingFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_system_ring,
                 container, false);
         ButterKnife.bind(view);
-        mListView = view.findViewById(R.id.list);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Map<String, String> map = mSystemRingAdapter.getItem(position);
-                // 取得铃声名
-                String ringName = map.get(WeacConstants.RING_NAME);
-                // 取得播放地址
-                String ringUrl = map.get(WeacConstants.RING_URL);
-                // 更新当前铃声选中的位置
-                mSystemRingAdapter.updateSelection(ringName);
-                // 更新适配器刷新铃声列表显示
-                mSystemRingAdapter.notifyDataSetChanged();
-                // 设置最后一次选中的铃声选择界面位置为系统铃声界面
-                RingSelectItem.getInstance().setRingPager(0);
-
-                // 播放音频文件
-                switch (ringUrl) {
-                    case WeacConstants.DEFAULT_RING_URL:
-                        // 当为默认铃声时
-                        AudioPlayer.getInstance(getActivity()).playRaw(
-                                R.raw.ring_weac_alarm_clock_default, false, false);
-                        // 无铃声
-                        break;
-                    case WeacConstants.NO_RING_URL:
-                        AudioPlayer.getInstance(getActivity()).stop();
-                        break;
-                    default:
-                        AudioPlayer.getInstance(getActivity()).play(ringUrl, false, false);
-                        break;
-                }
-
-                ViewPager pager = (ViewPager) getActivity().findViewById(R.id.fragment_ring_select_sort);
-                PagerAdapter f = pager.getAdapter();
-                LocalMusicFragment localMusicFragment = (LocalMusicFragment) f.instantiateItem(pager, 1);
-                //RecorderFragment recorderFragment = (RecorderFragment) f.instantiateItem(pager, 2);
-                // 取消本地音乐选中标记
-                if (localMusicFragment.mLocalMusicAdapter != null) {
-                    localMusicFragment.mLocalMusicAdapter.updateSelection("");
-                    localMusicFragment.mLocalMusicAdapter.notifyDataSetChanged();
-                }
-            }
-        });
         // 铃声选择界面
         return view;
     }
-
 
 
     @Override
@@ -127,6 +80,52 @@ public class SystemRingFragment extends Fragment implements
         // initAdapter();
     }
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Map<String, String> map = mSystemRingAdapter.getItem(position);
+        // 取得铃声名
+        String ringName = map.get(WeacConstants.RING_NAME);
+        // 取得播放地址
+        String ringUrl = map.get(WeacConstants.RING_URL);
+        // 更新当前铃声选中的位置
+        mSystemRingAdapter.updateSelection(ringName);
+        // 更新适配器刷新铃声列表显示
+        mSystemRingAdapter.notifyDataSetChanged();
+        // 设置最后一次选中的铃声选择界面位置为系统铃声界面
+        RingSelectItem.getInstance().setRingPager(0);
+
+        // 播放音频文件
+        switch (ringUrl) {
+            case WeacConstants.DEFAULT_RING_URL:
+                // 当为默认铃声时
+                AudioPlayer.getInstance(getActivity()).playRaw(
+                        R.raw.ring_weac_alarm_clock_default, false, false);
+                // 无铃声
+                break;
+            case WeacConstants.NO_RING_URL:
+                AudioPlayer.getInstance(getActivity()).stop();
+                break;
+            default:
+                AudioPlayer.getInstance(getActivity()).play(ringUrl, false, false);
+                break;
+        }
+
+        ViewPager pager = (ViewPager) getActivity().findViewById(R.id.fragment_ring_select_sort);
+        PagerAdapter f = pager.getAdapter();
+        LocalMusicFragment localMusicFragment = (LocalMusicFragment) f.instantiateItem(pager, 1);
+       // RecorderFragment recorderFragment = (RecorderFragment) f.instantiateItem(pager, 2);
+        // 取消本地音乐选中标记
+        if (localMusicFragment.mLocalMusicAdapter != null) {
+            localMusicFragment.mLocalMusicAdapter.updateSelection("");
+            localMusicFragment.mLocalMusicAdapter.notifyDataSetChanged();
+        }
+        // 取消录音选中标记
+//        if (recorderFragment.mRecorderAdapter != null) {
+//            recorderFragment.mRecorderAdapter.updateSelection("");
+//            recorderFragment.mRecorderAdapter.notifyDataSetChanged();
+//        }
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
@@ -216,17 +215,19 @@ public class SystemRingFragment extends Fragment implements
                 }
 
                 mSystemRingAdapter = new RingSelectAdapter(getActivity(), list, ringName1);
-                mListView.setAdapter(mSystemRingAdapter);
-                mListView.setSelection(mPosition);
+                setListAdapter(mSystemRingAdapter);
+                setSelection(mPosition);
                 break;
         }
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
+
     @Override
     public void onLoaderReset(Loader<Cursor> arg0) {
 

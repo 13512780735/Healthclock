@@ -42,8 +42,8 @@ public class BaseActivitySimple extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher(this);
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = App.getRefWatcher(this);
+//        refWatcher.watch(this);
     }
 
     @Override

@@ -37,13 +37,14 @@ public class IndentActivity extends BaseActivity {
         status = getIntent().getExtras().getInt("status");
         Log.e("TAG", status + "");
         initUI();
-       // initData();
+        // initData();
     }
+
     private void initUI() {
         setBackView();
         setTitle("订单记录");
-        mTabLayout = findViewById(R.id.indent_TabLayout);
-        mViewPager = findViewById(R.id.viewpager);
+        mTabLayout = (TabLayout) findViewById(R.id.indent_TabLayout);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.setSelectedTabIndicatorColor(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));

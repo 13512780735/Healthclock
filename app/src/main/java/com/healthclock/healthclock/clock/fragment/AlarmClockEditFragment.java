@@ -649,7 +649,7 @@ public class AlarmClockEditFragment extends BaseFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 }

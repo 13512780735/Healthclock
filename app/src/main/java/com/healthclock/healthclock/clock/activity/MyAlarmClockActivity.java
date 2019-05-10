@@ -20,16 +20,15 @@ import android.widget.PopupWindow;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.clock.adapter.AlarmClockAdapter;
 import com.healthclock.healthclock.clock.common.WeacConstants;
 import com.healthclock.healthclock.clock.db.AlarmClockOperate;
 import com.healthclock.healthclock.clock.listener.OnItemClickListener;
 import com.healthclock.healthclock.clock.model.AlarmClock;
-import com.healthclock.healthclock.clock.activity.AlarmClockEditActivity;
-import com.healthclock.healthclock.clock.activity.AlarmClockNewActivity;
-import com.healthclock.healthclock.ui.adapter.AlarmClockAdapter;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.clock.util.MyUtil;
 import com.healthclock.healthclock.clock.util.OttoAppConfig;
+import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.PopupWindowUtil;
 import com.healthclock.healthclock.clock.view.ErrorCatchLinearLayoutManager;
 import com.healthclock.healthclock.widget.IconFontTextView;
@@ -227,11 +226,14 @@ public class MyAlarmClockActivity extends BaseActivity {
         List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
         for (AlarmClock alarmClock : list) {
             mAlarmClockList.add(alarmClock);
+            L.e("执行了3333！！！！");
+            L.e("闹钟数据：-->"+alarmClock.getRingName());
 
             if (id == alarmClock.getId()) {
                 position = count;
                 if (alarmClock.isOnOff()) {
                     MyUtil.startAlarmClock(mContext, alarmClock);
+
                 }
             }
             count++;
@@ -249,10 +251,12 @@ public class MyAlarmClockActivity extends BaseActivity {
         List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
         for (AlarmClock alarmClock : list) {
             mAlarmClockList.add(alarmClock);
-
+            L.e("执行了2222！！！！");
+            L.e("闹钟数据：-->"+alarmClock.getRingName());
             // 当闹钟为开时刷新开启闹钟
             if (alarmClock.isOnOff()) {
                 MyUtil.startAlarmClock(mContext, alarmClock);
+                L.e("闹钟数据111：-->"+alarmClock.getRingName());
             }
         }
 

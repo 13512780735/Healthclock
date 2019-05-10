@@ -54,18 +54,6 @@ public class AlarmClockOntimeFragment extends BaseFragment implements
 {
 
 
-//    public AlarmClockOntimeFragment() {
-//        // Required empty public constructor
-//    }
-//
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_alarm_clock_ontime, container, false);
-//    }
-
 
     /**
      * Log tag ：AlarmClockOntimeFragment
@@ -180,6 +168,11 @@ public class AlarmClockOntimeFragment extends BaseFragment implements
 
         mAlarmClock = getActivity().getIntent()
                 .getParcelableExtra(WeacConstants.ALARM_CLOCK);
+        L.e("执行了！！！！");
+//        L.e("AC_TAG"+mAlarmClock.getTag());
+//        L.e("RingName"+mAlarmClock.getRingName());
+//        L.e("RingUrl"+mAlarmClock.getRingUrl());
+//        L.e("getRingPager"+mAlarmClock.getRingPager());
         if (mAlarmClock != null) {
             // 取得小睡间隔
             mNapInterval = mAlarmClock.getNapInterval();
@@ -635,7 +628,7 @@ public class AlarmClockOntimeFragment extends BaseFragment implements
         // 复原手机媒体音量
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
                 mCurrentVolume, AudioManager.ADJUST_SAME);
-        RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 }

@@ -45,8 +45,8 @@ public class BaseActivityOrdinary extends SwipeBackOrdinaryActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RefWatcher refWatcher = App.getRefWatcher(this);
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = App.getRefWatcher(this);
+//        refWatcher.watch(this);
     }
 
     @Override

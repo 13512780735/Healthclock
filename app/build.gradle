@@ -8,7 +8,7 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0.0.1"
-        flavorDimensions "versionCode"
+       // flavorDimensions "versionCode"
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Umeng"]
     }
     buildTypes {
@@ -38,26 +38,11 @@ android {
         exclude 'META-INF/maven/com.squareup.okio/okio/pom.properties'
     }
     productFlavors {
-        _360 {}
-        wandoujia {}
-        yingyongbao {}
-        baidu {}
-
-//-----------------------------------
-//        bugly {}
-//        _91zhushou {}
+//        _360 {}
+//        wandoujia {}
+//        yingyongbao {}
 //        baidu {}
-//        uc {}
-//        jifeng {}
-//        yingyonghui {}
-//        ku {}
-//        anzhi {}
-//        mumayi {}
-//        huawei {}
-//        xiaomi {}
-//        meizu {}
-//        lianxiang {}
-//        google {}
+
 
         productFlavors.all { flavor ->
             flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]

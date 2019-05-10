@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.healthclock.healthclock.ui.adapter;
+package com.healthclock.healthclock.clock.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

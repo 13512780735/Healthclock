@@ -6,14 +6,13 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@+id/list"
+        android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </ListView>
 
     <TextView
         android:id="@android:id/empty"
-        android:visibility="gone"
         style="@style/ring_select_no_file_tv"
         android:text="@string/no_system_ring_file" />
 

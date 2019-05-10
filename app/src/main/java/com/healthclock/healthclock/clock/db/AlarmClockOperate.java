@@ -19,6 +19,7 @@ package com.healthclock.healthclock.clock.db;
 import android.content.ContentValues;
 
 import com.healthclock.healthclock.clock.model.AlarmClock;
+import com.healthclock.healthclock.util.L;
 
 import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
@@ -92,6 +93,8 @@ public class AlarmClockOperate {
      */
     private ContentValues setContentValues(AlarmClock ac) {
         ContentValues cv = new ContentValues();
+
+
         cv.put(WeacDBMetaDataLitePal.AC_HOUR, ac.getHour());
         cv.put(WeacDBMetaDataLitePal.AC_MINUTE, ac.getMinute());
         cv.put(WeacDBMetaDataLitePal.AC_REPEAT, ac.getRepeat());

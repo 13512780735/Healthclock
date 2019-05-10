@@ -13,7 +13,7 @@ public class AlarmClockNapNotificationActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm_clock_nap_notification);
+        //setContentView(R.layout.activity_alarm_clock_nap_notification);
         AlarmClock alarmClock = getIntent().getParcelableExtra(
                 WeacConstants.ALARM_CLOCK);
         // 关闭小睡

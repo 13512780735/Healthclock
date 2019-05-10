@@ -118,6 +118,7 @@ public class AudioPlayer {
         try {
             // 设置数据源
             mPlayer.setDataSource(url);
+
             // 异步准备，不会阻碍主线程
             mPlayer.prepareAsync();
         } catch (IllegalArgumentException | SecurityException

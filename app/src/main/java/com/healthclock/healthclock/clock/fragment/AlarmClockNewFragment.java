@@ -266,7 +266,7 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
         mAlarmClock.setTag(getString(R.string.alarm_clock));
 
         // 标签描述控件
-        EditText tag = view.findViewById(R.id.tag_edit_text);
+        EditText tag = (EditText) view.findViewById(R.id.tag_edit_text);
         tag.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
@@ -276,11 +276,8 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
                 } else {
                     mAlarmClock.setTag(getString(R.string.alarm_clock));
                 }
-            }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
+                L.e("TAG",mAlarmClock.getTag());
             }
 
             @Override
@@ -288,6 +285,9 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
                                           int after) {
             }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
         });
     }
 
@@ -313,6 +313,7 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
         ViewGroup ring = (ViewGroup) view.findViewById(R.id.ring_llyt);
         mRingDescribe = (TextView) view.findViewById(R.id.ring_describe);
         mRingDescribe.setText(ringName);
+        L.e("RingName",mAlarmClock.getRingName());
         ring.setOnClickListener(this);
     }
 
@@ -654,12 +655,17 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
                 String url = data.getStringExtra(WeacConstants.RING_URL);
                 // 铃声界面
                 int ringPager = data.getIntExtra(WeacConstants.RING_PAGER, 0);
-
+                L.e("name:->"+name);
+                L.e("url->"+url);
+                L.e("ringPager:->"+ringPager);
                 mRingDescribe.setText(name);
 
                 mAlarmClock.setRingName(name);
                 mAlarmClock.setRingUrl(url);
                 mAlarmClock.setRingPager(ringPager);
+                L.e("name:->"+mAlarmClock.getRingName());
+                L.e("url->"+mAlarmClock.getRingUrl());
+                L.e("ringPager:->"+mAlarmClock.getRingPager());
                 break;
         }
     }

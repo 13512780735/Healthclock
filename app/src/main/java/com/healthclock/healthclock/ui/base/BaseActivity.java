@@ -19,21 +19,25 @@ import android.widget.Toast;
 
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.util.AppManager;
 import com.healthclock.healthclock.util.LoaddingDialog;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.widget.CustomDialog;
 import com.healthclock.healthclock.widget.IconFontTextView;
+import com.squareup.leakcanary.RefWatcher;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 
 /**
  * Created by Administrator on 2017/9/11.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
     protected final static int DATA_LOAD_ING = 0x001;
     protected final static int DATA_LOAD_COMPLETE = 0x002;
     protected final static int DATA_LOAD_FAIL = 0x003;
@@ -104,6 +108,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
     }
 
     /**
@@ -112,6 +117,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        RefWatcher refWatcher = App.getRefWatcher(this);
+//        refWatcher.watch(this);
     }
 
 
@@ -124,6 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (progress != null) {
             progress.dismiss();
         }
+        MobclickAgent.onPause(this);
     }
 
     /**

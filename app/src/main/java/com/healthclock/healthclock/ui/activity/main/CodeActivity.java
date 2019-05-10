@@ -17,7 +17,7 @@ public class CodeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code);
-        ivCode = findViewById(R.id.ivCode);
+        ivCode = (ImageView)findViewById(R.id.ivCode);
         boolean isQRCode = getIntent().getBooleanExtra(MemberFragment.KEY_IS_QR_CODE,false);
         if(isQRCode){
             createQRCode(getString(R.string.app_name));

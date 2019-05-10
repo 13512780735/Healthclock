@@ -37,8 +37,8 @@ public class CustomActivity extends BaseActivity implements OnCaptureCallback {
     private void initUI() {
         setBackView();
         setTitle("二维码");
-        surfaceView = findViewById(R.id.surfaceView);
-        viewfinderView = findViewById(R.id.viewfinderView);
+        surfaceView = (SurfaceView)findViewById(R.id.surfaceView);
+        viewfinderView = (ViewfinderView)findViewById(R.id.viewfinderView);
 
         isContinuousScan = getIntent().getBooleanExtra(AlarmClockFragment.KEY_IS_CONTINUOUS,false);
 

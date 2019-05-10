@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RingSelectFragment extends Fragment implements View.OnClickListener {
+public class RingSelectFragment extends BaseFragment implements View.OnClickListener {
 
     /**
      * 铃声种类集合
@@ -171,7 +171,7 @@ public class RingSelectFragment extends Fragment implements View.OnClickListener
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.fragment_ring_select_sort);
         viewPager.setAdapter(new MyFragmentPagerAdapter(getActivity()
                 .getSupportFragmentManager()));
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(1);
 
         // 铃声界面位置
         int currentIndex;
@@ -206,7 +206,7 @@ public class RingSelectFragment extends Fragment implements View.OnClickListener
          * 铃声选择列表标题
          */
         private final String[] titles = {getString(R.string.system_ring),
-                getString(R.string.local_music), getString(R.string.record)};
+                getString(R.string.local_music)};
 
         public MyFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -236,7 +236,7 @@ public class RingSelectFragment extends Fragment implements View.OnClickListener
             // 停止播放
             AudioPlayer.getInstance(getActivity()).stop();
         }
-        RefWatcher refWatcher = App.getRefWatcher(getActivity());
-        refWatcher.watch(this);
+//        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 }

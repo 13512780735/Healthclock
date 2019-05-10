@@ -19,10 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.util.LoaddingDialog;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.widget.CustomDialog;
 import com.healthclock.healthclock.widget.IconFontTextView;
+import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -92,6 +94,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         LoaddingDismiss();
+//        RefWatcher refWatcher = App.getRefWatcher(getActivity());
+//        refWatcher.watch(this);
     }
 //    public void showShare(String url){
 //        Resources res = getActivity().getResources();

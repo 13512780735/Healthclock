@@ -20,9 +20,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.clock.adapter.RingSelectAdapter;
 import com.healthclock.healthclock.clock.common.WeacConstants;
 import com.healthclock.healthclock.clock.model.RingSelectItem;
-import com.healthclock.healthclock.ui.adapter.RingSelectAdapter;
 import com.healthclock.healthclock.clock.util.AudioPlayer;
 import com.healthclock.healthclock.clock.util.MyUtil;
 
@@ -37,7 +37,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LocalMusicFragment extends Fragment implements
+public class LocalMusicFragment extends BaseListFragment implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     /**
@@ -54,7 +54,6 @@ public class LocalMusicFragment extends Fragment implements
      * 铃声选择位置
      */
     private int mPosition = 0;
-    private ListView mListView;
 
 
 
@@ -65,36 +64,7 @@ public class LocalMusicFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_local_music,
                 container, false);
         ButterKnife.bind(view);
-        mListView = view.findViewById(R.id.list);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Map<String, String> map = mLocalMusicAdapter.getItem(position);
-                // 取得铃声名
-                String ringName = map.get(WeacConstants.RING_NAME);
-                // 取得播放地址
-                String ringUrl = map.get(WeacConstants.RING_URL);
-                // 更新当前铃声选中的位置
-                mLocalMusicAdapter.updateSelection(ringName);
-                // 更新适配器刷新铃声列表显示
-                mLocalMusicAdapter.notifyDataSetChanged();
-                // 设置最后一次选中的铃声选择界面位置为本地音乐界面
-                RingSelectItem.getInstance().setRingPager(1);
 
-                // 播放音频文件
-                AudioPlayer.getInstance(getActivity()).play(ringUrl, false, false);
-
-                ViewPager pager = (ViewPager) getActivity().findViewById(R.id.fragment_ring_select_sort);
-                PagerAdapter f = pager.getAdapter();
-                SystemRingFragment systemRingFragment = (SystemRingFragment) f.instantiateItem(pager, 0);
-                RecorderFragment recorderFragment = (RecorderFragment) f.instantiateItem(pager, 2);
-                // 取消系统铃声选中标记
-                if (systemRingFragment.mSystemRingAdapter != null) {
-                    systemRingFragment.mSystemRingAdapter.updateSelection("");
-                    systemRingFragment.mSystemRingAdapter.notifyDataSetChanged();
-                }
-            }
-        });
         // 铃声选择界面
         return view;
     }
@@ -107,7 +77,39 @@ public class LocalMusicFragment extends Fragment implements
         // 注册Loader
         loaderManager.initLoader(LOADER_ID, null, this);
     }
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Map<String, String> map = mLocalMusicAdapter.getItem(position);
+        // 取得铃声名
+        String ringName = map.get(WeacConstants.RING_NAME);
+        // 取得播放地址
+        String ringUrl = map.get(WeacConstants.RING_URL);
+        // 更新当前铃声选中的位置
+        mLocalMusicAdapter.updateSelection(ringName);
+        // 更新适配器刷新铃声列表显示
+        mLocalMusicAdapter.notifyDataSetChanged();
+        // 设置最后一次选中的铃声选择界面位置为本地音乐界面
+        RingSelectItem.getInstance().setRingPager(1);
 
+        // 播放音频文件
+        AudioPlayer.getInstance(getActivity()).play(ringUrl, false, false);
+
+        ViewPager pager = (ViewPager) getActivity().findViewById(R.id.fragment_ring_select_sort);
+        PagerAdapter f = pager.getAdapter();
+        SystemRingFragment systemRingFragment = (SystemRingFragment) f.instantiateItem(pager, 0);
+       // RecorderFragment recorderFragment = (RecorderFragment) f.instantiateItem(pager, 2);
+        // 取消系统铃声选中标记
+        if (systemRingFragment.mSystemRingAdapter != null) {
+            systemRingFragment.mSystemRingAdapter.updateSelection("");
+            systemRingFragment.mSystemRingAdapter.notifyDataSetChanged();
+        }
+        // 取消录音选中标记
+//        if (recorderFragment.mRecorderAdapter != null) {
+//            recorderFragment.mRecorderAdapter.updateSelection("");
+//            recorderFragment.mRecorderAdapter.notifyDataSetChanged();
+//        }
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int arg0, Bundle arg1) {
@@ -174,8 +176,8 @@ public class LocalMusicFragment extends Fragment implements
                 }
 
                 mLocalMusicAdapter = new RingSelectAdapter(getActivity(), list, ringName1);
-                mListView.setAdapter(mLocalMusicAdapter);
-                mListView.setSelection(mPosition);
+                setListAdapter(mLocalMusicAdapter);
+                setSelection(mPosition);
                 break;
         }
     }

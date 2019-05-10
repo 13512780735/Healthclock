@@ -25,7 +25,7 @@ public class ShopListAdapter extends BaseQuickAdapter<ShopListModel.ListBean, Ba
         //helper.setText(R.id.tv_price, item.getPrice());
         helper.setText(R.id.tv_price, "¥ 396");
         helper.setText(R.id.tv_content, "磁力健身球/潜能开发/预防近视保养颈椎提神醒脑");
-        imageLoaderUtils.displayImage(item.getUrl(), (RatioImageView) helper.getView(R.id.iv_shop_img));
+      //  imageLoaderUtils.displayImage(item.getUrl(), (RatioImageView) helper.getView(R.id.iv_shop_img));
         helper.addOnClickListener(R.id.tv_buy);
     }
 }
