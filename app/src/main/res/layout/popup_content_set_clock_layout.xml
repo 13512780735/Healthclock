@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:gravity="center"
-            android:text="间隔闹"
+            android:text="定点闹"
             android:textColor="@color/text_color" />
 
         <View
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:gravity="center"
-            android:text="定点闹"
+            android:text="间隔闹"
         android:textColor="@color/text_color" />
     </LinearLayout>
 

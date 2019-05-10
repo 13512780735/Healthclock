@@ -2,6 +2,7 @@ package com.healthclock.healthclock.clock.fragment;
 
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,9 +22,15 @@ import android.widget.ToggleButton;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.clock.common.WeacConstants;
+import com.healthclock.healthclock.clock.db.AlarmClockOperate;
 import com.healthclock.healthclock.clock.model.AlarmClock;
 import com.healthclock.healthclock.clock.activity.RingSelectActivity;
+import com.healthclock.healthclock.clock.model.AlarmClockDeleteEvent;
 import com.healthclock.healthclock.clock.util.MyUtil;
+import com.healthclock.healthclock.clock.util.OttoAppConfig;
+import com.healthclock.healthclock.util.L;
+import com.healthclock.healthclock.util.SharedPreferencesUtils;
+import com.healthclock.healthclock.widget.BorderTextView;
 import com.healthclock.healthclock.widget.IconFontTextView;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -115,11 +122,15 @@ public class AlarmClockEditFragment extends BaseFragment implements
      * 铃声描述
      */
     private TextView mRingDescribe;
+    private BorderTextView ibtn_delete;
+    private String position;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAlarmClock = getActivity().getIntent().getParcelableExtra(
                 WeacConstants.ALARM_CLOCK);
+
         // 闹钟默认开启
         mAlarmClock.setOnOff(true);
     }
@@ -128,6 +139,8 @@ public class AlarmClockEditFragment extends BaseFragment implements
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_edit_alarm,
                 container, false);
+       // position=getActivity().getIntent().getStringExtra("position");
+
         // 初始化时间选择
         initTimeSelect(view);
         // 初始化重复
@@ -158,7 +171,9 @@ public class AlarmClockEditFragment extends BaseFragment implements
         timePicker.setIs24HourView(true);
         tvBack = view.findViewById(R.id.btn_cancel);
         tvSave = view.findViewById(R.id.btn_save);
+        ibtn_delete = view.findViewById(R.id.ibtn_delete);
 
+        ibtn_delete.setOnClickListener(this);
         tvBack.setOnClickListener(this);
         tvSave.setOnClickListener(this);
         // 初始化时间选择器的小时
@@ -341,6 +356,7 @@ public class AlarmClockEditFragment extends BaseFragment implements
 
                 Intent data = new Intent();
                 data.putExtra(WeacConstants.ALARM_CLOCK, mAlarmClock);
+                data.putExtra("flag","0");
                 getActivity().setResult(Activity.RESULT_OK, data);
                 drawAnimation();
                 break;
@@ -354,6 +370,31 @@ public class AlarmClockEditFragment extends BaseFragment implements
                 Intent i = new Intent(getActivity(), RingSelectActivity.class);
                 i.putExtra(WeacConstants.RING_REQUEST_TYPE, 0);
                 startActivityForResult(i, REQUEST_RING_SELECT);
+            break;
+            case R.id.ibtn_delete:
+//                int position= SharedPreferencesUtils.getInt(getActivity(),"position");
+//                L.e("position-->"+position);
+//                AlarmClockOperate.getInstance().deleteAlarmClock(mAlarmClock);
+//                OttoAppConfig.getInstance().post(new AlarmClockDeleteEvent(position, mAlarmClock));
+//
+//                // 关闭闹钟
+//                MyUtil.cancelAlarmClock(getContext(),
+//                        mAlarmClock.getId());
+//                // 关闭小睡
+//                MyUtil.cancelAlarmClock(getActivity(),
+//                        -mAlarmClock.getId());
+//
+//                NotificationManager notificationManager = (NotificationManager) getActivity()
+//                        .getSystemService(Activity.NOTIFICATION_SERVICE);
+//                // 取消下拉列表通知消息
+//                notificationManager.cancel(mAlarmClock.getId());
+
+
+                Intent data1 = new Intent();
+                data1.putExtra(WeacConstants.ALARM_CLOCK, mAlarmClock);
+                data1.putExtra("flag","1");
+                getActivity().setResult(Activity.RESULT_OK, data1);
+                drawAnimation();
                 break;
         }
     }

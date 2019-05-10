@@ -25,6 +25,7 @@ import com.healthclock.healthclock.clock.model.AlarmClock;
 import com.healthclock.healthclock.clock.activity.RingSelectActivity;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.clock.util.MyUtil;
+import com.healthclock.healthclock.widget.BorderTextView;
 import com.healthclock.healthclock.widget.IconFontTextView;
 
 import java.util.Calendar;
@@ -103,7 +104,7 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
      */
     private TextView mRingDescribe;
     private IconFontTextView tvBack, tvSave;
-
+    private BorderTextView ibtn_delete;
 
 //    @Override
 //    protected int setContentView() {
@@ -153,7 +154,8 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
         TimePicker timePicker = (TimePicker) view.findViewById(R.id.time_picker);
         tvBack = view.findViewById(R.id.btn_cancel);
         tvSave = view.findViewById(R.id.btn_save);
-
+        ibtn_delete = view.findViewById(R.id.ibtn_delete);
+        ibtn_delete.setVisibility(View.GONE);
         tvBack.setOnClickListener(this);
         tvSave.setOnClickListener(this);
         timePicker.setIs24HourView(true);

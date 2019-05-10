@@ -1,6 +1,7 @@
 package com.healthclock.healthclock.clock.activity;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,13 +26,16 @@ import com.healthclock.healthclock.clock.common.WeacConstants;
 import com.healthclock.healthclock.clock.db.AlarmClockOperate;
 import com.healthclock.healthclock.clock.listener.OnItemClickListener;
 import com.healthclock.healthclock.clock.model.AlarmClock;
+import com.healthclock.healthclock.clock.model.AlarmClockDeleteEvent;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.clock.util.MyUtil;
 import com.healthclock.healthclock.clock.util.OttoAppConfig;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.PopupWindowUtil;
 import com.healthclock.healthclock.clock.view.ErrorCatchLinearLayoutManager;
+import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.widget.IconFontTextView;
+import com.squareup.otto.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,25 +89,29 @@ public class MyAlarmClockActivity extends BaseActivity {
      * List内容为空时的视图
      */
     private LinearLayout mEmptyView;
+    private int position1;
+    private AlarmClock mDeletedAlarmClock;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_alarm_clock);
-        setBackView();
         OttoAppConfig.getInstance().register(this);
         mAlarmClockList = new ArrayList<>();
         mAdapter = new AlarmClockAdapter(this, mAlarmClockList);
         initUI();
     }
 
-    @OnClick({R.id.tv_right})
+    @OnClick({R.id.tv_right, R.id.tv_back})
     public void Onclick(View v) {
         switch (v.getId()) {
             case R.id.tv_right:
                 showPopupWindow(tvRight);
                 setBackgroundAlpha(0.7f);
+                break;
+            case R.id.tv_back:
+                finish();
                 break;
         }
     }
@@ -145,10 +153,14 @@ public class MyAlarmClockActivity extends BaseActivity {
             if (MyUtil.isFastDoubleClick()) {
                 return;
             }
+            SharedPreferencesUtils.put(mContext,"position",position);
+            position1 = position;
             AlarmClock alarmClock = mAlarmClockList.get(position);
             Intent intent = new Intent(mContext,
                     AlarmClockEditActivity.class);
             intent.putExtra(WeacConstants.ALARM_CLOCK, alarmClock);
+
+            L.e("position-->"+position);
             // 开启编辑闹钟界面
             startActivityForResult(intent, REQUEST_ALARM_CLOCK_EDIT);
             // 启动移动进入效果动画
@@ -185,12 +197,56 @@ public class MyAlarmClockActivity extends BaseActivity {
             case REQUEST_ALARM_CLOCK_EDIT:
                 // 更新闹钟数据
 //                TabAlarmClockOperate.getInstance(getActivity()).update(ac);
-                AlarmClockOperate.getInstance().updateAlarmClock(ac);
-                updateList();
+                if ("0".equals(data.getStringExtra("flag"))) {
+                    AlarmClockOperate.getInstance().updateAlarmClock(ac);
+                    updateList();
+                } else {
+                    //AlarmClock alarmClock = data.getParcelableExtra(WeacConstants.ALARM_CLOCK);
+                   deleteList(ac);
+                }
                 break;
 
         }
     }
+    @Subscribe
+    public void OnAlarmClockDelete(AlarmClockDeleteEvent event) {
+        L.e("执行1……");
+        //deleteList(event);
+
+        mDeletedAlarmClock = event.getAlarmClock();
+
+//        SharedPreferences share = getActivity().getSharedPreferences(
+//                WeacConstants.EXTRA_WEAC_SHARE, Activity.MODE_PRIVATE);
+//        boolean isACDeleteFirstUse = share.getBoolean(WeacConstants.SHAKE_RETRIEVE_AC, true);
+//        if (isACDeleteFirstUse) {
+//            isShowingShakeExplain = true;
+//            Intent intent = new Intent(getActivity(), ShakeExplainActivity.class);
+//            startActivity(intent);
+//        }
+
+    }
+//    private void deleteList(AlarmClockDeleteEvent event) {
+//        L.e("执行2……");
+//        mAlarmClockList.clear();
+//
+//        int position = event.getPosition();
+//        List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
+//        for (AlarmClock alarmClock : list) {
+//            mAlarmClockList.add(alarmClock);
+//        }
+//        // 列表为空时不显示删除，完成按钮
+//        if (mAlarmClockList.size() == 0) {
+//            mAcceptAction.setVisibility(View.GONE);
+//            mEditAction.setVisibility(View.VISIBLE);
+//            mAdapter.displayDeleteButton(false);
+//        }
+//
+//        checkIsEmpty(list);
+//
+//        mAdapter.notifyItemRemoved(position);
+//
+////        mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
+//    }
 
     private void showAlarmExplain() {
         if (isShow()) {
@@ -227,7 +283,7 @@ public class MyAlarmClockActivity extends BaseActivity {
         for (AlarmClock alarmClock : list) {
             mAlarmClockList.add(alarmClock);
             L.e("执行了3333！！！！");
-            L.e("闹钟数据：-->"+alarmClock.getRingName());
+            L.e("闹钟数据：-->" + alarmClock.getRingName());
 
             if (id == alarmClock.getId()) {
                 position = count;
@@ -251,12 +307,9 @@ public class MyAlarmClockActivity extends BaseActivity {
         List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
         for (AlarmClock alarmClock : list) {
             mAlarmClockList.add(alarmClock);
-            L.e("执行了2222！！！！");
-            L.e("闹钟数据：-->"+alarmClock.getRingName());
             // 当闹钟为开时刷新开启闹钟
             if (alarmClock.isOnOff()) {
                 MyUtil.startAlarmClock(mContext, alarmClock);
-                L.e("闹钟数据111：-->"+alarmClock.getRingName());
             }
         }
 
@@ -265,8 +318,37 @@ public class MyAlarmClockActivity extends BaseActivity {
         mAdapter.notifyDataSetChanged();
     }
 
+    private void deleteList(AlarmClock alarmClock) {
+       // mAlarmClockList.clear();
+        AlarmClockOperate.getInstance().deleteAlarmClock(mAlarmClockList.get(position1));
+        // 关闭闹钟
+        MyUtil.cancelAlarmClock(mContext,
+                alarmClock.getId());
+        // 关闭小睡
+        MyUtil.cancelAlarmClock(mContext,
+                -alarmClock.getId());
+
+        NotificationManager notificationManager = (NotificationManager) mContext
+                .getSystemService(Activity.NOTIFICATION_SERVICE);
+        // 取消下拉列表通知消息
+        notificationManager.cancel(alarmClock.getId());
+
+        //mAlarmClockList.remove(position1);
+
+        List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
+//        for (AlarmClock alarmClock1 : list) {
+//            mAlarmClockList.add(alarmClock1);
+//        }
+
+        checkIsEmpty(list);
+
+        mAdapter.notifyItemRemoved(position1);
+        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
+    }
 
     private void checkIsEmpty(List<AlarmClock> list) {
+        L.e("size:-->"+list.size());
         if (list.size() != 0) {
             mRecyclerView.setVisibility(View.VISIBLE);
             mEmptyView.setVisibility(View.GONE);
