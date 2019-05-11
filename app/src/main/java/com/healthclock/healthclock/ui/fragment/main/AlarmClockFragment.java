@@ -2,28 +2,41 @@ package com.healthclock.healthclock.ui.fragment.main;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 
+import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.holder.Holder;
+import com.bumptech.glide.Glide;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.clock.activity.MyAlarmClockActivity;
+import com.healthclock.healthclock.network.FalseModel;
 import com.healthclock.healthclock.ui.activity.main.CustomActivity;
+import com.healthclock.healthclock.ui.adapter.NewsAdapter;
 import com.healthclock.healthclock.ui.base.BaseFragment;
 import com.healthclock.healthclock.util.PopupWindowUtil;
 import com.healthclock.healthclock.widget.IconFontTextView;
 import com.king.zxing.Intents;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +52,10 @@ import static android.app.Activity.RESULT_OK;
 public class AlarmClockFragment extends BaseFragment implements EasyPermissions.PermissionCallbacks {
     @BindView(R.id.tv_right)
     IconFontTextView tvRight;
+    @BindView(R.id.banner)
+    ConvenientBanner mBanner;
+    @BindView(R.id.mRecyclerView)
+    RecyclerView mRecyclerView;
     public static final String KEY_TITLE = "key_title";
     public static final String KEY_IS_QR_CODE = "key_code";
     public static final String KEY_IS_CONTINUOUS = "key_continuous_scan";
@@ -53,6 +70,15 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
     private String title;
     private boolean isContinuousScan;
 
+    private List<String> networkImage = new ArrayList<>();
+    String[] images = {
+            "http://img2.3lian.com/2014/f2/37/d/40.jpg",
+            "http://img2.3lian.com/2014/f2/37/d/39.jpg",
+            "http://img2.3lian.com/2014/f2/37/d/41.jpg",
+    };
+
+    ArrayList<FalseModel> data;
+    private NewsAdapter mAdapter;
 
     public static AlarmClockFragment newInstance() {
         return new AlarmClockFragment();
@@ -65,12 +91,56 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
 
     @Override
     protected void lazyLoad() {
+
         initUI();
     }
 
     private void initUI() {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        initData();
+        mAdapter = new NewsAdapter(R.layout.news_items, data);
+        mRecyclerView.setAdapter(mAdapter);
+        mBanner.startTurning(4000);
+        networkImage = Arrays.asList(images);
+
+        mBanner.setPages(new CBViewHolderCreator<NetworkImageHolderView>() {
+            @Override
+            public NetworkImageHolderView createHolder() {
+                return new NetworkImageHolderView();
+            }
+        }, networkImage).setPageIndicator(new int[]{R.drawable.indicator_gray, R.drawable.indicator_red}).setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL).setScrollDuration(1500);
+
+//        convenientBanner.setManualPageable(false);//设置不能手动影响
+
+        //网络加载例子
 
 
+    }
+
+
+    public void initData() {
+        data = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            FalseModel falseModel = new FalseModel();
+            falseModel.setTitle("" + i);
+            data.add(falseModel);
+        }
+    }
+
+    public class NetworkImageHolderView implements Holder<String> {
+        private ImageView imageView;
+
+        @Override
+        public View createView(Context context) {
+            imageView = new ImageView(context);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            return imageView;
+        }
+
+        @Override
+        public void UpdateUI(Context context, int position, String data) {
+            Glide.with(getActivity()).load(data).into(imageView);
+        }
     }
 
     @OnClick({R.id.tv_scan, R.id.tv_right})

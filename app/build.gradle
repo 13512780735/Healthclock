@@ -121,4 +121,5 @@ dependencies {
     implementation 'com.umeng:fb:5.4.0'
     implementation 'com.umeng.analytics:analytics:latest.integration'
     implementation files('libs/umeng-update-v2.6.0.1.jar')
+    implementation 'com.bigkoo:convenientbanner:2.0.5'
 }

@@ -57,4 +57,20 @@
             android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
+
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_margin="@dimen/dp_20"
+        android:background="@drawable/shape_round_pop_bg_5"
+        android:gravity="center_horizontal" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/mRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:layout_height="240dp"></android.support.v7.widget.RecyclerView>
+
 </LinearLayout>
