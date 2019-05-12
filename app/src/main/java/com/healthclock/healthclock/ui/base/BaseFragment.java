@@ -61,6 +61,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        token = App.getToken(getActivity());
         isViewInitiated = true;
         prepareFetchData();
     }
@@ -71,11 +72,16 @@ public abstract class BaseFragment extends Fragment {
         view = inflater.inflate(setContentView(), container, false);
         /**初始化的时候去加载数据**/
         unbinder = ButterKnife.bind(this, view);
-        token = getToken(getActivity());
+
         loaddingDialog = new LoaddingDialog(getActivity());
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
     public boolean prepareFetchData() {
         return prepareFetchData(false);

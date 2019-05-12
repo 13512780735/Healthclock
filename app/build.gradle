@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'realm-android'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -52,6 +52,9 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
     //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
@@ -59,7 +62,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation ('com.android.support.test.espresso:espresso-core:2.2.2',{
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     //皮肤设置
     implementation project(':android-multi-theme')
     implementation project(':datelibrary')
@@ -96,7 +101,7 @@ dependencies {
     implementation 'com.google.zxing:core:3.3.3'
     implementation 'com.king.zxing:zxing-lite:1.1.0'
     //微信支付宝
-    //implementation(name: 'alipaySdk-15.6.2-20190416165036', ext: 'aar')
+  implementation(name: 'alipaySdk-15.6.2-20190416165036', ext: 'aar')
     implementation files('libs/libammsdk.jar')
     implementation files('libs/ShareSDK-Wechat-3.3.0.jar')
     implementation files('libs/ShareSDK-Wechat-Core-3.3.0.jar')
@@ -118,8 +123,24 @@ dependencies {
     implementation('com.github.afollestad.material-dialogs:commons:0.8.5.4@aar') {
         transitive = true
     }
-    implementation 'com.umeng:fb:5.4.0'
-    implementation 'com.umeng.analytics:analytics:latest.integration'
-    implementation files('libs/umeng-update-v2.6.0.1.jar')
+//    implementation 'com.umeng:fb:5.4.0'
+//    implementation 'com.umeng.analytics:analytics:latest.integration'
+//    implementation files('libs/umeng-update-v2.6.0.1.jar')
     implementation 'com.bigkoo:convenientbanner:2.0.5'
+    implementation 'com.shuyu:gsyVideoPlayer-java:6.0.1'
+    //是否需要ExoPlayer模式
+    implementation 'com.shuyu:GSYVideoPlayer-exo2:6.0.1'
+    //根据你的需求ijk模式的so
+    implementation 'com.shuyu:gsyVideoPlayer-armv5:6.0.1'
+    implementation 'com.shuyu:gsyVideoPlayer-armv7a:6.0.1'
+    implementation 'com.shuyu:gsyVideoPlayer-arm64:6.0.1'
+    implementation 'com.shuyu:gsyVideoPlayer-x64:6.0.1'
+    implementation 'com.shuyu:gsyVideoPlayer-x86:6.0.1'
+    //視頻插件
+    implementation 'com.github.hotchemi:permissionsdispatcher:2.3.1'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
+
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    //  运动
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 }

@@ -1,5 +1,6 @@
 package com.healthclock.healthclock.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.healthgo.step.StepService;
 import com.healthclock.healthclock.ui.fragment.main.AlarmClockFragment;
 import com.healthclock.healthclock.ui.fragment.main.MemberFragment;
 import com.healthclock.healthclock.ui.fragment.main.ShopFragment;
@@ -19,6 +21,8 @@ import com.healthclock.healthclock.util.AppManager;
 import com.healthclock.healthclock.util.PermissionUtil;
 import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.widget.IconFontTextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +54,32 @@ public class MainActivity extends BaseActivity {
     LinearLayout llUser;
     private List<Fragment> mFragments = new ArrayList<>();
 
+
+    EventBus bus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bus = EventBus.getDefault();
+        bus.register(this);
         PermissionUtil.requestPermission(this, com.yanzhenjie.permission.runtime.Permission.Group.STORAGE);
         initUI();
+
+     // bus.post(true);
+        Intent intent = new Intent(this, StepService.class);
+        intent.putExtra("isActivity", true);
+        if (!bus.isRegistered(this))
+            bus.register(this);
+        startService(intent);
+        bus.post(true);
+        Intent intent1 = new Intent(this, StepService.class);
+        intent1.putExtra("foreground_model", "on");
+        intent1.putExtra("isActivity", true);
+        if (!bus.isRegistered(this))
+            bus.register(this);
+        bus.post(true);
+        startService(intent1);
     }
 
     private void initUI() {
@@ -124,6 +148,7 @@ public class MainActivity extends BaseActivity {
         icon.setTextColor(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));
         textView.setTextColor(StringUtil.getColor(mContext, R.styleable.Theme_title_text_color));
     }
+
     private long firstTime = 0;
 
     @Override
@@ -141,5 +166,12 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bus.post(false);
+        if (bus.isRegistered(this))
+            bus.unregister(this);
     }
 }

@@ -22,7 +22,6 @@ import android.support.v4.app.FragmentActivity;
 import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.util.L;
 import com.squareup.leakcanary.RefWatcher;
-import com.umeng.analytics.MobclickAgent;
 
 /**
  * Activity管理类(对话框，定时、闹钟响起等禁止滑动退出的activity)
@@ -50,12 +49,12 @@ public class BaseActivitySimple extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         // 友盟session的统计
-        MobclickAgent.onResume(this);
+       // MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
+        //MobclickAgent.onPause(this);
     }
 }

@@ -61,7 +61,4 @@ public class IndentActivity extends BaseActivity {
     }
 
 
-    public void initData() {
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-    }
 }

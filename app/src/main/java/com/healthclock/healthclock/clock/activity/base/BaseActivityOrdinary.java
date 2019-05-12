@@ -21,7 +21,6 @@ import android.os.Bundle;
 import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.util.L;
 import com.squareup.leakcanary.RefWatcher;
-import com.umeng.analytics.MobclickAgent;
 
 import me.imid.swipebacklayout.lib.app.SwipeBackOrdinaryActivity;
 
@@ -53,12 +52,12 @@ public class BaseActivityOrdinary extends SwipeBackOrdinaryActivity {
     protected void onResume() {
         super.onResume();
         // 友盟session的统计
-        MobclickAgent.onResume(this);
+      //  MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
+       // MobclickAgent.onPause(this);
     }
 }

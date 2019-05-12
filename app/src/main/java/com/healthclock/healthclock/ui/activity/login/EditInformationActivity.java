@@ -1,20 +1,32 @@
 package com.healthclock.healthclock.ui.activity.login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.app.App;
+import com.healthclock.healthclock.healthgo.DateTimeHelper;
+import com.healthclock.healthclock.healthgo.model.StepModel;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.T;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.realm.Realm;
 import rx.Subscriber;
 
 public class EditInformationActivity extends BaseActivity {
@@ -53,6 +65,12 @@ public class EditInformationActivity extends BaseActivity {
     EditText et_step; //今日步
 
 
+    SharedPreferences sharedPreferences;
+    long numSteps;
+    boolean isServiceRun;
+    boolean isforeground_model;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +100,22 @@ public class EditInformationActivity extends BaseActivity {
                 }
             }
         });
+
+        sharedPreferences = getSharedPreferences("conf", MODE_PRIVATE);
+
+        detectService();
+
+
+        Realm realm = Realm.getDefaultInstance();
+        StepModel result = realm.where(StepModel.class)
+                .equalTo("date", DateTimeHelper.getToday())
+                .findFirst();
+        numSteps = result == null ? 0 : result.getNumSteps();
+
+        updateShowSteps();
+        realm.close();
+
+
     }
 
     @OnClick({R.id.tv_getStep, R.id.tv_confirm})
@@ -140,5 +174,79 @@ public class EditInformationActivity extends BaseActivity {
                 T.showShort(mContext,baseResponse.getMsg());}
             }
         });
+    }
+    public void updateShowSteps() {
+        String text = "" + numSteps;
+
+        if (numSteps >= 10000000)
+            et_step.setTextSize(45);
+
+        else if (numSteps >= 1000000)
+            et_step.setTextSize(50);
+        else if (numSteps >= 100000)
+            et_step.setTextSize(55);
+        else if (numSteps >= 10000) {
+            notifyIsUpToStandard( "太棒了，你今天超过1万步了");
+            et_step.setTextSize(60);
+        }
+
+        else {
+            et_step.setTextSize(66);
+            if (numSteps>=5000) notifyIsUpToStandard("加油，你已经再走走你就达到1万步了");
+            else notifyIsUpToStandard("你今天都没怎么走路，快出门运动吧");
+        }
+        et_step.setText(text);
+
+    }
+
+    private void notifyIsUpToStandard(String msg)
+    {
+        App app = (App) getApplication();
+        if(!app.isShowToast()) {
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+            app.setShowToast(true);
+        }
+
+    }
+    public void detectService() {
+        App app = (App) getApplication();
+        isServiceRun = app.getServiceRun();
+        boolean temp = sharedPreferences.getBoolean("switch_on", false);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        if (isServiceRun != temp) {
+            if (!isServiceRun) {
+                Toast.makeText(getApplicationContext(), "计步服务意外终止,请把应用加入白名单",
+                        Toast.LENGTH_LONG).show();
+            }
+            editor.putBoolean("switch_on", isServiceRun);
+            editor.apply();
+        }
+
+        temp = sharedPreferences.getBoolean("foreground_model", false);
+        if (temp && !isServiceRun) {
+            editor.putBoolean("foreground_model", false);
+            editor.apply();
+            isforeground_model = false;
+        } else isforeground_model = temp;
+    }
+
+    private static PackageInfo getPackageInfo(Context context) {
+        PackageInfo pi = null;
+
+        try {
+            PackageManager pm = context.getPackageManager();
+            pi = pm.getPackageInfo(context.getPackageName(),
+                    PackageManager.GET_CONFIGURATIONS);
+
+            return pi;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pi;
+    }
+
+    public static String getVersionName(Context context) {
+        return getPackageInfo(context).versionName;
     }
 }

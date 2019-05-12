@@ -12,6 +12,7 @@ import com.healthclock.healthclock.network.model.indent.AddressModel;
 import com.healthclock.healthclock.network.model.indent.CreateOrderModel;
 import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
 import com.healthclock.healthclock.network.model.indent.OrderListModel;
+import com.healthclock.healthclock.network.model.other.VideoModel;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.network.model.user.UserInfoModel;
 import com.ihsanbal.logging.Level;
@@ -378,6 +379,7 @@ public class RetrofitUtil {
 
     /**
      * 创建订单
+     *
      * @param token
      * @param shopId
      * @param number
@@ -406,6 +408,22 @@ public class RetrofitUtil {
     public void deleteOrder(String token, String id,
                             Subscriber<BaseResponse<EmptyEntity>> subscriber) {
         mApiService.deleteOrder(token, id)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+    }
+
+    /**
+     * 视频记录
+     * @param token
+     * @param page
+     * @param type
+     * @param subscriber
+     */
+    public void VideoList(String token, String page, String type,
+                          Subscriber<BaseResponse<VideoModel>> subscriber) {
+        mApiService.VideoList(token, page, type)
                 .subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

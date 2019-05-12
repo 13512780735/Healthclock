@@ -1,25 +1,24 @@
 package com.healthclock.healthclock.app;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 
 import com.healthclock.healthclock.BuildConfig;
 import com.healthclock.healthclock.util.L;
+import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 import org.litepal.LitePalApplication;
-import org.litepal.util.LogUtil;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import okhttp3.CookieJar;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * user：lqm
@@ -27,6 +26,26 @@ import okhttp3.OkHttpClient;
  */
 
 public class App extends LitePalApplication {
+    private boolean serviceRun;
+
+    private boolean isShowToast=false;
+
+    public boolean isShowToast() {
+        return isShowToast;
+    }
+
+    public void setShowToast(boolean showToast) {
+        isShowToast = showToast;
+    }
+
+    public boolean getServiceRun() {
+        return serviceRun;
+    }
+
+    public void setServiceRun(boolean serviceRun) {
+        this.serviceRun = serviceRun;
+    }
+
 
     public static List<Activity> activities = new LinkedList<>();
 
@@ -44,8 +63,21 @@ public class App extends LitePalApplication {
         mContext = this.getApplicationContext();
        // initLeakCanary();
         initActivityLifecycleLogs();
-
+        getToken(mContext);
+        serviceRun=false;
+        Realm.init(this);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder()
+                .name("step_db")
+                .build();
+        Log.d("app","app create()");
+        Realm.setDefaultConfiguration(realmConfig); // Make this Realm the default
     }
+
+    public static String getToken(Context mContext) {
+        String token= SharedPreferencesUtils.getString(mContext,"token");
+        return token;
+    }
+
 
     private void initLeakCanary() {
         if (BuildConfig.DEBUG) {

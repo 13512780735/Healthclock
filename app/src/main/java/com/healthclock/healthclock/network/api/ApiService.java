@@ -8,6 +8,7 @@ import com.healthclock.healthclock.network.model.indent.AddressModel;
 import com.healthclock.healthclock.network.model.indent.CreateOrderModel;
 import com.healthclock.healthclock.network.model.indent.DefaultAddressModel;
 import com.healthclock.healthclock.network.model.indent.OrderListModel;
+import com.healthclock.healthclock.network.model.other.VideoModel;
 import com.healthclock.healthclock.network.model.user.LoginRegisterBean;
 import com.healthclock.healthclock.network.model.user.UserInfoModel;
 
@@ -299,6 +300,7 @@ public interface ApiService {
 
     /**
      * 商品列表
+     *
      * @param token
      * @param category
      * @param page
@@ -314,6 +316,7 @@ public interface ApiService {
     /**
      * 获取订单列表
      * 状态0.已取消 1.待付款 2.已付款 3.待发货 4.已完成
+     *
      * @param token
      * @param status
      * @param page
@@ -328,6 +331,7 @@ public interface ApiService {
 
     /**
      * 创建订单
+     *
      * @param token
      * @return
      */
@@ -344,6 +348,7 @@ public interface ApiService {
 
     /**
      * 删除订单
+     *
      * @param token
      * @param id
      * @return
@@ -351,6 +356,20 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("order/delete")
     Observable<BaseResponse<EmptyEntity>> deleteOrder(@Field("token") String token,
-                                                           @Field("id") String id
+                                                      @Field("id") String id
+    );
+
+    /**
+     * 视频列表记录
+     * @param token
+     * @param type
+     * @param page
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("video/list ")
+    Observable<BaseResponse<VideoModel>> VideoList(@Field("token") String token,
+                                                   @Field("type") String type,
+                                                   @Field("page") String page
     );
 }

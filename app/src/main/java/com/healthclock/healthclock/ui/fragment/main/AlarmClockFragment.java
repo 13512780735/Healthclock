@@ -54,7 +54,7 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
     IconFontTextView tvRight;
     @BindView(R.id.banner)
     ConvenientBanner mBanner;
-    @BindView(R.id.mRecyclerView)
+  //  @BindView(R.id.mRecyclerView)
     RecyclerView mRecyclerView;
     public static final String KEY_TITLE = "key_title";
     public static final String KEY_IS_QR_CODE = "key_code";
@@ -91,15 +91,17 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
 
     @Override
     protected void lazyLoad() {
-
+        initData();
         initUI();
     }
 
     private void initUI() {
+        mRecyclerView=findView(R.id.mRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        initData();
+
         mAdapter = new NewsAdapter(R.layout.news_items, data);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.bindToRecyclerView(mRecyclerView);
         mBanner.startTurning(4000);
         networkImage = Arrays.asList(images);
 
@@ -117,6 +119,11 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mBanner.stopTurning();
+    }
 
     public void initData() {
         data = new ArrayList<>();

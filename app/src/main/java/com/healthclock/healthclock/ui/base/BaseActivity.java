@@ -27,7 +27,6 @@ import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.widget.CustomDialog;
 import com.healthclock.healthclock.widget.IconFontTextView;
 import com.squareup.leakcanary.RefWatcher;
-import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
@@ -67,7 +66,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         AppManager.getAppManager().addActivity(this);
         loaddingDialog = new LoaddingDialog(this);
        // token = SharedPreferencesUtils.getString(this, "token");
-        token= getToken(this);
+      token = App.getToken(this);
 
     }
 
@@ -108,7 +107,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        MobclickAgent.onResume(this);
+       // MobclickAgent.onResume(this);
     }
 
     /**
@@ -131,7 +130,7 @@ public abstract class BaseActivity extends SwipeBackActivity {
         if (progress != null) {
             progress.dismiss();
         }
-        MobclickAgent.onPause(this);
+        //MobclickAgent.onPause(this);
     }
 
     /**

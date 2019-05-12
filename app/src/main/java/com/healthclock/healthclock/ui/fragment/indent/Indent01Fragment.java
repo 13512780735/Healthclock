@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.indent.OrderListModel;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
@@ -79,7 +80,7 @@ public class Indent01Fragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     private void initData(int pageNum, final boolean isloadmore) {
-        String token = getToken(getActivity());
+       // String token = App.getToken(getActivity());
         RetrofitUtil.getInstance().GetOrderList(token, "1", String.valueOf(pageNum), new Subscriber<BaseResponse<OrderListModel>>() {
             @Override
             public void onCompleted() {

@@ -9,7 +9,6 @@ import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.clock.activity.base.BaseActivityOrdinary;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.squareup.leakcanary.RefWatcher;
-import com.umeng.analytics.MobclickAgent;
 
 public abstract class SingleFragmentOrdinaryActivity extends BaseActivityOrdinary {
     /**
@@ -42,6 +41,6 @@ public abstract class SingleFragmentOrdinaryActivity extends BaseActivityOrdinar
     protected void onResume() {
         super.onResume();
         // 友盟session的统计
-        MobclickAgent.onResume(this);
+        //MobclickAgent.onResume(this);
     }
 }

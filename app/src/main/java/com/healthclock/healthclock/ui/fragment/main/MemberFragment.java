@@ -63,7 +63,7 @@ public class MemberFragment extends BaseFragment {
 
     @OnClick({R.id.rl_all_orders, R.id.ll_obligation, R.id.ll_shipments, R.id.ll_Receiving, R.id.ll_finish, R.id.tv_set, R.id.tv_logout
 
-    ,R.id.ll_wallet,R.id.ll_Invitation_code,R.id.ll_video,R.id.ll_health_management,R.id.ll_Health_records,R.id.ll_Health_score,R.id.ll_feedback,R.id.ll_edit_pwd
+    ,R.id.ll_wallet,R.id.ll_Invitation_code,R.id.ll_video,R.id.ll_health_management,R.id.ll_feedback,R.id.ll_edit_pwd
     ,R.id.ll_address})
     public void onClick(View v) {
         switch (v.getId()) {
@@ -109,14 +109,14 @@ public class MemberFragment extends BaseFragment {
             case R.id.ll_health_management://健康管理
                 toActivity(HealthManagementActivity.class);
                 break;
-            case R.id.ll_Health_records://健康记录
-                toActivity(HealthRecordsActivity.class);
-                break;
+//            case R.id.ll_Health_records://健康记录
+//                toActivity(HealthRecordsActivity.class);
+              //  break;
 //            case R.id.ll_Health_integral://健康积分
 //                break;
-            case R.id.ll_Health_score://健康评分
-                toActivity(HealthScoreActivity.class);
-                break;
+//            case R.id.ll_Health_score://健康评分
+//                toActivity(HealthScoreActivity.class);
+             //   break;
             case R.id.ll_feedback://意见反馈
                 toActivity(FeedbackActivity.class);
                 break;

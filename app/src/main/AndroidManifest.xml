@@ -24,6 +24,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -193,12 +198,28 @@
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService">
         </service>
+        <service
+            android:name=".healthgo.step.StepService"
+            android:label="计步服务">
 
+        </service>
+
+        <receiver
+            android:name=".healthgo.BootBroadcastReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />
+                <action android:name="android.intent.action.MEDIA_EJECT" />
+                <action android:name="cn.ikaze.pedometer.start" />
+            </intent-filter>
+        </receiver>
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
-        <activity android:name=".clock.activity.EditAlarmActivity" />
         <activity android:name=".clock.activity.RingSelectActivity" />
        <!-- <activity android:name=".ui.activity.clock.SingleFragmentActivity" />-->
         <activity android:name=".clock.activity.AlarmClockOntimeActivity" />

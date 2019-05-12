@@ -1,9 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.activity.member.HealthManagementActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/topbar_nor"></include>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/line"></View>
+
+    <LinearLayout
+        android:id="@+id/ll_Health_records"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="我的健康记录" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:background="@null"
+            android:drawablePadding="@dimen/dp_20"
+            android:drawableRight="@mipmap/icon_more"
+            android:gravity="center_vertical|right"
+            android:hint=""
+            android:paddingRight="@dimen/dp_10"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:background="@color/line"></View>
+
+    <!--  <LinearLayout
+          android:id="@+id/ll_Health_integral"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/dp_50"
+          android:layout_gravity="center_vertical"
+          android:background="@color/white"
+          android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_weight="3"
+              android:gravity="center_vertical"
+              android:paddingLeft="@dimen/dp_10"
+              android:text="个人健康积分" />
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="match_parent"
+              android:layout_gravity="center_vertical"
+              android:layout_weight="3"
+              android:background="@null"
+              android:drawablePadding="@dimen/dp_20"
+              android:drawableRight="@mipmap/icon_more"
+              android:gravity="center_vertical|right"
+              android:hint=""
+              android:paddingRight="@dimen/dp_10"
+              android:textColor="@color/black"
+              android:textColorHint="@color/gray" />
+      </LinearLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_marginLeft="@dimen/dp_10"
+          android:layout_marginRight="@dimen/dp_10"
+          android:background="@color/line"></View>-->
+
+    <LinearLayout
+        android:id="@+id/ll_Health_score"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:layout_gravity="center_vertical"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="我的健康评分" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:background="@null"
+            android:drawablePadding="@dimen/dp_20"
+            android:drawableRight="@mipmap/icon_more"
+            android:gravity="center_vertical|right"
+            android:hint=""
+            android:paddingRight="@dimen/dp_10"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+    </LinearLayout>
+</LinearLayout>
