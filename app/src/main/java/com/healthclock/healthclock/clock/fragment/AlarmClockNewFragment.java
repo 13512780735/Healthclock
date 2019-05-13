@@ -106,10 +106,11 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
     private IconFontTextView tvBack, tvSave;
     private BorderTextView ibtn_delete;
 
-//    @Override
+    //    @Override
 //    protected int setContentView() {
 //        return R.layout.activity_edit_alarm;
 //    }
+    ToggleButton tog_btn_01, tog_btn_02, tog_btn_03, tog_btn_04;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -166,10 +167,10 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
         timePicker.setCurrentHour(i);
 
 
-       // timePicker.setCurrentHour(mAlarmClock.getHour());
+        // timePicker.setCurrentHour(mAlarmClock.getHour());
         // 初始化时间选择器的分钟
         //noinspection deprecation
-       /// timePicker.setCurrentMinute(mAlarmClock.getMinute());
+        /// timePicker.setCurrentMinute(mAlarmClock.getMinute());
 
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
 
@@ -210,8 +211,17 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
         // 周六按钮
         ToggleButton saturday = view.findViewById(R.id.tog_btn_saturday);
         // 周日按钮
-        ToggleButton sunday = view.findViewById(R.id.tog_btn_sunday);
 
+        ToggleButton sunday = view.findViewById(R.id.tog_btn_sunday);
+        tog_btn_01 = view.findViewById(R.id.tog_btn_01);
+        tog_btn_02 = view.findViewById(R.id.tog_btn_02);
+        tog_btn_03 = view.findViewById(R.id.tog_btn_03);
+        tog_btn_04 = view.findViewById(R.id.tog_btn_04);
+
+        tog_btn_01.setOnCheckedChangeListener(this);
+        tog_btn_02.setOnCheckedChangeListener(this);
+        tog_btn_03.setOnCheckedChangeListener(this);
+        tog_btn_04.setOnCheckedChangeListener(this);
         monday.setOnCheckedChangeListener(this);
         tuesday.setOnCheckedChangeListener(this);
         wednesday.setOnCheckedChangeListener(this);
@@ -222,7 +232,7 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
 
         mRepeatStr = new StringBuilder();
         mMap = new TreeMap<>();
-
+       // tog_btn_01.setChecked(true);
         String weeks = mAlarmClock.getWeeks();
         // 不是单次响铃时
         if (weeks != null) {
@@ -279,7 +289,7 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
                     mAlarmClock.setTag(getString(R.string.alarm_clock));
                 }
 
-                L.e("TAG",mAlarmClock.getTag());
+                L.e("TAG", mAlarmClock.getTag());
             }
 
             @Override
@@ -315,7 +325,7 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
         ViewGroup ring = (ViewGroup) view.findViewById(R.id.ring_llyt);
         mRingDescribe = (TextView) view.findViewById(R.id.ring_describe);
         mRingDescribe.setText(ringName);
-        L.e("RingName",mAlarmClock.getRingName());
+        L.e("RingName", mAlarmClock.getRingName());
         ring.setOnClickListener(this);
     }
 
@@ -506,6 +516,31 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
                 }
                 break;
             // 小睡
+
+            case R.id.tog_btn_01:
+                tog_btn_01.setChecked(true);
+                tog_btn_02.setChecked(false);
+                tog_btn_03.setChecked(false);
+                tog_btn_04.setChecked(false);
+                break;
+            case R.id.tog_btn_02:
+                tog_btn_01.setChecked(false);
+                tog_btn_02.setChecked(true);
+                tog_btn_03.setChecked(false);
+                tog_btn_04.setChecked(false);
+                break;
+            case R.id.tog_btn_03:
+                tog_btn_01.setChecked(false);
+                tog_btn_02.setChecked(false);
+                tog_btn_03.setChecked(true);
+                tog_btn_04.setChecked(false);
+                break;
+            case R.id.tog_btn_04:
+                tog_btn_01.setChecked(false);
+                tog_btn_02.setChecked(false);
+                tog_btn_03.setChecked(false);
+                tog_btn_04.setChecked(true);
+                break;
         }
 
     }
@@ -657,17 +692,17 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
                 String url = data.getStringExtra(WeacConstants.RING_URL);
                 // 铃声界面
                 int ringPager = data.getIntExtra(WeacConstants.RING_PAGER, 0);
-                L.e("name:->"+name);
-                L.e("url->"+url);
-                L.e("ringPager:->"+ringPager);
+                L.e("name:->" + name);
+                L.e("url->" + url);
+                L.e("ringPager:->" + ringPager);
                 mRingDescribe.setText(name);
 
                 mAlarmClock.setRingName(name);
                 mAlarmClock.setRingUrl(url);
                 mAlarmClock.setRingPager(ringPager);
-                L.e("name:->"+mAlarmClock.getRingName());
-                L.e("url->"+mAlarmClock.getRingUrl());
-                L.e("ringPager:->"+mAlarmClock.getRingPager());
+                L.e("name:->" + mAlarmClock.getRingName());
+                L.e("url->" + mAlarmClock.getRingUrl());
+                L.e("ringPager:->" + mAlarmClock.getRingPager());
                 break;
         }
     }

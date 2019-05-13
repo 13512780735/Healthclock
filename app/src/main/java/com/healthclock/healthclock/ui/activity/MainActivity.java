@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.healthgo.DateTimeHelper;
+import com.healthclock.healthclock.healthgo.model.StepModel;
 import com.healthclock.healthclock.healthgo.step.StepService;
 import com.healthclock.healthclock.ui.fragment.main.AlarmClockFragment;
 import com.healthclock.healthclock.ui.fragment.main.MemberFragment;
@@ -23,12 +25,14 @@ import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.widget.IconFontTextView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.realm.Realm;
 
 public class MainActivity extends BaseActivity {
 
@@ -56,17 +60,14 @@ public class MainActivity extends BaseActivity {
 
 
     EventBus bus;
-
+    @Subscribe
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bus = EventBus.getDefault();
         bus.register(this);
-        PermissionUtil.requestPermission(this, com.yanzhenjie.permission.runtime.Permission.Group.STORAGE);
-        initUI();
-
-     // bus.post(true);
+        // bus.post(true);
         Intent intent = new Intent(this, StepService.class);
         intent.putExtra("isActivity", true);
         if (!bus.isRegistered(this))
@@ -80,6 +81,9 @@ public class MainActivity extends BaseActivity {
             bus.register(this);
         bus.post(true);
         startService(intent1);
+        PermissionUtil.requestPermission(this, com.yanzhenjie.permission.runtime.Permission.Group.STORAGE);
+        initUI();
+
     }
 
     private void initUI() {
@@ -170,8 +174,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bus.post(false);
-        if (bus.isRegistered(this))
-            bus.unregister(this);
+        EventBus.getDefault().post(false);
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
     }
 }

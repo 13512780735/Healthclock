@@ -1,6 +1,7 @@
 package com.healthclock.healthclock.ui.activity.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.app.App;
 import com.healthclock.healthclock.healthgo.DateTimeHelper;
 import com.healthclock.healthclock.healthgo.model.StepModel;
+import com.healthclock.healthclock.healthgo.step.StepService;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.health.healthInfoModel;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
@@ -23,6 +25,7 @@ import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.T;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -70,12 +73,29 @@ public class EditInformationActivity extends BaseActivity {
     boolean isServiceRun;
     boolean isforeground_model;
 
-
+    EventBus bus;
+    @Subscribe
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_information);
         initUI();
+        bus = EventBus.getDefault();
+        bus.register(this);
+        // bus.post(true);
+        Intent intent = new Intent(this, StepService.class);
+        intent.putExtra("isActivity", true);
+        if (!bus.isRegistered(this))
+            bus.register(this);
+        startService(intent);
+        bus.post(true);
+        Intent intent1 = new Intent(this, StepService.class);
+        intent1.putExtra("foreground_model", "on");
+        intent1.putExtra("isActivity", true);
+        if (!bus.isRegistered(this))
+            bus.register(this);
+        bus.post(true);
+        startService(intent1);
     }
 
     private void initUI() {
@@ -122,6 +142,7 @@ public class EditInformationActivity extends BaseActivity {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_getStep://获取步数
+                updateShowSteps();
                 break;
             case R.id.tv_confirm:
                 saveInfo();
@@ -179,19 +200,19 @@ public class EditInformationActivity extends BaseActivity {
         String text = "" + numSteps;
 
         if (numSteps >= 10000000)
-            et_step.setTextSize(45);
+            et_step.setTextSize(14);
 
         else if (numSteps >= 1000000)
-            et_step.setTextSize(50);
+            et_step.setTextSize(14);
         else if (numSteps >= 100000)
             et_step.setTextSize(55);
         else if (numSteps >= 10000) {
             notifyIsUpToStandard( "太棒了，你今天超过1万步了");
-            et_step.setTextSize(60);
+            et_step.setTextSize(14);
         }
 
         else {
-            et_step.setTextSize(66);
+            et_step.setTextSize(14);
             if (numSteps>=5000) notifyIsUpToStandard("加油，你已经再走走你就达到1万步了");
             else notifyIsUpToStandard("你今天都没怎么走路，快出门运动吧");
         }
@@ -248,5 +269,12 @@ public class EditInformationActivity extends BaseActivity {
 
     public static String getVersionName(Context context) {
         return getPackageInfo(context).versionName;
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post(false);
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
     }
 }

@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/rl_topbar_layout"
@@ -98,12 +97,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="18dp"
+
                 android:layout_marginStart="18dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_10"
                     android:background="@drawable/shape_round_pop_bg_5"
                     android:orientation="vertical">
 
@@ -123,7 +124,7 @@
                             android:ellipsize="end"
                             android:maxWidth="230dp"
                             android:singleLine="true"
-                            android:text="@string/repeat_once"/>
+                            android:text="@string/repeat_once" />
 
                     </LinearLayout>
 
@@ -132,6 +133,7 @@
                         android:layout_height="60dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+
                         android:orientation="horizontal">
 
                         <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
@@ -141,6 +143,7 @@
                                 style="@style/new_alarm_clcok_repeat_days_tog_btn"
                                 android:textOff="@string/monday"
                                 android:textOn="@string/monday"></ToggleButton>
+
                         </LinearLayout>
 
                         <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
@@ -199,6 +202,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <include layout="@layout/clock_type_items"></include>
 
                 <LinearLayout style="@style/new_alarm_clcok_item">
 
@@ -206,8 +210,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="标签"
                         android:layout_marginLeft="@dimen/dp_5"
+                        android:text="标签"
                         android:textColor="@color/gray"
                         android:textSize="16sp" />
 
@@ -252,7 +256,6 @@
                 </LinearLayout>
 
 
-
                 <LinearLayout style="@style/new_alarm_clcok_item">
 
                     <TextView
@@ -271,8 +274,6 @@
                         android:thumb="@drawable/switch_custom_thumb_selector"
                         android:track="@drawable/switch_custom_track_selector" />
                 </LinearLayout>
-
-
 
 
             </LinearLayout>

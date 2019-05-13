@@ -2,16 +2,20 @@ package com.healthclock.healthclock.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 
 import com.healthclock.healthclock.BuildConfig;
+import com.healthclock.healthclock.healthgo.step.StepService;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 import org.litepal.LitePalApplication;
 
 import java.util.LinkedList;

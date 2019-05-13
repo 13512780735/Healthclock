@@ -22,7 +22,7 @@
 
     //休闲
     <string name="ic_meirong">&#xe602; </string> <!--美容磁操-->
-    <string name="ic_zhenshi">&#xe611; </string> <!--真视明操-->
+    <string name="ic_zhenshi">&#xe604; </string> <!--真视明操-->
     <string name="ic_water">&#xe640; </string> <!--喝杯水-->
     <string name="ic_kaifei">&#xe66f; </string> <!--喝咖啡-->
     <string name="ic_more">&#xe601; </string> <!--省略号-->
