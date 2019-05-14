@@ -32,5 +32,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
    // api deps.zxing
     implementation 'com.google.zxing:core:3.3.3'
-    implementation 'com.king.zxing:zxing-lite:1.1.0'
+    //implementation 'com.king.zxing:zxing-lite:1.1.0'
 }
