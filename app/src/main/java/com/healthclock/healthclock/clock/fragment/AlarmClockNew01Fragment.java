@@ -15,19 +15,17 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.healthclock.healthclock.R;
+import com.healthclock.healthclock.clock.activity.RingSelectActivity;
 import com.healthclock.healthclock.clock.common.WeacConstants;
 import com.healthclock.healthclock.clock.model.AlarmClock;
-import com.healthclock.healthclock.clock.activity.RingSelectActivity;
-import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.clock.util.MyUtil;
+import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.widget.BorderTextView;
 import com.healthclock.healthclock.widget.IconFontTextView;
 
@@ -41,10 +39,8 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AlarmClockNewFragment extends BaseFragment implements View.OnClickListener,
-        CompoundButton.OnCheckedChangeListener
-
-{
+public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener {
     /**
      * 铃声选择按钮的requestCode
      */
@@ -115,6 +111,7 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
 //    }
     CheckBox tog_btn_01, tog_btn_02, tog_btn_03, tog_btn_04;
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,11 +120,11 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
         mAlarmClock.setOnOff(true);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // return super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.activity_edit_alarm,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_alarm_clock_new01,
                 container, false);
         ButterKnife.bind(view);
         initTimeSelect(view);
@@ -141,7 +138,6 @@ public class AlarmClockNewFragment extends BaseFragment implements View.OnClickL
         initToggleButton(view);
         return view;
     }
-
 
     /**
      * 设置时间选择

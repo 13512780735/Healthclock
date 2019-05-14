@@ -778,6 +778,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/line"></View>
+            <include layout="@layout/information_item01"></include>
             <com.healthclock.healthclock.widget.BorderTextView
                 android:id="@+id/tv_confirm"
                 android:layout_width="match_parent"

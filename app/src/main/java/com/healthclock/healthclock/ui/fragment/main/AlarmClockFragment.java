@@ -18,6 +18,7 @@ import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.clock.activity.MyAlarmClockActivity;
 import com.healthclock.healthclock.network.FalseModel;
 import com.healthclock.healthclock.ui.activity.main.CustomActivity;
+import com.healthclock.healthclock.ui.activity.main.MyVideoActivity;
 import com.healthclock.healthclock.ui.adapter.NewsAdapter;
 import com.healthclock.healthclock.ui.base.BaseFragment;
 import com.healthclock.healthclock.util.PopupWindowUtil;
@@ -198,6 +199,7 @@ public class AlarmClockFragment extends BaseFragment implements EasyPermissions.
                         toActivity(MyAlarmClockActivity.class);
                         break;
                     case R.id.menu_item2:
+                        toActivity(MyVideoActivity.class);
                         break;
                 }
                 if (mPopupWindow != null) {

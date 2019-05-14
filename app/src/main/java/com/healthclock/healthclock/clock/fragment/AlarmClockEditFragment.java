@@ -12,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -124,7 +125,7 @@ public class AlarmClockEditFragment extends BaseFragment implements
     private TextView mRingDescribe;
     private BorderTextView ibtn_delete;
     private String position;
-
+    CheckBox tog_btn_01, tog_btn_02, tog_btn_03, tog_btn_04;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -231,7 +232,15 @@ public class AlarmClockEditFragment extends BaseFragment implements
         friday.setOnCheckedChangeListener(this);
         saturday.setOnCheckedChangeListener(this);
         sunday.setOnCheckedChangeListener(this);
-
+        tog_btn_01 = view.findViewById(R.id.tog_btn_01);
+        tog_btn_02 = view.findViewById(R.id.tog_btn_02);
+        tog_btn_03 = view.findViewById(R.id.tog_btn_03);
+        tog_btn_04 = view.findViewById(R.id.tog_btn_04);
+        tog_btn_04 = view.findViewById(R.id.tog_btn_04);
+        tog_btn_01.setOnClickListener(this);
+        tog_btn_02.setOnClickListener(this);
+        tog_btn_03.setOnClickListener(this);
+        tog_btn_04.setOnClickListener(this);
         mRepeatStr = new StringBuilder();
         mMap = new TreeMap<>();
 
@@ -395,6 +404,34 @@ public class AlarmClockEditFragment extends BaseFragment implements
                 data1.putExtra("flag","1");
                 getActivity().setResult(Activity.RESULT_OK, data1);
                 drawAnimation();
+                break;
+            case R.id.tog_btn_01:
+                tog_btn_01.setChecked(true);
+                tog_btn_02.setChecked(false);
+                tog_btn_03.setChecked(false);
+                tog_btn_04.setChecked(false);
+                mAlarmClock.setHint("真视明操");
+                break;
+            case R.id.tog_btn_02:
+                tog_btn_01.setChecked(false);
+                tog_btn_02.setChecked(true);
+                tog_btn_03.setChecked(false);
+                tog_btn_04.setChecked(false);
+                mAlarmClock.setHint("喝杯水");
+                break;
+            case R.id.tog_btn_03:
+                tog_btn_01.setChecked(false);
+                tog_btn_02.setChecked(false);
+                tog_btn_03.setChecked(true);
+                tog_btn_04.setChecked(false);
+                mAlarmClock.setHint("喝咖啡");
+                break;
+            case R.id.tog_btn_04:
+                tog_btn_01.setChecked(false);
+                tog_btn_02.setChecked(false);
+                tog_btn_03.setChecked(false);
+                tog_btn_04.setChecked(true);
+                mAlarmClock.setHint("其他事务");
                 break;
         }
     }

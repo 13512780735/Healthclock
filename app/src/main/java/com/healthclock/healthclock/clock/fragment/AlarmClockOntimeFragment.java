@@ -226,9 +226,8 @@ public class AlarmClockOntimeFragment extends BaseFragment implements
             // 当执行X次小睡后隐藏小睡按钮
             if (mNapTimesRan != mNapTimes) {
                 // 设置小睡
-                napTv.setText(String.format(
-                        getString(R.string.touch_here_nap), mNapInterval));
-                napTv.setOnClickListener(this);
+                napTv.setText(mAlarmClock.getHint());
+                //napTv.setOnClickListener(this);
             } else {
                 napTv.setVisibility(View.GONE);
             }

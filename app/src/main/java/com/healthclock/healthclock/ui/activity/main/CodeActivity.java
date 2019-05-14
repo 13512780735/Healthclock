@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.google.zxing.BarcodeFormat;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.ui.fragment.main.MemberFragment;
@@ -50,9 +49,9 @@ public class CodeActivity extends BaseActivity {
      */
     private void createBarCode(String content){
         //生成条形码最好放子线程生成防止阻塞UI，这里只是演示
-        Bitmap bitmap = CodeUtils.createBarCode(content, BarcodeFormat.CODE_128,800,200,null,true);
-        //显示条形码
-        ivCode.setImageBitmap(bitmap);
+//        Bitmap bitmap = CodeUtils.createBarCode(content, BarcodeFormat.CODE_128,800,200,null,true);
+//        //显示条形码
+//        ivCode.setImageBitmap(bitmap);
     }
 
 }

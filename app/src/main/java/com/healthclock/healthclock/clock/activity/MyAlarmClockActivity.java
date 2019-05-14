@@ -215,38 +215,7 @@ public class MyAlarmClockActivity extends BaseActivity {
 
         mDeletedAlarmClock = event.getAlarmClock();
 
-//        SharedPreferences share = getActivity().getSharedPreferences(
-//                WeacConstants.EXTRA_WEAC_SHARE, Activity.MODE_PRIVATE);
-//        boolean isACDeleteFirstUse = share.getBoolean(WeacConstants.SHAKE_RETRIEVE_AC, true);
-//        if (isACDeleteFirstUse) {
-//            isShowingShakeExplain = true;
-//            Intent intent = new Intent(getActivity(), ShakeExplainActivity.class);
-//            startActivity(intent);
-//        }
-
     }
-//    private void deleteList(AlarmClockDeleteEvent event) {
-//        L.e("执行2……");
-//        mAlarmClockList.clear();
-//
-//        int position = event.getPosition();
-//        List<AlarmClock> list = AlarmClockOperate.getInstance().loadAlarmClocks();
-//        for (AlarmClock alarmClock : list) {
-//            mAlarmClockList.add(alarmClock);
-//        }
-//        // 列表为空时不显示删除，完成按钮
-//        if (mAlarmClockList.size() == 0) {
-//            mAcceptAction.setVisibility(View.GONE);
-//            mEditAction.setVisibility(View.VISIBLE);
-//            mAdapter.displayDeleteButton(false);
-//        }
-//
-//        checkIsEmpty(list);
-//
-//        mAdapter.notifyItemRemoved(position);
-//
-////        mAdapter.notifyItemRangeChanged(position, mAdapter.getItemCount());
-//    }
 
     private void showAlarmExplain() {
         if (isShow()) {
@@ -389,6 +358,16 @@ public class MyAlarmClockActivity extends BaseActivity {
                         overridePendingTransition(R.anim.zoomin, 0);
                         break;
                     case R.id.menu_item2:
+                        //跳转到编辑闹钟界面
+                        if (MyUtil.isFastDoubleClick()) {
+                            return;
+                        }
+                        Intent intent1 = new Intent(mContext,
+                                AlarmClockNew01Activity.class);
+                        // 开启新建闹钟界面
+                        startActivityForResult(intent1, REQUEST_ALARM_CLOCK_NEW);
+                        // 启动渐变放大效果动画
+                        overridePendingTransition(R.anim.zoomin, 0);
                         break;
                 }
                 if (mPopupWindow != null) {

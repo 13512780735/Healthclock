@@ -109,6 +109,10 @@ public class AlarmClock extends DataSupport implements Parcelable {
      * 开关
      */
     private boolean onOff;
+    /**
+     * 提示
+     */
+    private String hint;
 
     public AlarmClock() {
         super();
@@ -136,7 +140,7 @@ public class AlarmClock extends DataSupport implements Parcelable {
     public AlarmClock(int hour, int minute, String repeat,
                       String weeks, String tag, String ringName, String ringUrl,
                       int ringPager, int volume, boolean vibrate, boolean nap,
-                      int napInterval, int napTimes, boolean weaPrompt, boolean onOff) {
+                      int napInterval, int napTimes, boolean weaPrompt, boolean onOff,String hint) {
         super();
         this.hour = hour;
         this.minute = minute;
@@ -153,6 +157,7 @@ public class AlarmClock extends DataSupport implements Parcelable {
         this.napTimes = napTimes;
         this.weaPrompt = weaPrompt;
         this.onOff = onOff;
+        this.hint = hint;
     }
 
     @Override
@@ -163,6 +168,7 @@ public class AlarmClock extends DataSupport implements Parcelable {
         out.writeString(repeat);
         out.writeString(weeks);
         out.writeString(tag);
+        out.writeString(hint);
         out.writeString(ringName);
         out.writeString(ringUrl);
         out.writeInt(ringPager);
@@ -186,6 +192,7 @@ public class AlarmClock extends DataSupport implements Parcelable {
         minute = in.readInt();
         repeat = in.readString();
         weeks = in.readString();
+        hint = in.readString();
         tag = in.readString();
         ringName = in.readString();
         ringUrl = in.readString();
@@ -212,6 +219,14 @@ public class AlarmClock extends DataSupport implements Parcelable {
             return new AlarmClock[size];
         }
     };
+
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
+    }
 
     public int getId() {
         return id;

@@ -3,98 +3,100 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dp_5"
     android:background="@drawable/shape_round_pop_bg_5"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:padding="@dimen/dp_5">
 
     <LinearLayout
-        style="@style/new_alarm_clock_repeat_days_llyt"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <!--<ToggleButton-->
-        <!--android:id="@+id/tog_btn_01"-->
-        <!--style="@style/new_alarm_clcok_repeat_days_tog_btn"-->
-        <!--android:textOff="@string/monday"-->
-        <!--android:textOn="@string/monday"></ToggleButton>-->
+        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
 
-        <!--   <com.healthclock.healthclock.widget.IconFontTextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerInParent="true"
-               android:textColor="@color/white"
-               android:textSize="@dimen/sp_20"
-               android:text="@string/ic_zhenshi"/>-->
-        <ToggleButton
-            android:id="@+id/tog_btn_01"
-            style="@style/new_alarm_clcok_repeat_days_tog_btn"
-            android:drawableTop="@mipmap/ic_zhenshi"
-            android:paddingTop="@dimen/dp_10"
-            android:textOff=""
-            android:textOn=""></ToggleButton>
+            <CheckBox
+                android:id="@+id/tog_btn_01"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/button_selector"
+                android:button="@null"
+                android:drawableBottom="@mipmap/ic_zhenshi"></CheckBox>
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:text="真视明操" />
+        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+
+            <CheckBox
+                android:id="@+id/tog_btn_02"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/button_selector"
+                android:button="@null"
+                android:drawableBottom="@mipmap/ic_water"></CheckBox>
+        </LinearLayout>
+
+        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+
+            <CheckBox
+                android:id="@+id/tog_btn_03"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/button_selector"
+                android:button="@null"
+                android:drawableBottom="@mipmap/ic_kaifei"></CheckBox>
+        </LinearLayout>
+
+        <LinearLayout style="@style/new_alarm_clock_repeat_days_llyt">
+
+            <CheckBox
+                android:id="@+id/tog_btn_04"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/button_selector"
+                android:button="@null"
+                android:drawableBottom="@mipmap/ic_more"></CheckBox>
+
+        </LinearLayout>
     </LinearLayout>
-
+    <!--     <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="@dimen/dp_10"
+             android:text="其他事务" />-->
     <LinearLayout
-        style="@style/new_alarm_clock_repeat_days_llyt"
-        android:orientation="vertical">
-
-        <ToggleButton
-            android:id="@+id/tog_btn_02"
-            style="@style/new_alarm_clcok_repeat_days_tog_btn"
-            android:drawableTop="@mipmap/ic_water"
-            android:paddingTop="@dimen/dp_10"
-            android:textOff=""
-            android:textOn=""></ToggleButton>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="真视明操" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="喝杯水" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/new_alarm_clock_repeat_days_llyt"
-        android:orientation="vertical">
-
-        <ToggleButton
-            android:id="@+id/tog_btn_03"
-            style="@style/new_alarm_clcok_repeat_days_tog_btn"
-            android:drawableTop="@mipmap/ic_kaifei"
-            android:paddingTop="@dimen/dp_10"
-
-            android:textOff=""
-            android:textOn=""></ToggleButton>
-
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="喝咖啡" />
-    </LinearLayout>
-
-    <LinearLayout
-        style="@style/new_alarm_clock_repeat_days_llyt"
-        android:orientation="vertical">
-
-        <ToggleButton
-            android:id="@+id/tog_btn_04"
-            style="@style/new_alarm_clcok_repeat_days_tog_btn"
-            android:drawableTop="@mipmap/ic_more"
-            android:paddingTop="@dimen/dp_10"
-            android:textOff=""
-            android:textOn=""></ToggleButton>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="其他事务" />
     </LinearLayout>
 </LinearLayout>

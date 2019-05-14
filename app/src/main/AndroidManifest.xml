@@ -28,7 +28,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -184,9 +183,10 @@
             android:exported="true"
             android:process=":daemon" />
         <service android:name=".clock.service.CountDownService" />
+
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}"/>
+            android:value="${UMENG_CHANNEL_VALUE}" />
 
         <!--
         <activity
@@ -196,13 +196,10 @@
 
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService">
-        </service>
+            android:process=":DownloadingService" />
         <service
             android:name=".healthgo.step.StepService"
-            android:label="计步服务">
-
-        </service>
+            android:label="计步服务"></service>
 
         <receiver
             android:name=".healthgo.BootBroadcastReceiver"
@@ -216,20 +213,27 @@
                 <action android:name="cn.ikaze.pedometer.start" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".clock.activity.RingSelectActivity" />
-       <!-- <activity android:name=".ui.activity.clock.SingleFragmentActivity" />-->
+        <!-- <activity android:name=".ui.activity.clock.SingleFragmentActivity" /> -->
         <activity android:name=".clock.activity.AlarmClockOntimeActivity" />
         <activity android:name=".clock.activity.AlarmClockEditActivity" />
-        <!--<activity android:name=".ui.activity.clock.SingleFragmentOrdinaryActivity" />
-        <activity android:name=".ui.activity.clock.SingleFragmentDialogActivity" />-->
-        <activity android:name=".clock.activity.AlarmClockNewActivity"
-            android:launchMode="singleTop"/>
-      <!--  <activity android:name=".ui.activity.clock.EditAlarmActivity" />-->
-        <activity android:name=".clock.activity.AlarmClockNapNotificationActivity"></activity>
+        <!--
+        <activity android:name=".ui.activity.clock.SingleFragmentOrdinaryActivity" />
+        <activity android:name=".ui.activity.clock.SingleFragmentDialogActivity" />
+        -->
+        <activity
+            android:name=".clock.activity.AlarmClockNewActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".clock.activity.AlarmClockNew01Activity"
+            android:launchMode="singleTop" />
+        <!-- <activity android:name=".ui.activity.clock.EditAlarmActivity" /> -->
+        <activity android:name=".clock.activity.AlarmClockNapNotificationActivity" />
+        <activity android:name=".ui.activity.main.MyVideoActivity"></activity>
     </application>
 
 </manifest>

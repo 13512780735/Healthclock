@@ -837,6 +837,7 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:background="@color/line"></View>
+            <include layout="@layout/information_item01"></include>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
