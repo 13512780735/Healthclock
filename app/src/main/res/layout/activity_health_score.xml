@@ -328,7 +328,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:checked="true"
+
                             android:clickable="false"
                             android:editable="false"
                             android:focusable="false"
@@ -343,7 +343,7 @@
                             android:layout_weight="1"
                             android:clickable="false"
                             android:editable="false"
-
+                            android:checked="true"
                             android:focusable="false"
                             android:padding="10dp"
                             android:text="否" />
@@ -483,7 +483,7 @@
                     android:editable="false"
                     android:focusable="false"
                     android:gravity="center"
-                    android:hint="100"
+                    android:hint="0"
                     android:inputType="number"
                     android:textColorHint="@color/gray"
                     android:textSize="14sp" />
@@ -533,7 +533,7 @@
                     android:editable="false"
                     android:focusable="false"
                     android:gravity="center"
-                    android:hint="100"
+                    android:hint="0"
                     android:inputType="number"
                     android:textColorHint="@color/gray"
                     android:textSize="14sp" />
@@ -583,7 +583,7 @@
                     android:editable="false"
                     android:focusable="false"
                     android:gravity="center"
-                    android:hint="100"
+                    android:hint="0"
                     android:inputType="number"
                     android:textColorHint="@color/gray"
                     android:textSize="14sp" />
@@ -633,7 +633,7 @@
                     android:editable="false"
                     android:focusable="false"
                     android:gravity="center"
-                    android:hint="100"
+                    android:hint="0"
                     android:inputType="number"
                     android:textColorHint="@color/gray"
                     android:textSize="14sp" />
@@ -683,7 +683,7 @@
                     android:editable="false"
                     android:focusable="false"
                     android:gravity="center"
-                    android:hint="100"
+                    android:hint="0"
                     android:inputType="number"
                     android:textColorHint="@color/gray"
                     android:textSize="14sp" />

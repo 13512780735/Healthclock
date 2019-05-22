@@ -74,11 +74,14 @@ public class EditInformationActivity extends BaseActivity {
     boolean isforeground_model;
 
     EventBus bus;
+    private String flag;
+
     @Subscribe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_information);
+        flag = getIntent().getExtras().getString("flag");
         initUI();
         bus = EventBus.getDefault();
         bus.register(this);
@@ -101,7 +104,7 @@ public class EditInformationActivity extends BaseActivity {
     private void initUI() {
         setBackView();
         setTitle("健康评分");
-        setRightText("跳过", 14,new View.OnClickListener() {
+        setRightText("跳过", 14, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toActivity(PerfectInformationActivity.class);
@@ -149,8 +152,10 @@ public class EditInformationActivity extends BaseActivity {
                 break;
         }
     }
-    String vision="";
-    String isArdiacPacemaker="0";
+
+    String vision = "";
+    String isArdiacPacemaker = "0";
+
     private void saveInfo() {
         String age = etAge.getText().toString().trim();
         String blood = etBlood.getText().toString().trim();
@@ -168,7 +173,7 @@ public class EditInformationActivity extends BaseActivity {
         String morningWood = et_wood.getText().toString().trim();
         String runNumber = et_step.getText().toString().trim();
         String remark = "";
-        vision=visionLeft+","+visionRight;
+        vision = visionLeft + "," + visionRight;
 
         RetrofitUtil.getInstance().getUserHealthSave(token, age, blood, heart, height, weight, isArdiacPacemaker, vision, headache, neckPain, stomachache, bellyache, skin, vigor, morningWood, runNumber, remark, new Subscriber<BaseResponse<healthInfoModel>>() {
             @Override
@@ -183,19 +188,25 @@ public class EditInformationActivity extends BaseActivity {
 
             @Override
             public void onNext(BaseResponse<healthInfoModel> baseResponse) {
-                if(baseResponse.getStatus()==1){
-                    T.showShort(mContext,baseResponse.getMsg());
-                    toActivity(PerfectInformationActivity.class);
-                }else if (baseResponse.getStatus() == -1) {
+                if (baseResponse.getStatus() == 1) {
                     T.showShort(mContext, baseResponse.getMsg());
-                    Bundle bundle=new Bundle();
-                    bundle.putString("isLogin","1");
-                    toActivity(LoginActivity.class,bundle);
-                }else {
-                T.showShort(mContext,baseResponse.getMsg());}
+                    if ("1".equals(flag)) {
+                        finish();
+                    } else {
+                        toActivity(PerfectInformationActivity.class);
+                    }
+                } else if (baseResponse.getStatus() == -1) {
+                    T.showShort(mContext, baseResponse.getMsg());
+                    Bundle bundle = new Bundle();
+                    bundle.putString("isLogin", "1");
+                    toActivity(LoginActivity.class, bundle);
+                } else {
+                    T.showShort(mContext, baseResponse.getMsg());
+                }
             }
         });
     }
+
     public void updateShowSteps() {
         String text = "" + numSteps;
 
@@ -207,28 +218,26 @@ public class EditInformationActivity extends BaseActivity {
         else if (numSteps >= 100000)
             et_step.setTextSize(55);
         else if (numSteps >= 10000) {
-            notifyIsUpToStandard( "太棒了，你今天超过1万步了");
+            notifyIsUpToStandard("太棒了，你今天超过1万步了");
             et_step.setTextSize(14);
-        }
-
-        else {
+        } else {
             et_step.setTextSize(14);
-            if (numSteps>=5000) notifyIsUpToStandard("加油，你已经再走走你就达到1万步了");
+            if (numSteps >= 5000) notifyIsUpToStandard("加油，你已经再走走你就达到1万步了");
             else notifyIsUpToStandard("你今天都没怎么走路，快出门运动吧");
         }
         et_step.setText(text);
 
     }
 
-    private void notifyIsUpToStandard(String msg)
-    {
+    private void notifyIsUpToStandard(String msg) {
         App app = (App) getApplication();
-        if(!app.isShowToast()) {
+        if (!app.isShowToast()) {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             app.setShowToast(true);
         }
 
     }
+
     public void detectService() {
         App app = (App) getApplication();
         isServiceRun = app.getServiceRun();
@@ -270,6 +279,7 @@ public class EditInformationActivity extends BaseActivity {
     public static String getVersionName(Context context) {
         return getPackageInfo(context).versionName;
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

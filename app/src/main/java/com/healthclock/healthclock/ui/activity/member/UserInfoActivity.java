@@ -140,6 +140,7 @@ public class UserInfoActivity extends BaseActivity implements ActionSheet.OnActi
                 showDatePickDialog(DateType.TYPE_YMD);
                 break;
             case R.id.tv_edit:
+                finish();
                 break;
         }
     }
@@ -224,7 +225,7 @@ public class UserInfoActivity extends BaseActivity implements ActionSheet.OnActi
     private void showDatePickDialog(DateType type) {
         DatePickDialog dialog = new DatePickDialog(this);
         //设置上下年分限制
-        dialog.setYearLimt(5);
+        dialog.setYearLimt(100);
         //设置标题
         dialog.setTitle("选择时间");
         //设置类型

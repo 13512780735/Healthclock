@@ -123,8 +123,10 @@ public class RegisterActivity extends BaseActivity {
 
                 SharedPreferencesUtils.put(mContext, "phone", phone);
                 SharedPreferencesUtils.put(mContext, "pwd", pwd);
-                SharedPreferencesUtils.put(mContext,"token",loginRegisterBeanBaseResponse.getData().getToken());
-                toActivity(EditInformationActivity.class);
+                SharedPreferencesUtils.put(mContext, "token", loginRegisterBeanBaseResponse.getData().getToken());
+                Bundle bundle = new Bundle();
+                bundle.putString("flag", "0");
+                toActivity(EditInformationActivity.class, bundle);
             }
         });
     }

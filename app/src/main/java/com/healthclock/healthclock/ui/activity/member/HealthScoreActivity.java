@@ -73,7 +73,9 @@ public class HealthScoreActivity extends BaseActivity {
         setRightText("编辑", 14, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toActivity(EditInformationActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("flag", "1");
+                toActivity(EditInformationActivity.class, bundle);
             }
         });
 
@@ -102,6 +104,7 @@ public class HealthScoreActivity extends BaseActivity {
         updateShowSteps();
         realm.close();
     }
+
     public void detectService() {
         App app = (App) getApplication();
         isServiceRun = app.getServiceRun();
@@ -123,6 +126,7 @@ public class HealthScoreActivity extends BaseActivity {
             isforeground_model = false;
         } else isforeground_model = temp;
     }
+
     public void updateShowSteps() {
         String text = "" + numSteps;
 
@@ -134,27 +138,26 @@ public class HealthScoreActivity extends BaseActivity {
         else if (numSteps >= 100000)
             et_step.setTextSize(55);
         else if (numSteps >= 10000) {
-            notifyIsUpToStandard( "太棒了，你今天超过1万步了");
+            notifyIsUpToStandard("太棒了，你今天超过1万步了");
             et_step.setTextSize(14);
-        }
-
-        else {
+        } else {
             et_step.setTextSize(14);
-            if (numSteps>=5000) notifyIsUpToStandard("加油，你已经再走走你就达到1万步了");
+            if (numSteps >= 5000) notifyIsUpToStandard("加油，你已经再走走你就达到1万步了");
             else notifyIsUpToStandard("你今天都没怎么走路，快出门运动吧");
         }
         et_step.setText(text);
 
     }
-    private void notifyIsUpToStandard(String msg)
-    {
+
+    private void notifyIsUpToStandard(String msg) {
         App app = (App) getApplication();
-        if(!app.isShowToast()) {
+        if (!app.isShowToast()) {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             app.setShowToast(true);
         }
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
