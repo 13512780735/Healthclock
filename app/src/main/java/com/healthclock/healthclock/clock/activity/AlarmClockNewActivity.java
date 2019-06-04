@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.clock.fragment.AlarmClockNewFragment;
 
+/**
+ * 定点闹
+ */
 public class AlarmClockNewActivity extends SingleFragmentOrdinaryActivity {
 
     @Override

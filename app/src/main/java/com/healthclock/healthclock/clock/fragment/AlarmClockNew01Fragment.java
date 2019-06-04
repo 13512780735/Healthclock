@@ -26,6 +26,7 @@ import com.healthclock.healthclock.clock.common.WeacConstants;
 import com.healthclock.healthclock.clock.model.AlarmClock;
 import com.healthclock.healthclock.clock.util.MyUtil;
 import com.healthclock.healthclock.util.L;
+import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.widget.BorderTextView;
 import com.healthclock.healthclock.widget.IconFontTextView;
 
@@ -38,6 +39,7 @@ import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
+ * 间隔闹
  */
 public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener {
@@ -139,6 +141,9 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
         return view;
     }
 
+    EditText hour01, hour02, hour03, minute01, minute02, minute03;
+    BorderTextView tv_getTime01, tv_getTime02;
+
     /**
      * 设置时间选择
      *
@@ -147,23 +152,32 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
      */
     private void initTimeSelect(View view) {
         // 下次响铃提示
-        mTimePickerTv = view.findViewById(R.id.tv_time);
+        //mTimePickerTv = view.findViewById(R.id.tv_time);
         // 计算倒计时显示
         displayCountDown();
         // 闹钟时间选择器
-        TimePicker timePicker = (TimePicker) view.findViewById(R.id.time_picker);
+        // TimePicker timePicker = (TimePicker) view.findViewById(R.id.time_picker);
         tvBack = view.findViewById(R.id.btn_cancel);
         tvSave = view.findViewById(R.id.btn_save);
         ibtn_delete = view.findViewById(R.id.ibtn_delete);
+        hour01 = view.findViewById(R.id.hour01);
+        hour02 = view.findViewById(R.id.hour02);
+        hour03 = view.findViewById(R.id.hour03);
+        minute01 = view.findViewById(R.id.minute01);
+        minute02 = view.findViewById(R.id.minute02);
+        minute03 = view.findViewById(R.id.minute03);
+        tv_getTime01 = view.findViewById(R.id.tv_getTime01);
+        tv_getTime02 = view.findViewById(R.id.tv_getTime02);
+
         ibtn_delete.setVisibility(View.GONE);
         tvBack.setOnClickListener(this);
         tvSave.setOnClickListener(this);
-        timePicker.setIs24HourView(true);
+        //timePicker.setIs24HourView(true);
         // 初始化时间选择器的小时
         //noinspection deprecation
         Calendar c = Calendar.getInstance();
         int i = c.get(Calendar.HOUR_OF_DAY);
-        timePicker.setCurrentHour(i);
+        //   timePicker.setCurrentHour(i);
 
 
         // timePicker.setCurrentHour(mAlarmClock.getHour());
@@ -171,18 +185,32 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
         //noinspection deprecation
         /// timePicker.setCurrentMinute(mAlarmClock.getMinute());
 
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-
+//        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+//
+//            @Override
+//            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+//                // 保存闹钟实例的小时
+//                mAlarmClock.setHour(hourOfDay);
+//                // 保存闹钟实例的分钟
+//                mAlarmClock.setMinute(minute);
+//                // 计算倒计时显示
+//                displayCountDown();
+//            }
+//
+//        });
+        tv_getTime01.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                // 保存闹钟实例的小时
-                mAlarmClock.setHour(hourOfDay);
-                // 保存闹钟实例的分钟
-                mAlarmClock.setMinute(minute);
-                // 计算倒计时显示
-                displayCountDown();
+            public void onClick(View v) {
+                hour01.setText(StringUtil.getHour());
+                minute01.setText(StringUtil.getMinute());
             }
-
+        });
+        tv_getTime02.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hour03.setText(StringUtil.getHour());
+                minute03.setText(StringUtil.getMinute());
+            }
         });
     }
 
@@ -682,23 +710,23 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
         // 当剩余天数大于0时显示【X天X小时X分】格式
         if (remainDay > 0) {
             countDown = getString(R.string.countdown_day_hour_minute);
-            mTimePickerTv.setText(String.format(countDown, remainDay,
-                    remainHour, remainMinute));
+//            mTimePickerTv.setText(String.format(countDown, remainDay,
+//                    remainHour, remainMinute));
             // 当剩余小时大于0时显示【X小时X分】格式
         } else if (remainHour > 0) {
             countDown = getResources()
                     .getString(R.string.countdown_hour_minute);
-            mTimePickerTv.setText(String.format(countDown, remainHour,
-                    remainMinute));
+//            mTimePickerTv.setText(String.format(countDown, remainHour,
+//                    remainMinute));
         } else {
             // 当剩余分钟不等于0时显示【X分钟】格式
             if (remainMinute != 0) {
                 countDown = getString(R.string.countdown_minute);
-                mTimePickerTv.setText(String.format(countDown, remainMinute));
+                // mTimePickerTv.setText(String.format(countDown, remainMinute));
                 // 当剩余分钟等于0时，显示【1天0小时0分】
             } else {
                 countDown = getString(R.string.countdown_day_hour_minute);
-                mTimePickerTv.setText(String.format(countDown, 1, 0, 0));
+                // mTimePickerTv.setText(String.format(countDown, 1, 0, 0));
             }
 
         }

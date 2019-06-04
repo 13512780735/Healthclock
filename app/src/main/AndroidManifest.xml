@@ -27,7 +27,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 屏幕唤醒 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 屏幕熄灭 -->
+    <user-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />

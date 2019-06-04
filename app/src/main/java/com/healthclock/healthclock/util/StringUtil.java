@@ -994,6 +994,69 @@ public class StringUtil {
         return sf.format(new Date(time));
     }
 
+    public static String getTime() {
+        Calendar cal = Calendar.getInstance();
+        String hour;
+        cal.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+
+        String year = String.valueOf(cal.get(Calendar.YEAR));
+        String month = String.valueOf(cal.get(Calendar.MONTH)) + 1;
+        String day = String.valueOf(cal.get(Calendar.DATE));
+        if (cal.get(Calendar.AM_PM) == 0)
+            hour = String.valueOf(cal.get(Calendar.HOUR));
+        else
+            hour = String.valueOf(cal.get(Calendar.HOUR) + 12);
+        String minute = String.valueOf(cal.get(Calendar.MINUTE));
+        String second = String.valueOf(cal.get(Calendar.SECOND));
+
+        String my_time_1 = year + "-" + month + "-" + day;
+        String my_time_2 = hour + "-" + minute + "-" + second;
+
+        return my_time_2;
+    }
+
+    public static String getHour() {
+        Calendar cal = Calendar.getInstance();
+        String hour;
+        cal.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+
+        String year = String.valueOf(cal.get(Calendar.YEAR));
+        String month = String.valueOf(cal.get(Calendar.MONTH)) + 1;
+        String day = String.valueOf(cal.get(Calendar.DATE));
+        if (cal.get(Calendar.AM_PM) == 0)
+            hour = String.valueOf(cal.get(Calendar.HOUR));
+        else
+            hour = String.valueOf(cal.get(Calendar.HOUR) + 12);
+        String minute = String.valueOf(cal.get(Calendar.MINUTE));
+        String second = String.valueOf(cal.get(Calendar.SECOND));
+
+        String my_time_1 = year + "-" + month + "-" + day;
+        String my_time_2 = hour + "-" + minute + "-" + second;
+        String hour1 = hour;
+        return hour;
+    }
+
+    public static String getMinute() {
+        Calendar cal = Calendar.getInstance();
+        String hour;
+        cal.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+
+        String year = String.valueOf(cal.get(Calendar.YEAR));
+        String month = String.valueOf(cal.get(Calendar.MONTH)) + 1;
+        String day = String.valueOf(cal.get(Calendar.DATE));
+        if (cal.get(Calendar.AM_PM) == 0)
+            hour = String.valueOf(cal.get(Calendar.HOUR));
+        else
+            hour = String.valueOf(cal.get(Calendar.HOUR) + 12);
+        String minute = String.valueOf(cal.get(Calendar.MINUTE));
+        String second = String.valueOf(cal.get(Calendar.SECOND));
+
+        String my_time_1 = year + "-" + month + "-" + day;
+        String my_time_2 = hour + "-" + minute + "-" + second;
+        String hour1 = hour;
+        return minute;
+    }
+
     /**
      * 判断字符串是否为空
      *
@@ -1215,7 +1278,7 @@ public class StringUtil {
     public static int getColor(Context context, int theme_title_text_color) {
         TypedArray typedArray = context.obtainStyledAttributes(R.styleable.Theme);
         int color = typedArray.getColor(theme_title_text_color, 0xFFFFFF);
-       typedArray.recycle();
+        typedArray.recycle();
         return color;
     }
 
