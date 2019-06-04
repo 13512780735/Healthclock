@@ -30,7 +30,6 @@
     <!-- 屏幕唤醒 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <!-- 屏幕熄灭 -->
-    <user-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />

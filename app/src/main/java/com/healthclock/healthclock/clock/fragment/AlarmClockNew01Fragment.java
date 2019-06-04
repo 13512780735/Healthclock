@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.healthclock.healthclock.R;
@@ -112,6 +114,8 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
 //        return R.layout.activity_edit_alarm;
 //    }
     CheckBox tog_btn_01, tog_btn_02, tog_btn_03, tog_btn_04;
+    private String minute;
+    private String hour;
 
 
     @Override
@@ -198,6 +202,138 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
 //            }
 //
 //        });
+        hour01.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int i = Integer.valueOf(String.valueOf(s));
+                Log.d("TAG", "333-->" + i);
+                if (i >= 1 || i <= 24) {
+                    hour01.setText(s);
+                } else {
+                    Toast.makeText(getActivity(), "时间输入错误", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        minute01.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int i = Integer.valueOf(String.valueOf(s));
+                if (i >= 1 || i <= 60) {
+                    minute01.setText(s);
+                } else {
+                    Toast.makeText(getActivity(), "时间输入错误", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        hour02.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int i = Integer.valueOf(String.valueOf(s));
+                Log.d("TAG", "333-->" + i);
+                if (i >= 1 || i <= 24) {
+                    hour02.setText(s);
+                } else {
+                    Toast.makeText(getActivity(), "时间输入错误", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        minute02.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int i = Integer.valueOf(String.valueOf(s));
+                if (i >= 1 || i <= 60) {
+                    minute02.setText(s);
+                } else {
+                    Toast.makeText(getActivity(), "时间输入错误", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        hour03.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hour = String.valueOf(s);
+                int i = Integer.valueOf(String.valueOf(s));
+                Log.d("TAG", "333-->" + i);
+                if (i >= 1 || i <= 24) {
+                    hour03.setText(s);
+                } else {
+                    Toast.makeText(getActivity(), "时间输入错误", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        minute03.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                minute = String.valueOf(s);
+
+                int i = Integer.valueOf(String.valueOf(s));
+                if (i >= 1 || i <= 60) {
+                    minute03.setText(s);
+                } else {
+                    Toast.makeText(getActivity(), "时间输入错误", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         tv_getTime01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,6 +348,9 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
                 minute03.setText(StringUtil.getMinute());
             }
         });
+        mAlarmClock.setHour(Integer.parseInt(hour));
+//                // 保存闹钟实例的分钟
+        mAlarmClock.setMinute(Integer.parseInt(minute));
     }
 
     /**
