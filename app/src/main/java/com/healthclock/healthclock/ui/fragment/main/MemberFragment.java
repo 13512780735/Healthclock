@@ -2,14 +2,17 @@ package com.healthclock.healthclock.ui.fragment.main;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.healthclock.healthclock.R;
 import com.healthclock.healthclock.network.model.BaseResponse;
 import com.healthclock.healthclock.network.model.EmptyEntity;
 import com.healthclock.healthclock.network.util.RetrofitUtil;
 import com.healthclock.healthclock.ui.activity.login.LoginActivity;
+import com.healthclock.healthclock.ui.activity.login.PerfectInformationActivity;
 import com.healthclock.healthclock.ui.activity.main.CodeActivity;
 import com.healthclock.healthclock.ui.activity.member.EditPwdActivity;
 import com.healthclock.healthclock.ui.activity.member.FeedbackActivity;
@@ -30,6 +33,7 @@ import com.healthclock.healthclock.util.T;
 import android.view.View;
 
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import rx.Subscriber;
 
 /**
@@ -43,6 +47,7 @@ public class MemberFragment extends BaseFragment {
 
 
     private int status;
+    private CircleImageView iv_avatar;
 
     public static MemberFragment newInstance() {
         return new MemberFragment();
@@ -59,6 +64,9 @@ public class MemberFragment extends BaseFragment {
     }
 
     private void initUserInfo() {
+        iv_avatar=findView(R.id.iv_avatar);
+        String uri=SharedPreferencesUtils.getString(getActivity(),"avatar");
+        Glide.with(getActivity()).load(uri).into(iv_avatar);
     }
 
     @OnClick({R.id.rl_all_orders, R.id.ll_obligation, R.id.ll_shipments, R.id.ll_Receiving, R.id.ll_finish, R.id.tv_set, R.id.tv_logout

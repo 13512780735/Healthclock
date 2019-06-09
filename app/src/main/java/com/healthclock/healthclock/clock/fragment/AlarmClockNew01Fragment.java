@@ -215,6 +215,7 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
+                hour = String.valueOf(s);
                 int i = Integer.valueOf(String.valueOf(s));
                 Log.d("TAG", "333-->" + i);
                 if (i >= 1 || i <= 24) {
@@ -237,6 +238,7 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
+                minute = String.valueOf(s);
                 int i = Integer.valueOf(String.valueOf(s));
                 if (i >= 1 || i <= 60) {
                     minute01.setText(s);
@@ -301,7 +303,7 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
-                hour = String.valueOf(s);
+
                 int i = Integer.valueOf(String.valueOf(s));
                 Log.d("TAG", "333-->" + i);
                 if (i >= 1 || i <= 24) {
@@ -324,7 +326,7 @@ public class AlarmClockNew01Fragment extends BaseFragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
-                minute = String.valueOf(s);
+
 
                 int i = Integer.valueOf(String.valueOf(s));
                 if (i >= 1 || i <= 60) {

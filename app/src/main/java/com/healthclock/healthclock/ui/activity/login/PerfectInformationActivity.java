@@ -28,6 +28,7 @@ import com.healthclock.healthclock.ui.base.BaseActivity;
 import com.healthclock.healthclock.util.AppManager;
 import com.healthclock.healthclock.util.L;
 import com.healthclock.healthclock.util.PopupWindowUtil;
+import com.healthclock.healthclock.util.SharedPreferencesUtils;
 import com.healthclock.healthclock.util.StringUtil;
 import com.healthclock.healthclock.util.T;
 import com.healthclock.healthclock.util.photos.PhotoUtils;
@@ -36,6 +37,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -71,11 +73,13 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfect_information);
         sex = "1";
+        SharedPreferencesUtils.put(mContext,"sex",sex);
         initUI();
         PhotoUtils.getInstance().init(this, true, new PhotoUtils.OnSelectListener() {
             @Override
             public void onFinish(File outputFile, Uri outputUri) {
                 photoPath(outputFile.getAbsolutePath());
+                SharedPreferencesUtils.put(mContext, "avatar", (Set<String>) outputUri);
                 Glide.with(PerfectInformationActivity.this).load(outputUri).into(ivAvatar);
 
             }
@@ -87,7 +91,7 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
     public void photoPath(String path) {
         L.e("path->" + path);
         File file = new File(path);
-      //  String token = "97ca6b3aabf14217bebd812f2711cd41";
+        //  String token = "97ca6b3aabf14217bebd812f2711cd41";
         RequestBody requestToken = RequestBody.create(MediaType.parse("multipart/form-data"), token);
         RequestBody requestFile =               // 根据文件格式封装文件
                 RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
@@ -108,7 +112,7 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
 
             @Override
             public void onNext(BaseResponse<EmptyEntity> baseResponse) {
-                L.e("msg->"+baseResponse.getMsg());
+                L.e("msg->" + baseResponse.getMsg());
                 if (baseResponse.getStatus() == 1) {
                     T.showShort(mContext, baseResponse.getMsg());
                 } else {
@@ -121,7 +125,7 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
     private void initUI() {
         setBackView();
         setTitle("完善健康信息");
-        setRightText("跳过", 14,new View.OnClickListener() {
+        setRightText("跳过", 14, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toActivityFinish(MainActivity.class);
@@ -167,11 +171,11 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
                     T.showShort(mContext, baseResponse.getMsg());
                     toActivityFinish(MainActivity.class);
                     AppManager.getAppManager().finishAllActivity();
-                }else if (baseResponse.getStatus() == -1) {
+                } else if (baseResponse.getStatus() == -1) {
                     T.showShort(mContext, baseResponse.getMsg());
-                    Bundle bundle=new Bundle();
-                    bundle.putString("isLogin","1");
-                    toActivity(LoginActivity.class,bundle);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("isLogin", "1");
+                    toActivity(LoginActivity.class, bundle);
                 } else {
                     T.showShort(mContext, baseResponse.getMsg());
                 }
@@ -232,10 +236,12 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
                 switch (v.getId()) {
                     case R.id.menu_item1:
                         sex = "1";
+                        SharedPreferencesUtils.put(mContext,"sex",sex);
                         tvSex.setText("男");
                         break;
                     case R.id.menu_item2:
                         sex = "0";
+                        SharedPreferencesUtils.put(mContext,"sex",sex);
                         tvSex.setText("女");
                         break;
                 }
@@ -272,6 +278,7 @@ public class PerfectInformationActivity extends BaseActivity implements ActionSh
             @Override
             public void onSure(Date date) {
                 tvBirthday.setText(StringUtil.getDate(date, "yyyy-MM-dd"));
+                SharedPreferencesUtils.put(mContext, "birthday", StringUtil.getDate(date, "yyyy-MM-dd"));
                 time = String.valueOf((StringUtil.getStringToDate(StringUtil.getDate(date, "yyyy-MM-dd"), "yyyy-MM-dd")) / 1000);
                 L.e("time-->" + time);
             }
